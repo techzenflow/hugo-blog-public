@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>桌面图标 on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/%E6%A1%8C%E9%9D%A2%E5%9B%BE%E6%A0%87/</link>
+        <description>Recent content in 桌面图标 on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Sat, 13 Jul 2024 19:07:28 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/%E6%A1%8C%E9%9D%A2%E5%9B%BE%E6%A0%87/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Linux配置开始菜单，全局搜索，桌面图标</title>
+            <link>https://blog.seektao.cc/p/linux-start-menu/</link>
+            <pubDate>Sat, 13 Jul 2024 19:07:28 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/linux-start-menu/</guid>
+            <description>&lt;p&gt;Linux发行版众多，而有些软件并没有提供对应发行版的扩展安装包，导致开始菜单图标/全局搜索/桌面图标需要手动配置，而这些配置文件需要用到的时候又容易忘记配置文件位置和手动编写配置文件繁琐。&lt;/p&gt;&#xA;&lt;p&gt;本文就记录一下Linux下没有提供发行版对应的文件扩展名（&lt;code&gt;.deb&lt;/code&gt;，&lt;code&gt;.rpm&lt;/code&gt;）的安装包怎么配置开始菜单/全局搜索/桌面图标&lt;/p&gt;&#xA;&lt;h1 id=&#34;debian&#34;&gt;Debian&#xA;&lt;/h1&gt;&lt;p&gt;配置文件的位置：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;个人用户：&lt;code&gt;~/.local/share/applications&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;全局配置：&lt;code&gt;/usr/share/applications&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+        </item></channel>
+</rss>

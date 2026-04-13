@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在 Visual Studio Code (VS Code) 中配置 MSYS2 Shell（如 UCRT64, MinGW64 等）最稳健的方法是通过修改 settings.json 配置文件。\n以下是详细的步骤，假设你的 MSYS2 安装在默认路径 C:\\msys64。\n1. 打开设置文件 (settings.json) 在 VS Code 中按下快捷键 Ctrl + Shift + P 打开命令面板。 输入 Open Settings (JSON) 并选择 “首选项：打开用户设置 (JSON)” (Preferences: Open User Settings (JSON))。 2. 添加终端配置 在 settings.json 的大括号 { ... } 中，添加（或修改）terminal.integrated.profiles.windows 部分。\n">
+<title>VSCode修改默认终端</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/251226184428/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="VSCode修改默认终端">
+<meta property='og:description' content="在 Visual Studio Code (VS Code) 中配置 MSYS2 Shell（如 UCRT64, MinGW64 等）最稳健的方法是通过修改 settings.json 配置文件。\n以下是详细的步骤，假设你的 MSYS2 安装在默认路径 C:\\msys64。\n1. 打开设置文件 (settings.json) 在 VS Code 中按下快捷键 Ctrl + Shift + P 打开命令面板。 输入 Open Settings (JSON) 并选择 “首选项：打开用户设置 (JSON)” (Preferences: Open User Settings (JSON))。 2. 添加终端配置 在 settings.json 的大括号 { ... } 中，添加（或修改）terminal.integrated.profiles.windows 部分。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/251226184428/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-12-26T18:44:28&#43;08:00'/><meta property='article:modified_time' content='2025-12-26T18:44:28&#43;08:00'/>
+<meta name="twitter:title" content="VSCode修改默认终端">
+<meta name="twitter:description" content="在 Visual Studio Code (VS Code) 中配置 MSYS2 Shell（如 UCRT64, MinGW64 等）最稳健的方法是通过修改 settings.json 配置文件。\n以下是详细的步骤，假设你的 MSYS2 安装在默认路径 C:\\msys64。\n1. 打开设置文件 (settings.json) 在 VS Code 中按下快捷键 Ctrl + Shift + P 打开命令面板。 输入 Open Settings (JSON) 并选择 “首选项：打开用户设置 (JSON)” (Preferences: Open User Settings (JSON))。 2. 添加终端配置 在 settings.json 的大括号 { ... } 中，添加（或修改）terminal.integrated.profiles.windows 部分。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#1-打开设置文件-settingsjson">1. 打开设置文件 (<code>settings.json</code>)</a></li>
+        <li><a href="#2-添加终端配置">2. 添加终端配置</a></li>
+        <li><a href="#关键参数解释">关键参数解释</a></li>
+        <li><a href="#3-验证与使用">3. 验证与使用</a></li>
+        <li><a href="#常见问题排查">常见问题排查</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/251226184428/">VSCode修改默认终端</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-12-26T18:44:28&#43;08:00'>Dec 26, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#1-打开设置文件-settingsjson">1. 打开设置文件 (<code>settings.json</code>)</a></li>
+        <li><a href="#2-添加终端配置">2. 添加终端配置</a></li>
+        <li><a href="#关键参数解释">关键参数解释</a></li>
+        <li><a href="#3-验证与使用">3. 验证与使用</a></li>
+        <li><a href="#常见问题排查">常见问题排查</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>在 Visual Studio Code (VS Code) 中配置 MSYS2 Shell（如 UCRT64, MinGW64 等）最稳健的方法是通过修改 <code>settings.json</code> 配置文件。</p>
+<p>以下是详细的步骤，假设你的 MSYS2 安装在默认路径 <code>C:\msys64</code>。</p>
+<h3 id="1-打开设置文件-settingsjson">1. 打开设置文件 (<code>settings.json</code>)
+</h3><ol>
+<li>在 VS Code 中按下快捷键 <code>Ctrl + Shift + P</code> 打开命令面板。</li>
+<li>输入 <code>Open Settings (JSON)</code> 并选择 <strong>“首选项：打开用户设置 (JSON)”</strong> (Preferences: Open User Settings (JSON))。</li>
+</ol>
+<h3 id="2-添加终端配置">2. 添加终端配置
+</h3><p>在 <code>settings.json</code> 的大括号 <code>{ ... }</code> 中，添加（或修改）<code>terminal.integrated.profiles.windows</code> 部分。</p>
+<p>这里推荐使用 <strong>UCRT64</strong> 环境（MSYS2 推荐的现代标准），如果你需要 <strong>MinGW64</strong>，只需将代码中的 <code>UCRT64</code> 替换为 <code>MINGW64</code> 即可。</p>
+<p>JSON</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    &#34;terminal.integrated.profiles.windows&#34;: {
+</span></span><span class="line"><span class="cl">        &#34;MSYS2 UCRT64&#34;: {
+</span></span><span class="line"><span class="cl">            &#34;path&#34;: &#34;C:\\msys64\\usr\\bin\\bash.exe&#34;,
+</span></span><span class="line"><span class="cl">            &#34;args&#34;: [
+</span></span><span class="line"><span class="cl">                &#34;--login&#34;,
+</span></span><span class="line"><span class="cl">                &#34;-i&#34;
+</span></span><span class="line"><span class="cl">            ],
+</span></span><span class="line"><span class="cl">            &#34;env&#34;: {
+</span></span><span class="line"><span class="cl">                &#34;MSYSTEM&#34;: &#34;UCRT64&#34;,
+</span></span><span class="line"><span class="cl">                &#34;CHERE_INVOKING&#34;: &#34;1&#34;,
+</span></span><span class="line"><span class="cl">                &#34;MSYS2_PATH_TYPE&#34;: &#34;inherit&#34;
+</span></span><span class="line"><span class="cl">            },
+</span></span><span class="line"><span class="cl">            &#34;icon&#34;: &#34;terminal-bash&#34;
+</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">    },
+</span></span><span class="line"><span class="cl">    // 可选：将其设置为默认终端
+</span></span><span class="line"><span class="cl">    &#34;terminal.integrated.defaultProfile.windows&#34;: &#34;MSYS2 UCRT64&#34;,
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+<h3 id="关键参数解释">关键参数解释
+</h3><ul>
+<li><strong><code>path</code></strong>: 指向 MSYS2 内部的 bash 可执行文件。<strong>注意</strong>：路径中的反斜杠需要转义（即使用 <code>\\</code>）。</li>
+<li><strong><code>args</code></strong>: <code>[&quot;--login&quot;, &quot;-i&quot;]</code> 确保 shell 作为登录 shell 启动，加载所有必要的配置文件（如 <code>.bashrc</code>）。</li>
+<li><strong><code>MSYSTEM</code></strong>:
+<ul>
+<li><code>UCRT64</code>: 使用现代的 Universal C Runtime (推荐)。</li>
+<li><code>MINGW64</code>: 使用旧版的 MSVCRT (传统 MinGW)。</li>
+</ul>
+</li>
+<li><strong><code>CHERE_INVOKING</code>: &ldquo;1&rdquo;</strong>: <strong>非常重要</strong>。这告诉 bash 保持在当前工作目录（即你 VS Code 打开的项目文件夹），而不是跳转到 MSYS2 的用户 Home 目录。</li>
+<li><strong><code>MSYS2_PATH_TYPE</code>: &ldquo;inherit&rdquo;</strong>: (可选) 允许你在 MSYS2 终端中使用 Windows 系统环境变量中的工具（例如 Windows 上安装的 Python 或 Node.js）。如果你希望环境纯净，可以删掉这一行。</li>
+</ul>
+<h3 id="3-验证与使用">3. 验证与使用
+</h3><ol>
+<li>保存 <code>settings.json</code> 文件。</li>
+<li>按下 <code>Ctrl + `</code> 打开终端面板。</li>
+<li>点击终端面板右上角的 <strong>+</strong> 号旁边的下拉箭头。</li>
+<li>你应该能看到 <strong>&ldquo;MSYS2 UCRT64&rdquo;</strong> 的选项，点击即可启动。</li>
+</ol>
+<h3 id="常见问题排查">常见问题排查
+</h3><ul>
+<li><strong>乱码问题</strong>: 如果中文显示乱码，请确保你的系统区域设置支持 UTF-8，或者在 MSYS2 的 <code>.bashrc</code> 文件中添加 <code>export LANG=&quot;zh_CN.UTF-8&quot;</code>。</li>
+<li><strong>路径不同</strong>: 如果你的安装路径不是 <code>C:\msys64</code>，请务必修改 JSON 中的路径。</li>
+</ul>
+<hr>
+<p><strong>您希望我帮您配置 <code>tasks.json</code> 以便直接在 VS Code 中使用 <code>gcc</code> 或 <code>make</code> 编译项目吗？</strong></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403180703/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng设备使用</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

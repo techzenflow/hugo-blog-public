@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Openai on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/openai/</link>
+        <description>Recent content in Openai on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Thu, 07 Sep 2023 14:07:10 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/openai/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>pandora-免翻访问gpt</title>
+            <link>https://blog.seektao.cc/p/2309005/</link>
+            <pubDate>Thu, 07 Sep 2023 14:07:10 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/2309005/</guid>
+            <description>&lt;p&gt;&lt;strong&gt;pandora&lt;/strong&gt;-潘多拉魔盒，一个提供免翻的方式访问openai提供的gpt&lt;/p&gt;&#xA;&lt;p&gt;官方地址：https://github.com/pengzhile/pandora&lt;/p&gt;&#xA;&lt;p&gt;本次介绍如何如何使用docker的方式部署pandora&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;&#xA;&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1&#xA;&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2&#xA;&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3&#xA;&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4&#xA;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&#xA;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 拉取镜像&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull pengzhile/pandora&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 创建容器&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker run -e &lt;span class=&#34;nv&#34;&gt;PANDORA_CLOUD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cloud -e &lt;span class=&#34;nv&#34;&gt;PANDORA_SERVER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0.0.0.0:8811 -p 8811:8811 -d --name pandora pengzhile/pandora&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&#xA;    &lt;blockquote&gt;&#xA;        &lt;p&gt;上面的端口可自定替换&lt;/p&gt;&#xA;&#xA;    &lt;/blockquote&gt;&#xA;&lt;p&gt;部署成功之后，请开放服务器上的安全组&lt;/p&gt;&#xA;&lt;p&gt;接着就可以通过 &lt;code&gt;ip:port&lt;/code&gt; 的方式访问&lt;/p&gt;&#xA;&lt;p&gt;总结：这个项目我觉得最大的用处就是不用通过技术手段访问openai&lt;/p&gt;&#xA;&lt;p&gt;最后：附上我已经搭建好的地址：https://gpt.seektao.cc&lt;/p&gt;&#xA;&#xA;    &lt;blockquote&gt;&#xA;        &lt;p&gt;ps: 访问需要自己的open账号&lt;/p&gt;&#xA;&#xA;    &lt;/blockquote&gt;&#xA;</description>
+        </item></channel>
+</rss>

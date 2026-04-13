@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="开启 root 远程登录和密码登录 1 sudo sed -i &#39;s/^#\\?PasswordAuthentication no/PasswordAuthentication yes/&#39; /etc/ssh/sshd_config 1 sudo sed -i &#39;s/^#\\?PermitRootLogin no/PermitRootLogin yes/&#39; /etc/ssh/sshd_config 1 sudo systemctl restart sshd 重置 root 密码 1 passwd 终端提示符 1 curl -sS https://starship.rs/install.sh | sh 1 echo &#39;eval &#34;$(starship init bash)&#34;&#39; &gt;&gt; ~/.bashrc 1 source ~/.bashrc 安装docker 1 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done 1 2 3 4 5 6 7 8 9 10 11 12 13 # Add Docker&#39;s official GPG key: sudo apt-get update sudo apt-get install ca-certificates curl sudo install -m 0755 -d /etc/apt/keyrings sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc sudo chmod a+r /etc/apt/keyrings/docker.asc # Add the repository to Apt sources: echo \\ &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \\ $(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;) stable&#34; | \\ sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null sudo apt-get update 1 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 创建docker目录\n">
+<title>全新Linux初次必须要做的事项</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250812112934/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="全新Linux初次必须要做的事项">
+<meta property='og:description' content="开启 root 远程登录和密码登录 1 sudo sed -i &#39;s/^#\\?PasswordAuthentication no/PasswordAuthentication yes/&#39; /etc/ssh/sshd_config 1 sudo sed -i &#39;s/^#\\?PermitRootLogin no/PermitRootLogin yes/&#39; /etc/ssh/sshd_config 1 sudo systemctl restart sshd 重置 root 密码 1 passwd 终端提示符 1 curl -sS https://starship.rs/install.sh | sh 1 echo &#39;eval &#34;$(starship init bash)&#34;&#39; &gt;&gt; ~/.bashrc 1 source ~/.bashrc 安装docker 1 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done 1 2 3 4 5 6 7 8 9 10 11 12 13 # Add Docker&#39;s official GPG key: sudo apt-get update sudo apt-get install ca-certificates curl sudo install -m 0755 -d /etc/apt/keyrings sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc sudo chmod a+r /etc/apt/keyrings/docker.asc # Add the repository to Apt sources: echo \\ &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \\ $(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;) stable&#34; | \\ sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null sudo apt-get update 1 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 创建docker目录\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250812112934/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-08-12T11:29:34&#43;08:00'/><meta property='article:modified_time' content='2025-08-12T11:29:34&#43;08:00'/>
+<meta name="twitter:title" content="全新Linux初次必须要做的事项">
+<meta name="twitter:description" content="开启 root 远程登录和密码登录 1 sudo sed -i &#39;s/^#\\?PasswordAuthentication no/PasswordAuthentication yes/&#39; /etc/ssh/sshd_config 1 sudo sed -i &#39;s/^#\\?PermitRootLogin no/PermitRootLogin yes/&#39; /etc/ssh/sshd_config 1 sudo systemctl restart sshd 重置 root 密码 1 passwd 终端提示符 1 curl -sS https://starship.rs/install.sh | sh 1 echo &#39;eval &#34;$(starship init bash)&#34;&#39; &gt;&gt; ~/.bashrc 1 source ~/.bashrc 安装docker 1 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done 1 2 3 4 5 6 7 8 9 10 11 12 13 # Add Docker&#39;s official GPG key: sudo apt-get update sudo apt-get install ca-certificates curl sudo install -m 0755 -d /etc/apt/keyrings sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc sudo chmod a+r /etc/apt/keyrings/docker.asc # Add the repository to Apt sources: echo \\ &#34;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \\ $(. /etc/os-release &amp;&amp; echo &#34;$VERSION_CODENAME&#34;) stable&#34; | \\ sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null sudo apt-get update 1 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin 创建docker目录\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#开启-root-远程登录和密码登录">开启 root 远程登录和密码登录</a></li>
+        <li><a href="#重置-root-密码">重置 root 密码</a></li>
+        <li><a href="#终端提示符">终端提示符</a></li>
+        <li><a href="#安装docker">安装docker</a></li>
+        <li><a href="#添加-bash-别名">添加 bash 别名</a></li>
+        <li><a href="#安装sing-box">安装sing-box</a></li>
+        <li><a href="#vim配置">vim配置</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/linux/" style="background-color: hsl(237, 60%, 84%); color: hsl(237, 60%, 15%);">
+                Linux
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250812112934/">全新Linux初次必须要做的事项</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-08-12T11:29:34&#43;08:00'>Aug 12, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#开启-root-远程登录和密码登录">开启 root 远程登录和密码登录</a></li>
+        <li><a href="#重置-root-密码">重置 root 密码</a></li>
+        <li><a href="#终端提示符">终端提示符</a></li>
+        <li><a href="#安装docker">安装docker</a></li>
+        <li><a href="#添加-bash-别名">添加 bash 别名</a></li>
+        <li><a href="#安装sing-box">安装sing-box</a></li>
+        <li><a href="#vim配置">vim配置</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h3 id="开启-root-远程登录和密码登录">开启 root 远程登录和密码登录
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo sed -i <span class="s1">&#39;s/^#\?PasswordAuthentication no/PasswordAuthentication yes/&#39;</span> /etc/ssh/sshd_config
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo sed -i <span class="s1">&#39;s/^#\?PermitRootLogin no/PermitRootLogin yes/&#39;</span> /etc/ssh/sshd_config
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo systemctl restart sshd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="重置-root-密码">重置 root 密码
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">passwd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="终端提示符">终端提示符
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -sS https://starship.rs/install.sh <span class="p">|</span> sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s1">&#39;eval &#34;$(starship init bash)&#34;&#39;</span> &gt;&gt; ~/.bashrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bashrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装docker">安装docker
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="k">for</span> pkg in docker.io docker-doc docker-compose podman-docker containerd runc<span class="p">;</span> <span class="k">do</span> sudo apt-get remove <span class="nv">$pkg</span><span class="p">;</span> <span class="k">done</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Add Docker&#39;s official GPG key:</span>
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span><span class="line"><span class="cl">sudo apt-get install ca-certificates curl
+</span></span><span class="line"><span class="cl">sudo install -m <span class="m">0755</span> -d /etc/apt/keyrings
+</span></span><span class="line"><span class="cl">sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+</span></span><span class="line"><span class="cl">sudo chmod a+r /etc/apt/keyrings/docker.asc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Add the repository to Apt sources:</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  <span class="s2">&#34;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+</span></span></span><span class="line"><span class="cl"><span class="s2">  </span><span class="k">$(</span>. /etc/os-release <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$VERSION_CODENAME</span><span class="s2">&#34;</span><span class="k">)</span><span class="s2"> stable&#34;</span> <span class="p">|</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span class="line"><span class="cl">sudo apt-get update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建docker目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p /srv/container_srv
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="添加-bash-别名">添加 bash 别名
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.bashrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">LS_OPTIONS</span><span class="o">=</span><span class="s1">&#39;--color=auto&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">eval</span> <span class="s2">&#34;</span><span class="k">$(</span>dircolors<span class="k">)</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">ls</span><span class="o">=</span><span class="s1">&#39;ls $LS_OPTIONS&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">ll</span><span class="o">=</span><span class="s1">&#39;ls $LS_OPTIONS -l&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">l</span><span class="o">=</span><span class="s1">&#39;ls $LS_OPTIONS -lA&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">rm</span><span class="o">=</span><span class="s1">&#39;rm -i&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">cp</span><span class="o">=</span><span class="s1">&#39;cp -i&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">mv</span><span class="o">=</span><span class="s1">&#39;mv -i&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># docker alias</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">dk</span><span class="o">=</span><span class="s1">&#39;docker&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">dco</span><span class="o">=</span><span class="s1">&#39;dk compose&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">dcod</span><span class="o">=</span><span class="s1">&#39;dk compose down&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">dcodu</span><span class="o">=</span><span class="s1">&#39;dco down &amp;&amp; dco up&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">alias</span> <span class="nv">dcodud</span><span class="o">=</span><span class="s1">&#39;dco down &amp;&amp; dco up -d&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">source</span> ~/.bashrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装sing-box">安装sing-box
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mkdir -p /etc/apt/keyrings <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">   sudo curl -fsSL https://sing-box.app/gpg.key -o /etc/apt/keyrings/sagernet.asc <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">   sudo chmod a+r /etc/apt/keyrings/sagernet.asc <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">   <span class="nb">echo</span> <span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">Types: deb
+</span></span></span><span class="line"><span class="cl"><span class="s1">URIs: https://deb.sagernet.org/
+</span></span></span><span class="line"><span class="cl"><span class="s1">Suites: *
+</span></span></span><span class="line"><span class="cl"><span class="s1">Components: *
+</span></span></span><span class="line"><span class="cl"><span class="s1">Enabled: yes
+</span></span></span><span class="line"><span class="cl"><span class="s1">Signed-By: /etc/apt/keyrings/sagernet.asc
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/sagernet.sources <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">   sudo apt-get update <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">   sudo apt-get install sing-box <span class="c1"># or sing-box-beta</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /etc/sing-box
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim config.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启动sing-box</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl start sing-box
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="vim配置">vim配置
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.vimrc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vim" data-lang="vim"><span class="line"><span class="cl"><span class="c">&#34; 基本设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">nocompatible</span> <span class="c">&#34; 不兼容 vi</span>
+</span></span><span class="line"><span class="cl"><span class="k">syntax</span> <span class="nx">on</span> <span class="c">&#34; 开启语法高亮</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 缩进设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">tabstop</span><span class="p">=</span><span class="m">2</span>        <span class="c">&#34; 设置制表符占用的空格数</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">shiftwidth</span><span class="p">=</span><span class="m">2</span>     <span class="c">&#34; 设置自动缩进的空格数</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">softtabstop</span><span class="p">=</span><span class="m">2</span>    <span class="c">&#34; 设置编辑时制表符转换为空格的空格数</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">expandtab</span>        <span class="c">&#34; 使用空格代替制表符</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 搜索设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">hlsearch</span>        <span class="c">&#34; 高亮显示搜索结果</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">incsearch</span>        <span class="c">&#34; 输入时即时搜索</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">ignorecase</span>      <span class="c">&#34; 搜索时忽略大小写</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">smartcase</span>       <span class="c">&#34; 当搜索包含大写字母时，不忽略大小写</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 界面设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">number</span>          <span class="c">&#34; 显示行号</span>
+</span></span><span class="line"><span class="cl"><span class="c">&#34; set relativenumber  &#34; 显示相对行号</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">cursorline</span>      <span class="c">&#34; 高亮当前行</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">nowrap</span>          <span class="c">&#34; 不自动折行</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">showcmd</span>         <span class="c">&#34; 显示命令模式下的命令</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">showmode</span>        <span class="c">&#34; 显示当前模式</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 回滚设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">undofile</span>        <span class="c">&#34; 允许保存撤销历史</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">undolevels</span><span class="p">=</span><span class="m">1000</span> <span class="c">&#34; 设置撤销级别</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 文件编码设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">encoding</span><span class="p">=</span><span class="nx">utf</span><span class="m">-8</span>  <span class="c">&#34; 设置文件编码为 UTF-8</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">fileencoding</span><span class="p">=</span><span class="nx">utf</span><span class="m">-8</span> <span class="c">&#34; 设置文件编码为 UTF-8</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 状态栏设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">laststatus</span><span class="p">=</span><span class="m">2</span>    <span class="c">&#34; 总是显示状态栏</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 其他设置</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">autoindent</span>      <span class="c">&#34; 自动缩进</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">smartindent</span>     <span class="c">&#34; 智能缩进</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">backspace</span><span class="p">=</span><span class="nx">indent</span><span class="p">,</span><span class="nx">eol</span><span class="p">,</span><span class="nx">start</span> <span class="c">&#34; 允许退格键跨越空格、行尾和插入点</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">mouse</span><span class="p">=</span><span class="nx">a</span>         <span class="c">&#34; 启用鼠标支持</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">clipboard</span><span class="p">=</span><span class="nx">unnamed</span> <span class="c">&#34; 使用系统剪贴板</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 代码折叠</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">foldmethod</span><span class="p">=</span><span class="nx">indent</span> <span class="c">&#34; 使用缩进来决定代码折叠</span>
+</span></span><span class="line"><span class="cl"><span class="k">set</span> <span class="nx">foldlevelstart</span><span class="p">=</span><span class="m">99</span> <span class="c">&#34; 初始折叠级别</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 命令缩写</span>
+</span></span><span class="line"><span class="cl"><span class="nx">command</span> <span class="nx">W</span> <span class="nx">w</span> <span class="c">&#34; 简化保存文件的命令</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 键位映射</span>
+</span></span><span class="line"><span class="cl"><span class="nx">nnoremap</span> <span class="p">&lt;</span><span class="nx">F5</span><span class="p">&gt;</span> :<span class="k">set</span> <span class="nx">number</span><span class="p">!&lt;</span><span class="nx">CR</span><span class="p">&gt;</span> <span class="c">&#34; 按 F5 切换显示/隐藏行号</span>
+</span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">&#34; 颜色方案</span>
+</span></span><span class="line"><span class="cl"><span class="k">colorscheme</span> <span class="nx">default</span> <span class="c">&#34; 设置颜色方案（这里使用 Vim 默认方案）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/251211142800/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Zabbix，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251211135349/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Grafana，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250510110145/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">rsync，快速且极其通用的文件复制工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250502173451/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Paru，Archlinux轻量级的AUR管理器</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250502114118/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">fail2ban，保护服务器安全</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

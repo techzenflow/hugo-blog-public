@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="下载固件 下载地址：https://downloads.immortalwrt.org\n截止到 2026-04-10，最新版本是 24.10.5\n进入下载页面，选择对应的固件信息，由于是 cpu 是 x86_64，所以选择 x86_64 的版本，对应的目录是 releases/24.10.5/targets/x86/64/，接下来会出现 ext4，squashfs区别，前者方便扩展用户分区，后者可以一键重置系统，本次选择后者。\n">
+<title>PVE环境安装immortalwrt</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/260410085829/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="PVE环境安装immortalwrt">
+<meta property='og:description' content="下载固件 下载地址：https://downloads.immortalwrt.org\n截止到 2026-04-10，最新版本是 24.10.5\n进入下载页面，选择对应的固件信息，由于是 cpu 是 x86_64，所以选择 x86_64 的版本，对应的目录是 releases/24.10.5/targets/x86/64/，接下来会出现 ext4，squashfs区别，前者方便扩展用户分区，后者可以一键重置系统，本次选择后者。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/260410085829/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-10T08:58:29&#43;08:00'/><meta property='article:modified_time' content='2026-04-10T08:58:58&#43;08:00'/>
+<meta name="twitter:title" content="PVE环境安装immortalwrt">
+<meta name="twitter:description" content="下载固件 下载地址：https://downloads.immortalwrt.org\n截止到 2026-04-10，最新版本是 24.10.5\n进入下载页面，选择对应的固件信息，由于是 cpu 是 x86_64，所以选择 x86_64 的版本，对应的目录是 releases/24.10.5/targets/x86/64/，接下来会出现 ext4，squashfs区别，前者方便扩展用户分区，后者可以一键重置系统，本次选择后者。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#下载固件">下载固件</a></li>
+    <li><a href="#创建虚拟机">创建虚拟机</a></li>
+    <li><a href="#往虚拟机中添加磁盘">往虚拟机中添加磁盘</a></li>
+    <li><a href="#磁盘扩容">磁盘扩容</a></li>
+    <li><a href="#选择启动项">选择启动项</a></li>
+    <li><a href="#启动虚拟机">启动虚拟机</a></li>
+    <li><a href="#修改-ip-地址">修改 IP 地址</a></li>
+    <li><a href="#磁盘扩容-1">磁盘扩容</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/260410085829/">PVE环境安装immortalwrt</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2026-04-10T08:58:29&#43;08:00'>Apr 10, 2026</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#下载固件">下载固件</a></li>
+    <li><a href="#创建虚拟机">创建虚拟机</a></li>
+    <li><a href="#往虚拟机中添加磁盘">往虚拟机中添加磁盘</a></li>
+    <li><a href="#磁盘扩容">磁盘扩容</a></li>
+    <li><a href="#选择启动项">选择启动项</a></li>
+    <li><a href="#启动虚拟机">启动虚拟机</a></li>
+    <li><a href="#修改-ip-地址">修改 IP 地址</a></li>
+    <li><a href="#磁盘扩容-1">磁盘扩容</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="下载固件">下载固件
+</h2><p>下载地址：<a class="link" href="https://downloads.immortalwrt.org"  target="_blank" rel="noopener"
+    >https://downloads.immortalwrt.org</a></p>
+
+    <blockquote>
+        <p>截止到 2026-04-10，最新版本是 24.10.5</p>
+
+    </blockquote>
+<p>进入下载页面，选择对应的固件信息，由于是 cpu 是 x86_64，所以选择 x86_64 的版本，对应的目录是 <code>releases/24.10.5/targets/x86/64/</code>，接下来会出现 <code>ext4</code>，<code>squashfs</code>区别，前者方便扩展用户分区，后者可以一键重置系统，本次选择后者。</p>
+<p>后缀选择 img 格式的镜像</p>
+<p>本次下载的是 <code>generic-squashfs-combined-efi.img.gz</code></p>
+<p>下载之后，进行解压，得到 <code>immortalwrt-24.10.5-x86-64-generic-squashfs-combined-efi</code></p>
+<p>打开 PVE 后台，点击  local ,选择 ISO 镜像，上传刚才解压的镜像。</p>
+<h2 id="创建虚拟机">创建虚拟机
+</h2><p>进入 PVE，右上角新建虚拟机</p>
+<p><img class="gallery-image" data-flex-basis="611px" data-flex-grow="254" height="856" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/f2a878dc0279c42eff1cc93fda6680f7.png" srcset="/f2a878dc0279c42eff1cc93fda6680f7_24720537006820739_hu_4d3c96b43ed4c5ff.png 800w, /f2a878dc0279c42eff1cc93fda6680f7_24720537006820739_hu_55f70a4928d7ef69.png 1600w, https://img.muzhe.eu.org/2026/04/f2a878dc0279c42eff1cc93fda6680f7.png 2181w" width="2181"></p>
+<p>在创建虚拟机页面填入虚拟机名称，勾选高级，选择开机自启动选项，随后下一步</p>
+<p><img class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/9a6b3a435f3bf3eae116d7ef62d0e1c2.png" srcset="/9a6b3a435f3bf3eae116d7ef62d0e1c2_4631509501605088245_hu_57b61fef24bc830a.png 800w, https://img.muzhe.eu.org/2026/04/9a6b3a435f3bf3eae116d7ef62d0e1c2.png 1080w" width="1080"></p>
+<p>勾选不适用任何介质安装，点击下一步，因为我们下载的 img 镜像其实内部已经安装有系统了，并不需要 CD 等介质来安装，只需要把 img 镜像转换为磁盘挂载给虚拟机就行。</p>
+<p><img class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/b437fabb9bec12be87ceeda45d7afc79.png" srcset="/b437fabb9bec12be87ceeda45d7afc79_2047946690574664104_hu_1b363e1718fb16aa.png 800w, https://img.muzhe.eu.org/2026/04/b437fabb9bec12be87ceeda45d7afc79.png 1080w" width="1080"></p>
+<p>系统界面将机型改为<code>q35</code>，勾选<code>Qemu代理</code>，控制器保持<code>VirtIO SCSI single</code>不变，如果你之前下载的是 efi 后缀的镜像务必将 BIOS 改为<code>UEFI</code>启动方式，不带就使用<code>SeaBIOS</code>传统启动，EFI 磁盘默认是没有的，EFI 存储中要手动选择<code>local-lvm</code>分区。</p>
+<p><img alt="image-20260410135301045" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/699ad7e0d2c6216a9b5c2ab44498e3a1.png" srcset="/699ad7e0d2c6216a9b5c2ab44498e3a1_14471421331245370555_hu_2a2d2e841c3906a4.png 800w, https://img.muzhe.eu.org/2026/04/699ad7e0d2c6216a9b5c2ab44498e3a1.png 1080w" width="1080"></p>
+<p>磁盘中直接删除磁盘，我们下载的镜像中已经包含有操作系统，镜像即是数据盘也是引导盘，因此不需要额外的数据盘。</p>
+<p><img alt="image-20260410135423700" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/3d8705efa576349fc795b01dfd6bb896.png" srcset="/3d8705efa576349fc795b01dfd6bb896_14120518786125778978_hu_15f03f40054f5013.png 800w, https://img.muzhe.eu.org/2026/04/3d8705efa576349fc795b01dfd6bb896.png 1080w" width="1080"></p>
+<p>CPU 中核心数量根据你的 CPU<strong>线程</strong>数量选择，例如使用 N5305，这是个四核四线程处理器，则可以分配 4 核心给 ImmortalWrt 虚拟机，如果是 4 核心 8 线程的处理器，则可以分配 8 核心给虚拟机，但是一般没必要，分四个核心就行了。类别选择<code>host</code>，CPU 权重酌情增加，数字越大能越优先使用 CPU 资源。理论上路由器的 CPU 资源是不会一直吃满的，所以设置看上把 CPU 资源全分给了 ImmortalWrt，但是其实在运行过程中是有相当一部分资源空闲的，除非你小马拉大车用 J1900 这种过时的 CPU 跑各种加解密计算把 CPU 全时段占满，不然性能高一些的 CPU 完全可以 1 线程当 2-3 个核心来用</p>
+<p><img alt="image-20260410135531674" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/67a45dc01086bee126bc004307c6995a.png" srcset="/67a45dc01086bee126bc004307c6995a_4050452285547803592_hu_ab54d67afc7e8f81.png 800w, https://img.muzhe.eu.org/2026/04/67a45dc01086bee126bc004307c6995a.png 1080w" width="1080"></p>
+<p>内存给<code>256</code>MiB 就行，内存如果没有那么紧张把<code>Ballooning设备</code>关了。如果你的内存资源非常吃紧，可以开启该选项把内存调成动态的，最小内存设置为<code>256</code>MiB，让其按需申请</p>
+<p><img alt="image-20260410135719673" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/c23d904d4360449e90b35955fe0f18f1.png" srcset="/c23d904d4360449e90b35955fe0f18f1_6056549805378824358_hu_d60bb31d749404a0.png 800w, https://img.muzhe.eu.org/2026/04/c23d904d4360449e90b35955fe0f18f1.png 1080w" width="1080"></p>
+<p>网络设备一般建议直通，不过现在的低功耗 CPU 跑 VirtIO 的网卡也没什么压力，看个人选择。</p>
+<p>我个人设置是有一个口加入了<code>vmbr0</code>的网桥，该口平常是不连线缆的，除非 ImmortalWrt 故障导致 PVE 平台失联我才会连接线缆直连进 PVE 排障，因此网络规划就是一台 ImmortalWrt 同时拥有三张直通网卡和一个桥接在虚拟网桥 vmbr0 的虚拟网卡。</p>
+<p>在这样的规划下我们应当保留网络中桥接<code>vmbr0</code>的配置，并点击下一步，如果你不想要桥接网卡，那请勾选无网络设备。</p>
+<p><img alt="image-20260410135815014" class="gallery-image" data-flex-basis="320px" data-flex-grow="133" height="810" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/639083673caf2a103882620206ab09e5.png" srcset="/639083673caf2a103882620206ab09e5_9429906650277069559_hu_db4af9c8c5fc7012.png 800w, https://img.muzhe.eu.org/2026/04/639083673caf2a103882620206ab09e5.png 1080w" width="1080"></p>
+<p>最终确认完成后，我们便得到了一台没有硬盘且只有一张桥接网卡的虚拟机，此时我们应当进行引导盘的设置和直通网卡配置。</p>
+<h2 id="往虚拟机中添加磁盘">往虚拟机中添加磁盘
+</h2><p>往虚拟机中添加磁盘需要依赖 PVE 本身的<code>Shell</code>功能，点击你的 PVE 节点名称，再选择 PVE 本身的<code>Shell</code>。</p>
+<p><img alt="image-20260410135918448" class="gallery-image" data-flex-basis="368px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/28dac7cb962ac3d677023948448dc929.png" srcset="/28dac7cb962ac3d677023948448dc929_2129877090243190724_hu_3373fa3e975c964d.png 800w, /28dac7cb962ac3d677023948448dc929_2129877090243190724_hu_874215b5dc75a175.png 1600w, https://img.muzhe.eu.org/2026/04/28dac7cb962ac3d677023948448dc929.png 2191w" width="2191"></p>
+<p>通过以下命令导入硬盘镜像到虚拟机中，其中 107 请替换为自己的虚拟机编号，镜像名称需要根据你上传的来，不确定可以使用<code>ls -l /var/lib/vz/template/iso/</code>来确认，<code>local-lvm</code>是让你存虚拟机的分区，如果你没有这个分区，那就是<code>local</code>分区，因为 PVE 在默认安装下是有这个分区的，如果没有可能是你的磁盘太小了只能容纳一个<code>local</code>分区或者你安装的时候更改了磁盘分区方式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">qm disk import <span class="m">102</span> /var/lib/vz/template/iso/immortalwrt-24.10.5-x86-64-generic-squashfs-combined-efi.img local-lvm
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>回到虚拟机配置页面，选择硬件，此时我们会发现有一个未使用的磁盘存在，我们双击该磁盘使用默认状态添加即可。</p>
+<p><img alt="image-20260410140359772" class="gallery-image" data-flex-basis="476px" data-flex-grow="198" height="1095" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/1062430822386b16017abe77f92683d2.png" srcset="/1062430822386b16017abe77f92683d2_18093810665757857491_hu_439dd2789cfd4c13.png 800w, /1062430822386b16017abe77f92683d2_18093810665757857491_hu_4e6163eeb33e4227.png 1600w, https://img.muzhe.eu.org/2026/04/1062430822386b16017abe77f92683d2.png 2176w" width="2176"></p>
+<p><img alt="image-20260410140514117" class="gallery-image" data-flex-basis="462px" data-flex-grow="192" height="467" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/efa48489ba0bd705228f17201f273fa3.png" srcset="/efa48489ba0bd705228f17201f273fa3_17099482595711984418_hu_544410fed64eae63.png 800w, https://img.muzhe.eu.org/2026/04/efa48489ba0bd705228f17201f273fa3.png 900w" width="900"></p>
+<h2 id="磁盘扩容">磁盘扩容
+</h2><p>默认情况下，ImmortalWrt 官方的镜像只有 300MiB 空间，大部分情况下是够用的，但是如果需要留存点东西就比较麻烦了，我个人是建议在磁盘空余的情况下扩容 2GiB 存储。</p>
+<p>选中刚刚添加的磁盘，点击磁盘操作，选择调整大小，增量大小填入<code>2</code>后点击<code>调整磁盘大小</code>。</p>
+<p><img alt="image-20260410140651942" class="gallery-image" data-flex-basis="464px" data-flex-grow="193" height="1119" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/40eb1625c8b64ec22573cfe1316fdb00.png" srcset="/40eb1625c8b64ec22573cfe1316fdb00_17967538340147516171_hu_27c257a9c9373671.png 800w, /40eb1625c8b64ec22573cfe1316fdb00_17967538340147516171_hu_e8a3df2d2c53ec8e.png 1600w, https://img.muzhe.eu.org/2026/04/40eb1625c8b64ec22573cfe1316fdb00.png 2166w" width="2166"></p>
+<p>但此时分区并未扩容，因为这只是增加了虚拟磁盘的大小，而分区的大小未改变，因此我们在进入系统后需要进行二次更改。</p>
+<h2 id="选择启动项">选择启动项
+</h2><p>默认情况下，OpenWrt 虚拟机不会从我们添加的镜像启动，如果此时开启虚拟机会无法找到启动项进入 PXE 模式。</p>
+<p>选择<code>虚拟机名称</code>-<code>选项</code>-<code>引导顺序</code></p>
+<p>勾选<code>scsi0</code>，并拖动至第一顺位，并取消勾选<code>net0</code>网络启动和<code>ide2</code> CD 启动，即可成功设置启动项。切记一定要取消<code>net0</code>启动项，因为 PVE8 默认需要安全启动，而 OpenWrt 的镜像是无法安全启动的，不取消网络启动后续可能因为安全启动失败回落至网络启动无法进入系统。</p>
+<p><img alt="image-20260410140815875" class="gallery-image" data-flex-basis="589px" data-flex-grow="245" height="391" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/79d4ee399d1f1374c57214a6c3a7a726.png" srcset="/79d4ee399d1f1374c57214a6c3a7a726_9275919121558143042_hu_a359fcd42e6ff4dc.png 800w, https://img.muzhe.eu.org/2026/04/79d4ee399d1f1374c57214a6c3a7a726.png 960w" width="960"></p>
+<h2 id="启动虚拟机">启动虚拟机
+</h2><p>右键虚拟机选择启动或者右上角点击启动选项开启虚拟机。</p>
+<p><img alt="image-20260410140917147" class="gallery-image" data-flex-basis="463px" data-flex-grow="192" height="1130" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/1c37b4b1b0e253c03eba6af8045bcb31.png" srcset="/1c37b4b1b0e253c03eba6af8045bcb31_17923880656784963408_hu_c99e6bd69acb7465.png 800w, /1c37b4b1b0e253c03eba6af8045bcb31_17923880656784963408_hu_efd8ac5df2f1834b.png 1600w, https://img.muzhe.eu.org/2026/04/1c37b4b1b0e253c03eba6af8045bcb31.png 2180w" width="2180"></p>
+<p>点击控制台，查看启动情况，如果出现 No bootable option or ddevice was found，按下任意键，关闭安全启动</p>
+<p><img alt="image-20260410141111320" class="gallery-image" data-flex-basis="464px" data-flex-grow="193" height="1133" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/bfc66f0a9b42c076c4ebe1d7b9d68760.png" srcset="/bfc66f0a9b42c076c4ebe1d7b9d68760_4625251384512477656_hu_9d117f9c563c7cd0.png 800w, /bfc66f0a9b42c076c4ebe1d7b9d68760_4625251384512477656_hu_4d772ec44b84450c.png 1600w, https://img.muzhe.eu.org/2026/04/bfc66f0a9b42c076c4ebe1d7b9d68760.png 2191w" width="2191"></p>
+<p>进入 Device Manager</p>
+<p><img alt="image-20260410150133388" class="gallery-image" data-flex-basis="383px" data-flex-grow="159" height="962" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/cf263e36eb66786b22ac5763a4aef27a.png" srcset="/cf263e36eb66786b22ac5763a4aef27a_15901994096420541289_hu_a34f5d5f8bf6c54e.png 800w, https://img.muzhe.eu.org/2026/04/cf263e36eb66786b22ac5763a4aef27a.png 1539w" width="1539"></p>
+<p>进入 Secure Boot Configuration</p>
+<p><img alt="image-20260410161638887" class="gallery-image" data-flex-basis="383px" data-flex-grow="159" height="962" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/9347319ec63d0a520fa2ece1be9655f9.png" srcset="/9347319ec63d0a520fa2ece1be9655f9_15766663626766895967_hu_cede15d7a7818052.png 800w, https://img.muzhe.eu.org/2026/04/9347319ec63d0a520fa2ece1be9655f9.png 1539w" width="1539"></p>
+<p>按下空格键，取消勾选</p>
+<p><img alt="image-20260410141221116" class="gallery-image" data-flex-basis="383px" data-flex-grow="159" height="962" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/b84c84c08f300f57add50135b3bc212e.png" srcset="/b84c84c08f300f57add50135b3bc212e_815595961241338007_hu_4be72ee9f6def196.png 800w, https://img.muzhe.eu.org/2026/04/b84c84c08f300f57add50135b3bc212e.png 1539w" width="1539"></p>
+<p>修改完成后，随后一路按<code>Esc</code>键退出到<code>Boot Manager</code>首页，选择<code>Continue</code>并回车。</p>
+<p><img alt="image-20260410162704038" class="gallery-image" data-flex-basis="461px" data-flex-grow="192" height="1044" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/ff639f5d5efb1bda202f4d0207edcc52.png" srcset="/ff639f5d5efb1bda202f4d0207edcc52_4516156034282508565_hu_bd89feac53575736.png 800w, /ff639f5d5efb1bda202f4d0207edcc52_4516156034282508565_hu_cf826037e9f8deba.png 1600w, https://img.muzhe.eu.org/2026/04/ff639f5d5efb1bda202f4d0207edcc52.png 2006w" width="2006"></p>
+<p>然后等待进入系统</p>
+<p><img alt="image-20260410163153874" class="gallery-image" data-flex-basis="383px" data-flex-grow="159" height="962" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://img.muzhe.eu.org/2026/04/84b8f18e69ed767c1b4b4d146f020504.png" srcset="/84b8f18e69ed767c1b4b4d146f020504_2178237592832647002_hu_c5df29da90d2752.png 800w, https://img.muzhe.eu.org/2026/04/84b8f18e69ed767c1b4b4d146f020504.png 1539w" width="1539"></p>
+<h2 id="修改-ip-地址">修改 IP 地址
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vi /etc/config/netwrok
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 lan 部分</p>
+<p>重启网络服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">/etc/init.d/network restart
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>更换源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 一键修改</span>
+</span></span><span class="line"><span class="cl">sed -e <span class="s1">&#39;s,https://downloads.immortalwrt.org,https://mirrors.cernet.edu.cn/immortalwrt,g&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -e <span class="s1">&#39;s,https://mirrors.vsean.net/openwrt,https://mirrors.cernet.edu.cn/immortalwrt,g&#39;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -i.bak /etc/opkg/distfeeds.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="磁盘扩容-1">磁盘扩容
+</h2><p>参考：<a class="link" href="https://blog.csdn.net/qq_36961488/article/details/148231601"  target="_blank" rel="noopener"
+    ># 基于 efi 启动的 squashfs 格式的 immortalwrt/或 openwrt 软路由系统 overlay 空间扩容</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+             Apr 10, 2026 08:58 &#43;0800
+        </span>
+    </section><section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403180703/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng设备使用</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403171123/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

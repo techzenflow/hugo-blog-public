@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 fail2ban 是一个开源的入侵防御软件，主要用于保护 Linux 服务器和其他 Unix 系统免受暴力破解和其他恶意攻击。它通过监视日志文件来检测可疑活动，并自动采取措施（通常是禁止 IP 地址）来防止进一步的攻击。\n">
+<title>fail2ban，保护服务器安全</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250502114118/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="fail2ban，保护服务器安全">
+<meta property='og:description' content="简介 fail2ban 是一个开源的入侵防御软件，主要用于保护 Linux 服务器和其他 Unix 系统免受暴力破解和其他恶意攻击。它通过监视日志文件来检测可疑活动，并自动采取措施（通常是禁止 IP 地址）来防止进一步的攻击。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250502114118/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-02T11:41:18&#43;08:00'/><meta property='article:modified_time' content='2025-05-02T11:41:18&#43;08:00'/>
+<meta name="twitter:title" content="fail2ban，保护服务器安全">
+<meta name="twitter:description" content="简介 fail2ban 是一个开源的入侵防御软件，主要用于保护 Linux 服务器和其他 Unix 系统免受暴力破解和其他恶意攻击。它通过监视日志文件来检测可疑活动，并自动采取措施（通常是禁止 IP 地址）来防止进一步的攻击。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#主要功能">主要功能</a></li>
+        <li><a href="#工作原理">工作原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#配置">配置</a>
+      <ol>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#简单配置">简单配置</a></li>
+        <li><a href="#多种策略">多种策略</a></li>
+      </ol>
+    </li>
+    <li><a href="#服务">服务</a></li>
+    <li><a href="#常见命令">常见命令</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/linux/" style="background-color: hsl(237, 60%, 84%); color: hsl(237, 60%, 15%);">
+                Linux
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250502114118/">fail2ban，保护服务器安全</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-05-02T11:41:18&#43;08:00'>May 02, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#主要功能">主要功能</a></li>
+        <li><a href="#工作原理">工作原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#配置">配置</a>
+      <ol>
+        <li><a href="#准备工作">准备工作</a></li>
+        <li><a href="#简单配置">简单配置</a></li>
+        <li><a href="#多种策略">多种策略</a></li>
+      </ol>
+    </li>
+    <li><a href="#服务">服务</a></li>
+    <li><a href="#常见命令">常见命令</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p><code>fail2ban</code> 是一个开源的入侵防御软件，主要用于保护 Linux 服务器和其他 Unix 系统免受暴力破解和其他恶意攻击。它通过监视日志文件来检测可疑活动，并自动采取措施（通常是禁止 IP 地址）来防止进一步的攻击。</p>
+<h3 id="主要功能">主要功能
+</h3><ol>
+<li><strong>自动禁止 IP 地址</strong>: 当检测到特定服务（如 SSH、FTP、HTTP 等）中的多次失败登录尝试时，<code>fail2ban</code> 会自动使用防火墙（如 <code>iptables</code>）禁止这些 IP 地址。</li>
+<li><strong>日志监控</strong>: <code>fail2ban</code> 监控系统日志（如 <code>/var/log/auth.log</code> 或 <code>/var/log/secure</code>），并根据预定义的规则（过滤器）分析日志内容。</li>
+<li><strong>可配置性</strong>: 用户可以根据需求自定义配置文件，设置不同的监控规则、禁止时间、允许的失败尝试次数等。</li>
+<li><strong>多种服务支持</strong>: <code>fail2ban</code> 支持多种服务的保护，包括 SSH、HTTP、FTP、SMTP 等。</li>
+<li><strong>邮件通知</strong>: 可以配置邮件通知功能，当 IP 被禁止时，系统会自动发送通知邮件给管理员。</li>
+<li><strong>可扩展性</strong>: 用户可以创建自定义过滤器和动作，以适应特定的需求。</li>
+</ol>
+<h3 id="工作原理">工作原理
+</h3><ol>
+<li><strong>配置</strong>: 用户设置 <code>fail2ban</code> 的配置文件，定义需要监控的服务、日志文件路径、过滤规则等。</li>
+<li><strong>监控</strong>: <code>fail2ban</code> 定期扫描指定的日志文件，查找符合过滤器条件的日志条目。</li>
+<li><strong>触发</strong>: 如果在设定的时间窗口内，某个 IP 地址的失败尝试次数超过了允许的最大值，<code>fail2ban</code> 会执行相应的动作（如禁止该 IP）。</li>
+<li><strong>解除禁止</strong>: 被禁止的 IP 地址在设定的时间后会自动解除禁止，或者管理员可以手动解除。</li>
+</ol>
+<h2 id="部署">部署
+</h2><p>Debian / Ubuntu</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install fail2ban
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="配置">配置
+</h2><h3 id="准备工作">准备工作
+</h3><p>配置文件所在的位置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">/etc/fail2ban
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新建 <code>jail.local</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo vim jail.local
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="简单配置">简单配置
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#DEFAULT-START</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEFAULT<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">bantime</span> <span class="o">=</span> <span class="m">600</span>
+</span></span><span class="line"><span class="cl"><span class="nv">findtime</span> <span class="o">=</span> <span class="m">300</span>
+</span></span><span class="line"><span class="cl"><span class="nv">maxretry</span> <span class="o">=</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="nv">banaction</span> <span class="o">=</span> iptables-allports
+</span></span><span class="line"><span class="cl"><span class="nv">action</span> <span class="o">=</span> %<span class="o">(</span>action_mwl<span class="o">)</span>s
+</span></span><span class="line"><span class="cl"><span class="nv">backend</span> <span class="o">=</span> systemd
+</span></span><span class="line"><span class="cl"><span class="c1">#DEFAULT-END</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sshd<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">ignoreip</span> <span class="o">=</span> 127.0.0.1/8
+</span></span><span class="line"><span class="cl"><span class="nv">enabled</span> <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="nv">filter</span> <span class="o">=</span> sshd
+</span></span><span class="line"><span class="cl"><span class="nv">port</span> <span class="o">=</span> <span class="m">22</span>
+</span></span><span class="line"><span class="cl"><span class="nv">maxretry</span> <span class="o">=</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="nv">findtime</span> <span class="o">=</span> <span class="m">300</span>
+</span></span><span class="line"><span class="cl"><span class="nv">bantime</span> <span class="o">=</span> <span class="m">600</span>
+</span></span><span class="line"><span class="cl"><span class="nv">banaction</span> <span class="o">=</span> iptables-allports
+</span></span><span class="line"><span class="cl"><span class="nv">action</span> <span class="o">=</span> %<span class="o">(</span>action_mwl<span class="o">)</span>s
+</span></span><span class="line"><span class="cl"><span class="nv">logpath</span> <span class="o">=</span> /var/log/auth.log
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置参考了：</p>
+<ul>
+<li><a class="link" href="https://1panel.cn/docs/user_manual/toolbox/fail2ban/#1"  target="_blank" rel="noopener"
+    >1panel</a></li>
+<li><a class="link" href="https://gongzhe.tech/ubuntu-fail2ban-cannnot-start/"  target="_blank" rel="noopener"
+    >blog</a></li>
+</ul>
+<h3 id="多种策略">多种策略
+</h3><p>此 Fail2Ban 配置通过多个 jail 实现更精细的 SSH 保护，根据登录失败尝试的频率和时间段，应用不同的禁止时长：</p>
+<ul>
+<li><code>DEFAULT</code>: 设置全局默认值，使用 <code>systemd</code> 日志后端，<code>iptables-allports</code> 禁止所有端口，并发送邮件告警。</li>
+<li><code>sshd-short</code>: 5 分钟内 5 次失败尝试 -&gt; 禁止 10 分钟</li>
+<li><code>sshd-medium</code>: 30 分钟内 10 次失败尝试 -&gt; 禁止 1 小时</li>
+<li><code>sshd-long</code>: 24 小时内 30 次失败尝试 -&gt; 禁止 100 天</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="c1"># /etc/fail2ban/jail.local (或者 /etc/fail2ban/jail.d/custom.conf)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># ; 表示单行注释</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>DEFAULT<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">bantime</span> <span class="o">=</span> <span class="m">600</span> <span class="p">;</span> 封禁时间
+</span></span><span class="line"><span class="cl"><span class="nv">findtime</span> <span class="o">=</span> <span class="m">300</span> <span class="p">;</span> 指定时间内
+</span></span><span class="line"><span class="cl"><span class="nv">maxretry</span> <span class="o">=</span> <span class="m">5</span> <span class="p">;</span> 最大尝试次数
+</span></span><span class="line"><span class="cl"><span class="nv">backend</span> <span class="o">=</span> systemd       <span class="p">;</span> 使用 systemd 日志后端
+</span></span><span class="line"><span class="cl"><span class="nv">banaction</span> <span class="o">=</span> iptables-allports  <span class="p">;</span> 使用 iptables 阻止所有端口
+</span></span><span class="line"><span class="cl"><span class="nv">action</span> <span class="o">=</span> %<span class="o">(</span>action_mwl<span class="o">)</span>s    <span class="p">;</span> 邮件告警 + 日志记录
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sshd-short<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enabled</span>  <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="nv">filter</span>   <span class="o">=</span> sshd        <span class="p">;</span> 使用 sshd 过滤器
+</span></span><span class="line"><span class="cl"><span class="nv">logpath</span>  <span class="o">=</span> /var/log/auth.log  <span class="p">;</span> SSH 日志文件
+</span></span><span class="line"><span class="cl"><span class="nv">port</span>     <span class="o">=</span> ssh
+</span></span><span class="line"><span class="cl"><span class="nv">findtime</span> <span class="o">=</span> <span class="m">300</span>       <span class="p">;</span> <span class="m">5</span> 分钟
+</span></span><span class="line"><span class="cl"><span class="nv">maxretry</span> <span class="o">=</span> <span class="m">5</span>
+</span></span><span class="line"><span class="cl"><span class="nv">bantime</span>  <span class="o">=</span> <span class="m">600</span>       <span class="p">;</span> <span class="m">10</span> 分钟 <span class="o">(</span>5分钟内超过5次<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sshd-medium<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enabled</span>  <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="nv">filter</span>   <span class="o">=</span> sshd
+</span></span><span class="line"><span class="cl"><span class="nv">logpath</span>  <span class="o">=</span> /var/log/auth.log
+</span></span><span class="line"><span class="cl"><span class="nv">port</span>     <span class="o">=</span> ssh
+</span></span><span class="line"><span class="cl"><span class="nv">findtime</span> <span class="o">=</span> <span class="m">1800</span>      <span class="p">;</span> <span class="m">30</span> 分钟
+</span></span><span class="line"><span class="cl"><span class="nv">maxretry</span> <span class="o">=</span> <span class="m">10</span>
+</span></span><span class="line"><span class="cl"><span class="nv">bantime</span>  <span class="o">=</span> <span class="m">3600</span>      <span class="p">;</span> <span class="m">1</span> 小时 <span class="o">(</span>30分钟内超过10次<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>sshd-long<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">enabled</span>  <span class="o">=</span> <span class="nb">true</span>
+</span></span><span class="line"><span class="cl"><span class="nv">filter</span>   <span class="o">=</span> sshd
+</span></span><span class="line"><span class="cl"><span class="nv">logpath</span>  <span class="o">=</span> /var/log/auth.log
+</span></span><span class="line"><span class="cl"><span class="nv">port</span>     <span class="o">=</span> ssh
+</span></span><span class="line"><span class="cl"><span class="nv">findtime</span> <span class="o">=</span> <span class="m">86400</span>     <span class="p">;</span> <span class="m">24</span> 小时
+</span></span><span class="line"><span class="cl"><span class="nv">maxretry</span> <span class="o">=</span> <span class="m">30</span>
+</span></span><span class="line"><span class="cl"><span class="nv">bantime</span>  <span class="o">=</span> <span class="m">8640000</span>    <span class="p">;</span> <span class="m">100</span> 天 <span class="o">(</span>24小时超过30次<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="服务">服务
+</h2><p>启动服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl start fail2ban
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常见命令">常见命令
+</h2><p>查看 Fail2Ban 中被禁止的 IP 地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">fail2ban-client status &lt;jail_name&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看名为 <code>sshd</code> 的监狱的被禁止 IP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">fail2ban-client status sshd
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果自己忘记了密码，被 fail2ban 阻止了，解除命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo fail2ban-client <span class="nb">set</span> &lt;jail_name&gt; unbanip &lt;ip_address&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo fail2ban-client <span class="nb">set</span> ssh unbanip 192.168.1.100
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/251211142800/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Zabbix，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251211135349/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Grafana，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250812112934/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">全新Linux初次必须要做的事项</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250510110145/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">rsync，快速且极其通用的文件复制工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250502173451/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Paru，Archlinux轻量级的AUR管理器</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

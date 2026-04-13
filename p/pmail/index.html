@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 由于 PMail 后续更新，本文也将修改，适应最新版本\n前言 最近想自建一个域名邮箱，开源的邮箱服务内存占用太高，对于个人使用不太友好，接着找到一个由 Golang 编写的域名邮箱 Pmail。\n">
+<title>强烈推荐，一个内存占用极低的自建域名邮箱Pmail</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/pmail/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="强烈推荐，一个内存占用极低的自建域名邮箱Pmail">
+<meta property='og:description' content=" 由于 PMail 后续更新，本文也将修改，适应最新版本\n前言 最近想自建一个域名邮箱，开源的邮箱服务内存占用太高，对于个人使用不太友好，接着找到一个由 Golang 编写的域名邮箱 Pmail。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/pmail/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mail' /><meta property='article:tag' content='pmail' /><meta property='article:published_time' content='2023-10-23T14:07:10&#43;08:00'/><meta property='article:modified_time' content='2023-10-23T14:07:10&#43;08:00'/>
+<meta name="twitter:title" content="强烈推荐，一个内存占用极低的自建域名邮箱Pmail">
+<meta name="twitter:description" content=" 由于 PMail 后续更新，本文也将修改，适应最新版本\n前言 最近想自建一个域名邮箱，开源的邮箱服务内存占用太高，对于个人使用不太友好，接着找到一个由 Golang 编写的域名邮箱 Pmail。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备工作">准备工作</a></li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#反向代理">反向代理</a></li>
+    <li><a href="#启动测试">启动测试</a></li>
+    <li><a href="#附录">附录</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/pmail/">强烈推荐，一个内存占用极低的自建域名邮箱Pmail</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2023-10-23T14:07:10&#43;08:00'>Oct 23, 2023</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备工作">准备工作</a></li>
+    <li><a href="#部署">部署</a></li>
+    <li><a href="#反向代理">反向代理</a></li>
+    <li><a href="#启动测试">启动测试</a></li>
+    <li><a href="#附录">附录</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <hr>
+<p>由于 PMail 后续更新，本文也将修改，适应最新版本</p>
+<hr>
+<h2 id="前言">前言
+</h2><p>最近想自建一个域名邮箱，开源的邮箱服务内存占用太高，对于个人使用不太友好，接着找到一个由 Golang 编写的域名邮箱 Pmail。</p>
+<p>官方介绍：PMail 是一个追求极简部署流程、极致资源占用的个人域名邮箱服务器。单文件运行，包含完整的收发邮件服务和 Web 端邮件管理功能。只需一台服务器、一个域名、一行代码、一分钟部署时间，你就能够搭建出一个自己的域名邮箱。</p>
+<p>GitHub 地址：https://github.com/Jinnrry/PMail/</p>
+<p>以下为界面截图：</p>
+<p><img alt="20231028T200750_75320" class="gallery-image" data-flex-basis="806px" data-flex-grow="335" height="762" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/xAFLG3DrST2VBJw.png" srcset="/xAFLG3DrST2VBJw_18163812893561070920_hu_740b54c6535a461f.png 800w, /xAFLG3DrST2VBJw_18163812893561070920_hu_b107a8d15e646d80.png 1600w, /xAFLG3DrST2VBJw_18163812893561070920_hu_d71201f2688e380c.png 2400w, https://s2.loli.net/2024/07/27/xAFLG3DrST2VBJw.png 2560w" width="2560"></p>
+<h2 id="准备工作">准备工作
+</h2><ul>
+<li>服务器，开放了 25 号端口的服务器，没有开放则无法发信。</li>
+<li>域名</li>
+<li>nginx 反代服务器</li>
+<li>nginx proxy manager（<del>可选，但建议</del>），与 nginx 二选一</li>
+<li>docker 或者 docker-compose</li>
+</ul>
+<h2 id="部署">部署
+</h2><p><font color=red>提示：文章篇幅较长</font></p>
+<p><strong>docker-compose</strong></p>
+
+    <blockquote>
+        <p><font color=red>如果服务器 80，443 端口没有被占用，搭建过程则较为简单。如果 80，443 端口被其他应用占用，搭建过程则较为繁琐。</font></p>
+<p><font color=red>本次 80，443 端口被 nginx proxy manager 占用，所以采用映射其他端口搭建</font></p>
+
+    </blockquote>
+<p>本次教程采用 docker-compose 方式安装，方便管理配置文件和升级。其余方式请参考<a class="link" href="https://github.com/Jinnrry/PMail#how-to-run"  target="_blank" rel="noopener"
+    >官方教程</a></p>
+<p>在你喜欢的目录下，新建 pamail 文件夹，在 pamil 文件夹下，新建 docker-compose.yml 文件，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">mkdir -r ~/opt/pmail <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/opt/pmail
+</span></span><span class="line"><span class="cl">docker network create pmail_network
+</span></span><span class="line"><span class="cl">vim docker-compose.yml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>文件内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.9&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pmail</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">pmail</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;ghcr.io/jinnrry/pmail:latest&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;./config:/work/config&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># pop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;110:110&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;995:995&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># smtp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;25:25&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;465:465&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># web访问</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;8780:80&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;8781:443&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">pmail_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">pmail_network</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">external</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置文件编写完成之后，在 docker-compose.yml 所在目录下，运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo docker compose up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>接着会开启一个阻塞的前台进程，会打印日志信息，没有报错的话，服务则已经启动。</p>
+<p>开放端口，因为使用的云服务器，所以需要在云服务器管理面板，开放安全组，也就是端口，笔者使用的阿里云。</p>
+<p>进入 <a class="link" href="https://ecs.console.aliyun.com/home"  target="_blank" rel="noopener"
+    >ecs 管理面板</a>，在左侧选择 【安全组】，选择服务器对应的安全组。</p>
+<p><img alt="20231028T200750_57219" class="gallery-image" data-flex-basis="460px" data-flex-grow="191" height="1334" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/btJ2XBz3OCE9PSr.png" srcset="/btJ2XBz3OCE9PSr_7160943385064797018_hu_e6580e1f7c289572.png 800w, /btJ2XBz3OCE9PSr_7160943385064797018_hu_b61de4ef4faf7217.png 1600w, /btJ2XBz3OCE9PSr_7160943385064797018_hu_621ca5f82e9c2d80.png 2400w, https://s2.loli.net/2024/07/27/btJ2XBz3OCE9PSr.png 2560w" width="2560"></p>
+<p>接着【手动添加】</p>
+<p><img alt="20231028T200750_42854" class="gallery-image" data-flex-basis="587px" data-flex-grow="244" height="1046" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/DYu5jB1ShzZ3iPo.png" srcset="/DYu5jB1ShzZ3iPo_11948237807803818120_hu_8ee4b93a615ff049.png 800w, /DYu5jB1ShzZ3iPo_11948237807803818120_hu_be6d3e585d61bb39.png 1600w, /DYu5jB1ShzZ3iPo_11948237807803818120_hu_691cc2426e3fab00.png 2400w, https://s2.loli.net/2024/07/27/DYu5jB1ShzZ3iPo.png 2560w" width="2560"></p>
+<p>填写端口范围和授权对象，端口即为配置文件开放的端口，授权对象为 0.0.0.0，表示所有 ip 都可访问，描述为备注信息。</p>
+<p>保存后，安全组配置完成。</p>
+<p>配置 pmail</p>
+<p>暂停 pamil 的启动，修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo vim /config/config.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="s2">&#34;sslType&#34;</span>:<span class="s2">&#34;1&#34;</span>,<span class="s2">&#34;httpPort&#34;</span>:0,<span class="s2">&#34;httpsPort&#34;</span>:0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>网页访问服务器的公网 ip+端口，如本次教程为 http://ip:8780，ip 为服务器的公网 ip，在<a class="link" href="https://ecs.console.aliyun.com/home"  target="_blank" rel="noopener"
+    >ecs 管理面板</a> 可以看到。</p>
+<p>欢迎界面，初次进入的页面如下：</p>
+<p><img alt="20231028T200750_34250" class="gallery-image" data-flex-basis="442px" data-flex-grow="184" height="1388" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/OdVwphuEvUKJ6r4.png" srcset="/OdVwphuEvUKJ6r4_16662263112850062448_hu_9af378c64049d04.png 800w, /OdVwphuEvUKJ6r4_16662263112850062448_hu_17d2e2bf931b0bf6.png 1600w, /OdVwphuEvUKJ6r4_16662263112850062448_hu_10a0c3e083131cf5.png 2400w, https://s2.loli.net/2024/07/27/OdVwphuEvUKJ6r4.png 2559w" width="2559"></p>
+<p>下一步，选择数据库，<del>建议默认即可</del>，根据自己使用的数据库安装</p>
+<p><img alt="image-20240727201528025" class="gallery-image" data-flex-basis="439px" data-flex-grow="183" height="1396" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/DBtYn4dUjpuiEzf.png" srcset="/DBtYn4dUjpuiEzf_13160155330634174861_hu_69d5393b79dc53aa.png 800w, /DBtYn4dUjpuiEzf_13160155330634174861_hu_e3bd02c062418b7c.png 1600w, /DBtYn4dUjpuiEzf_13160155330634174861_hu_f463a59cfe2862e8.png 2400w, https://s2.loli.net/2024/07/27/DBtYn4dUjpuiEzf.png 2559w" width="2559"></p>
+<p>继续下一步，设置 pmail 管理员密码</p>
+<p><img alt="image-20240727201551748" class="gallery-image" data-flex-basis="439px" data-flex-grow="183" height="1396" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/IoaL9Ne4vr7Ucsw.png" srcset="/IoaL9Ne4vr7Ucsw_2180053256730458654_hu_6679e24b043a595b.png 800w, /IoaL9Ne4vr7Ucsw_2180053256730458654_hu_875e1d485092d488.png 1600w, /IoaL9Ne4vr7Ucsw_2180053256730458654_hu_ea17a00dddda81be.png 2400w, https://s2.loli.net/2024/07/27/IoaL9Ne4vr7Ucsw.png 2559w" width="2559"></p>
+<p>下一步，设置域名</p>
+<p><img alt="image-20240727201611717" class="gallery-image" data-flex-basis="441px" data-flex-grow="183" height="1392" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/aECeTyJm7tnrsWg.png" srcset="/aECeTyJm7tnrsWg_862543279278897656_hu_b532630d1d4e3840.png 800w, /aECeTyJm7tnrsWg_862543279278897656_hu_bba897fb7f82aa63.png 1600w, /aECeTyJm7tnrsWg_862543279278897656_hu_ba6a6b24b7f39776.png 2400w, https://s2.loli.net/2024/07/27/aECeTyJm7tnrsWg.png 2559w" width="2559"></p>
+<p>下一步，设置 DNS，将以下信息添加到 dns 解析处，</p>
+<p><img alt="image-20240727201646797" class="gallery-image" data-flex-basis="443px" data-flex-grow="184" height="1385" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/BFtdPhRxICbM263.png" srcset="/BFtdPhRxICbM263_9925857758521927404_hu_8df56fd432634f4e.png 800w, /BFtdPhRxICbM263_9925857758521927404_hu_f1143f19b1c82d53.png 1600w, /BFtdPhRxICbM263_9925857758521927404_hu_9ffe7d56242ba2d6.png 2400w, https://s2.loli.net/2024/07/27/BFtdPhRxICbM263.png 2559w" width="2559"></p>
+<p>DNS 记录配置，在上一步，需要将 DNS 记录添加到对应的域名，我使用的 DNSPOD，<a class="link" href="https://console.dnspod.cn/dns/"  target="_blank" rel="noopener"
+    >点此跳转 DNSPOD</a> ，进入之后，按照提示添加记录即可</p>
+<p><img alt="20231028T200750_47044" class="gallery-image" data-flex-basis="538px" data-flex-grow="224" height="1141" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/LB35m6HGQaPiZlh.png" srcset="/LB35m6HGQaPiZlh_12982912677017801504_hu_1c4e52f4e9d4a127.png 800w, /LB35m6HGQaPiZlh_12982912677017801504_hu_91fe905331bb768a.png 1600w, /LB35m6HGQaPiZlh_12982912677017801504_hu_d5dd997b70b6b29b.png 2400w, https://s2.loli.net/2024/07/27/LB35m6HGQaPiZlh.png 2560w" width="2560"></p>
+<p>配置 ssl，dns 记录添加完成之后，回到 pmail 配置页面，继续配置证书。</p>
+<p><img alt="image-20240727201730157" class="gallery-image" data-flex-basis="439px" data-flex-grow="183" height="1396" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/jKQFyxDga9X86N4.png" srcset="/jKQFyxDga9X86N4_11424045608418242483_hu_b4355ad19035cff8.png 800w, /jKQFyxDga9X86N4_11424045608418242483_hu_46b4af939eaeb5fd.png 1600w, /jKQFyxDga9X86N4_11424045608418242483_hu_600c9d9277da08af.png 2400w, https://s2.loli.net/2024/07/27/jKQFyxDga9X86N4.png 2559w" width="2559"></p>
+<p>这里选择手动配置 ssl 证书，如果服务器的 80 端口没有被占用，可以选择自动配置，当然，前面的 docker-compose.yml 端口信息也需要改成 80，443。</p>
+
+    <blockquote>
+        <p>为什么选择不用 80，443 端口呢？？</p>
+<p>自动配置 ssl 需要用到 80 端口来验证服务器的所有权，所以自动配置 ssl 必须使用 80 端口。但是我的服务器安装了 nginx proxy manger（简称 npm） ，反代服务，一个 web 端的 nginx 工具，简化 nginx 配置，还可以一键生成 ssl 证书，我的服务器应用比较多，其他应用采用的都是子域名的方式访问。通过这种方式，简化的自己的工作、但是 npm 已经占用了 80，443 端口，所以 80，443 端口不可用。总不可能为了一个域名服务，让其他域名都不可用域名访问了吧。所以，将容器的 80，443 端口映射到了其他端口。</p>
+
+    </blockquote>
+<p>默认的证书位置在 <code>./config/ssl/private.key、./config/ssl/public.crt</code>下，我们就把自己的 ssl 证书上传到 <code>./config/ssl</code>下。</p>
+<p>如果继续介绍 npm 申请 ssl 证书，这篇文章的篇幅就会过长。如果需要，到时候会另开文章介绍，这里就不多介绍了。也可自行搜索相关教程。</p>
+<p>关于 ssl 配置可以参考这篇博文：<a class="link" href="https://www.seektao.cc/archives/202407272022"  target="_blank" rel="noopener"
+    ><strong>Debian 下的 Certbot 安装使用，附 nginx 使用</strong></a></p>
+<p>完成了这一步后，就基本完成了，不过还需要配置反向代理。</p>
+<h2 id="反向代理">反向代理
+</h2><p>dns 记录</p>
+<p><a class="link" href="https://console.dnspod.cn/dns"  target="_blank" rel="noopener"
+    >进入 dnspod 管理页面</a>，新增 dns 记录，如下</p>
+<p><img alt="20231028T200750_68154" class="gallery-image" data-flex-basis="3989px" data-flex-grow="1662" height="154" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/g7G4RQXpA56UbO3.png" srcset="/g7G4RQXpA56UbO3_10388602864635745069_hu_ad08eb2b6fb047ae.png 800w, /g7G4RQXpA56UbO3_10388602864635745069_hu_7a75122e0161b816.png 1600w, /g7G4RQXpA56UbO3_10388602864635745069_hu_cf9b69f2e198a8f0.png 2400w, https://s2.loli.net/2024/07/27/g7G4RQXpA56UbO3.png 2560w" width="2560"></p>
+<p>新增代理</p>
+<p>进入 npm 管理页面，新增代理</p>
+<p><img alt="20231028T200750_36487" class="gallery-image" data-flex-basis="526px" data-flex-grow="219" height="1167" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/XSkRx6IndV5Ms24.png" srcset="/XSkRx6IndV5Ms24_9018586798584316180_hu_32d17de8be99a85d.png 800w, /XSkRx6IndV5Ms24_9018586798584316180_hu_5f5f6af75b3ef009.png 1600w, /XSkRx6IndV5Ms24_9018586798584316180_hu_311c244f4a40a0c9.png 2400w, https://s2.loli.net/2024/07/27/XSkRx6IndV5Ms24.png 2560w" width="2560"></p>
+<p>点击 <code>Add Proxy Host</code></p>
+<p><img alt="20231028T200750_11375" class="gallery-image" data-flex-basis="621px" data-flex-grow="258" height="989" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/BNXiqlmM5zxFSQK.png" srcset="/BNXiqlmM5zxFSQK_9012506429347216184_hu_5a31a2bd930df92b.png 800w, /BNXiqlmM5zxFSQK_9012506429347216184_hu_8f81c8f547383263.png 1600w, /BNXiqlmM5zxFSQK_9012506429347216184_hu_56f91ec2974fed6f.png 2400w, https://s2.loli.net/2024/07/27/BNXiqlmM5zxFSQK.png 2560w" width="2560"></p>
+<p>编辑新增内容，按照如图所示编辑，打码的部分为服务的 ip 或者域名。</p>
+<p><img alt="20231028T200750_57573" class="gallery-image" data-flex-basis="459px" data-flex-grow="191" height="1337" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/qoPrGLyxH7JTjB8.png" srcset="/qoPrGLyxH7JTjB8_9561843052871472157_hu_d706dcb189b8475d.png 800w, /qoPrGLyxH7JTjB8_9561843052871472157_hu_5b2e48994cbbefcf.png 1600w, /qoPrGLyxH7JTjB8_9561843052871472157_hu_2f6f2754ad267386.png 2400w, https://s2.loli.net/2024/07/27/qoPrGLyxH7JTjB8.png 2560w" width="2560"></p>
+<p>开启 ssl，点击 ssl，ssl 证书选择已经申请的，如果没有，这里不做介绍。</p>
+<p>强制 ssl 开启，http2 开启，如图：</p>
+<p><img alt="20231028T200750_18886" class="gallery-image" data-flex-basis="538px" data-flex-grow="224" height="1141" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/ePgLFRu2xK13OET.png" srcset="/ePgLFRu2xK13OET_1370130565447583001_hu_52446125adf05ee2.png 800w, /ePgLFRu2xK13OET_1370130565447583001_hu_2a22f865cf28e742.png 1600w, /ePgLFRu2xK13OET_1370130565447583001_hu_16e633566754b643.png 2400w, https://s2.loli.net/2024/07/27/ePgLFRu2xK13OET.png 2560w" width="2560"></p>
+<p>最后点击 save 保存。到这反向代理也配置完成。</p>
+<p>但是访问会出现</p>
+<p><img alt="20231028T200750_75626" class="gallery-image" data-flex-basis="524px" data-flex-grow="218" height="1171" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/27/aXC3oudfiBrUKp7.png" srcset="/aXC3oudfiBrUKp7_16148227064821886496_hu_f039db91de934670.png 800w, /aXC3oudfiBrUKp7_16148227064821886496_hu_3d7d06a5778781fd.png 1600w, /aXC3oudfiBrUKp7_16148227064821886496_hu_c51a29c579f3c1ad.png 2400w, https://s2.loli.net/2024/07/27/aXC3oudfiBrUKp7.png 2560w" width="2560"></p>
+<p>修改 pmail 配置文件，关闭前台进程，ctrl+c，关闭。</p>
+<p>pmail 的配置文件已经挂载到本地了，在 <code>config/config.json</code>下，</p>
+<p>进入 pmail 文件夹，编辑 <code>config.json</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> ~/opt/pmail
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo vim config/config.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>httpsEnabled 配置改成 2</li>
+<li>sslType 改成 1</li>
+</ul>
+<h2 id="启动测试">启动测试
+</h2><p>修改配置后，重新启动 docker 容器。</p>
+<p>在 docker-compose.yml 所在目录下，运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo docker up -d
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># -d 表示后台运行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>浏览器通过域名访问或者 ip+端口访问即可</p>
+<p>最终效果如下，</p>
+<p><img alt="20231028T200750_25419" class="gallery-image" data-flex-basis="481px" data-flex-grow="200" height="1277" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/28/cxjysFS8BVGMCH2.png" srcset="/cxjysFS8BVGMCH2_3953908386526374020_hu_bb27497d3491e4b5.png 800w, /cxjysFS8BVGMCH2_3953908386526374020_hu_9b3a65e29fdbd38.png 1600w, /cxjysFS8BVGMCH2_3953908386526374020_hu_5b648a91bc4aa997.png 2400w, https://s2.loli.net/2024/07/28/cxjysFS8BVGMCH2.png 2560w" width="2560"></p>
+<p>测试，发送测试邮件给 163 邮箱</p>
+<p><img alt="20231028T200750_40126" class="gallery-image" data-flex-basis="1039px" data-flex-grow="433" height="591" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/28/wLYUkH9QZXWhI8B.png" srcset="/wLYUkH9QZXWhI8B_9652151369957768704_hu_60e68f7dffdf5797.png 800w, /wLYUkH9QZXWhI8B_9652151369957768704_hu_5249db54b871691.png 1600w, /wLYUkH9QZXWhI8B_9652151369957768704_hu_e624d88598552fc3.png 2400w, https://s2.loli.net/2024/07/28/wLYUkH9QZXWhI8B.png 2560w" width="2560"></p>
+<p>163 邮箱 接收</p>
+<p><img alt="20231028T200750_15126" class="gallery-image" data-flex-basis="653px" data-flex-grow="272" height="940" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/28/F2a3MLlGDnZKV9B.png" srcset="/F2a3MLlGDnZKV9B_14320867190638107568_hu_9aa1a8323b9ff76e.png 800w, /F2a3MLlGDnZKV9B_14320867190638107568_hu_17335c2e69acc76a.png 1600w, /F2a3MLlGDnZKV9B_14320867190638107568_hu_995098da63b737c7.png 2400w, https://s2.loli.net/2024/07/28/F2a3MLlGDnZKV9B.png 2560w" width="2560"></p>
+<p><strong>总结：</strong></p>
+<p>搭建过程较为繁琐，需要的前置条件较多.</p>
+<p>pmail 界面相较于其他邮箱要差一些，<del>没有多用户功能</del>，最新版已增加，实现了基本的收发功能。基本满足个人使用。</p>
+<p>感谢作者的开源精神。</p>
+<p>最后继续附上 pmail 的 GitHub 地址：https://github.com/Jinnrry/PMail/</p>
+<h2 id="附录">附录
+</h2><p>配置信息详解</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;logLevel&#34;</span>: <span class="s2">&#34;info&#34;</span>, //日志输出级别
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;domain&#34;</span>: <span class="s2">&#34;domain.com&#34;</span>, // 你的域名
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;webDomain&#34;</span>: <span class="s2">&#34;mail.domain.com&#34;</span>, // web域名
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;dkimPrivateKeyPath&#34;</span>: <span class="s2">&#34;config/dkim/dkim.priv&#34;</span>, // dkim 私钥地址
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;sslType&#34;</span>: <span class="s2">&#34;0&#34;</span>, // ssl证书更新模式，0自动，1手动
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;SSLPrivateKeyPath&#34;</span>: <span class="s2">&#34;config/ssl/private.key&#34;</span>, // ssl 证书地址
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;SSLPublicKeyPath&#34;</span>: <span class="s2">&#34;config/ssl/public.crt&#34;</span>, // ssl 证书地址
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;dbDSN&#34;</span>: <span class="s2">&#34;./config/pmail.db&#34;</span>, // 数据库连接DSN
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;dbType&#34;</span>: <span class="s2">&#34;sqlite&#34;</span>, //数据库类型，支持sqlite 和 mysql
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;httpsEnabled&#34;</span>: 0, // web后台是否启用https 0默认（启用），1启用，2不启用
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;spamFilterLevel&#34;</span>: 0,// 垃圾邮件过滤级别，0不过滤、1 spf dkim 校验均失败时过滤，2 spf校验不通过时过滤
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;httpPort&#34;</span>: 80, // http 端口 . 默认 <span class="m">80</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;httpsPort&#34;</span>: 443, // https 端口 . 默认 <span class="m">443</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;weChatPushAppId&#34;</span>: <span class="s2">&#34;&#34;</span>, // 微信推送appid
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;weChatPushSecret&#34;</span>: <span class="s2">&#34;&#34;</span>, // 微信推送秘钥
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;weChatPushTemplateId&#34;</span>: <span class="s2">&#34;&#34;</span>, // 微信推送模板id
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;weChatPushUserId&#34;</span>: <span class="s2">&#34;&#34;</span>, // 微信推送用户id
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;tgChatId&#34;</span>: <span class="s2">&#34;&#34;</span>, // telegram 推送chatid
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;tgBotToken&#34;</span>: <span class="s2">&#34;&#34;</span>, // telegram 推送 token
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;isInit&#34;</span>: <span class="nb">true</span> // 为false的时候会进入安装引导流程
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mail/">Mail</a>
+        
+            <a href="/tags/pmail/">Pmail</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/2407016/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PMail配置SMTP，POP客户端</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/241027215401/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">免费阿里企业邮箱</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

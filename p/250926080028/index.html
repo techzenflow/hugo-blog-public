@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 插件地址：https://github.com/nikkinikki-org/OpenWrt-momo\n要求 OpenWrt &gt;= 24.10 Linux Kernel &gt;= 5.13 firewall4 安装 A. Install From Feed (Recommended) Add Feed 1 2 # only needs to be run once wget -O - https://github.com/nikkinikki-org/OpenWrt-momo/raw/refs/heads/main/feed.sh | ash Install 1 2 3 4 5 6 7 8 9 # you can install from shell or `Software` menu in LuCI # for opkg opkg install momo opkg install luci-app-momo opkg install luci-i18n-momo-zh-cn # for apk apk add momo apk add luci-app-momo apk add luci-i18n-momo-zh-cn 搭建 sing-box-subscribe 参考教程：【全网首发】OpenWrt 全新代理神器 Momo！SingBox 完美适配 Clash 面板，超简单上手\n">
+<title>OpenWrt安装科学上网工具momo</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250926080028/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="OpenWrt安装科学上网工具momo">
+<meta property='og:description' content="简介 插件地址：https://github.com/nikkinikki-org/OpenWrt-momo\n要求 OpenWrt &gt;= 24.10 Linux Kernel &gt;= 5.13 firewall4 安装 A. Install From Feed (Recommended) Add Feed 1 2 # only needs to be run once wget -O - https://github.com/nikkinikki-org/OpenWrt-momo/raw/refs/heads/main/feed.sh | ash Install 1 2 3 4 5 6 7 8 9 # you can install from shell or `Software` menu in LuCI # for opkg opkg install momo opkg install luci-app-momo opkg install luci-i18n-momo-zh-cn # for apk apk add momo apk add luci-app-momo apk add luci-i18n-momo-zh-cn 搭建 sing-box-subscribe 参考教程：【全网首发】OpenWrt 全新代理神器 Momo！SingBox 完美适配 Clash 面板，超简单上手\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250926080028/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-09-26T08:00:28&#43;08:00'/><meta property='article:modified_time' content='2025-09-26T08:00:28&#43;08:00'/>
+<meta name="twitter:title" content="OpenWrt安装科学上网工具momo">
+<meta name="twitter:description" content="简介 插件地址：https://github.com/nikkinikki-org/OpenWrt-momo\n要求 OpenWrt &gt;= 24.10 Linux Kernel &gt;= 5.13 firewall4 安装 A. Install From Feed (Recommended) Add Feed 1 2 # only needs to be run once wget -O - https://github.com/nikkinikki-org/OpenWrt-momo/raw/refs/heads/main/feed.sh | ash Install 1 2 3 4 5 6 7 8 9 # you can install from shell or `Software` menu in LuCI # for opkg opkg install momo opkg install luci-app-momo opkg install luci-i18n-momo-zh-cn # for apk apk add momo apk add luci-app-momo apk add luci-i18n-momo-zh-cn 搭建 sing-box-subscribe 参考教程：【全网首发】OpenWrt 全新代理神器 Momo！SingBox 完美适配 Clash 面板，超简单上手\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#要求">要求</a></li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#a-install-from-feed-recommended">A. Install From Feed (Recommended)</a></li>
+      </ol>
+    </li>
+    <li><a href="#搭建-sing-box-subscribe">搭建 sing-box-subscribe</a></li>
+    <li><a href="#订阅地址组合示例">订阅地址组合示例</a>
+      <ol>
+        <li><a href="#配置文件地址">配置文件地址</a></li>
+      </ol>
+    </li>
+    <li><a href="#最终订阅链接">最终订阅链接</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/proxy/" style="background-color: hsl(275, 60%, 84%); color: hsl(275, 60%, 15%);">
+                Proxy
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250926080028/">OpenWrt安装科学上网工具momo</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-09-26T08:00:28&#43;08:00'>Sep 26, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#要求">要求</a></li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#a-install-from-feed-recommended">A. Install From Feed (Recommended)</a></li>
+      </ol>
+    </li>
+    <li><a href="#搭建-sing-box-subscribe">搭建 sing-box-subscribe</a></li>
+    <li><a href="#订阅地址组合示例">订阅地址组合示例</a>
+      <ol>
+        <li><a href="#配置文件地址">配置文件地址</a></li>
+      </ol>
+    </li>
+    <li><a href="#最终订阅链接">最终订阅链接</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>插件地址：<a class="link" href="https://github.com/nikkinikki-org/OpenWrt-momo"  target="_blank" rel="noopener"
+    >https://github.com/nikkinikki-org/OpenWrt-momo</a></p>
+<h2 id="要求">要求
+</h2><ul>
+<li>OpenWrt &gt;= 24.10</li>
+<li>Linux Kernel &gt;= 5.13</li>
+<li>firewall4</li>
+</ul>
+<h2 id="安装">安装
+</h2><h3 id="a-install-from-feed-recommended">A. Install From Feed (Recommended)
+</h3><ol>
+<li>Add Feed</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># only needs to be run once</span>
+</span></span><span class="line"><span class="cl">wget -O - https://github.com/nikkinikki-org/OpenWrt-momo/raw/refs/heads/main/feed.sh <span class="p">|</span> ash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Install</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># you can install from shell or `Software` menu in LuCI</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># for opkg</span>
+</span></span><span class="line"><span class="cl">opkg install momo
+</span></span><span class="line"><span class="cl">opkg install luci-app-momo
+</span></span><span class="line"><span class="cl">opkg install luci-i18n-momo-zh-cn
+</span></span><span class="line"><span class="cl"><span class="c1"># for apk</span>
+</span></span><span class="line"><span class="cl">apk add momo
+</span></span><span class="line"><span class="cl">apk add luci-app-momo
+</span></span><span class="line"><span class="cl">apk add luci-i18n-momo-zh-cn
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="搭建-sing-box-subscribe">搭建 sing-box-subscribe
+</h2><p>参考教程：<a class="link" href="https://www.qichiyu.com/824.html"  target="_blank" rel="noopener"
+    >【全网首发】OpenWrt 全新代理神器 Momo！SingBox 完美适配 Clash 面板，超简单上手</a></p>
+<p>docker-compose</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">sing-box</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">dockerhub16/sing-box-subscribe:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">sing-box-subscribe</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;5000:5000&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>服务：https://sing-box-subscribe.hix.dpdns.org:66/</p>
+<h2 id="订阅地址组合示例">订阅地址组合示例
+</h2>
+    <blockquote>
+        <p>机场订阅复制 clash 或者通用订阅即可，多机场用 | 符合分割，最多三个，再多用 substore 去汇聚管理<br>
+配置文件在 github，后端所在网络处于科学才可以正常拉取转换，直连记得加镜像。</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://192.168.10.41:5000/config/机场订阅&amp;file=配置文件地址
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="配置文件地址">配置文件地址
+</h3><p><strong>切忌复制对应源码地址</strong></p>
+<p><a class="link" href="https://github.com/qichiyuhub/rule/tree/main/config/singbox/1.12.x"  target="_blank" rel="noopener"
+    >https://github.com/qichiyuhub/rule/tree/main/config/singbox/1.12.x</a></p>
+<h2 id="最终订阅链接">最终订阅链接
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">https://sing-box-subscribe.hix.dpdns.org:66/config/https://bp.sub.cmliussss.net/sub?host=sa.wto.ip-ddns.com&amp;uuid=f41c8f9b-5854-44d4-9bef-ad6803d1c99d&amp;file=https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/config/singbox/1.12.x/momo.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置文件+CDN</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">https://sing-box-subscribe.hix.dpdns.org:66/config/https://bp.sub.cmliussss.net/sub?host=sa.wto.ip-ddns.com&amp;uuid=f41c8f9b-5854-44d4-9bef-ad6803d1c99d&amp;file=https://gh-proxy.526899.xyz/https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/config/singbox/1.12.x/momo.json
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260315121132/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">subconverter，用于在各种代理订阅格式之间转换的实用工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251216224140/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SublinkPro，强大的代理订阅管理与转换工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251130124444/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">s-ui，高级 Web 面板，基于 SagerNet、Sing-Box 构建</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250505211719/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">windows下sing-box启动方案</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250422075426/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">sub-store，节点高级订阅管理器</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

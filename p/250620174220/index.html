@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Windows powershell 运行脚本出现了：\n1 2 3 4 5 6 7 pnpm : 无法加载文件 D:\\develop\\nodejs\\pnpm.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwl ink/?LinkID=135170 中的 about_Execution_Policies。 所在位置 行:1 字符: 1 + pnpm run dev + ~~~~ + CategoryInfo : SecurityError: (:) []，PSSecurityException + FullyQualifiedErrorId : UnauthorizedAccess 这个错误信息 无法加载文件 D:\\develop\\nodejs\\pnpm.ps1，因为在此系统上禁止运行脚本。 表明你的 PowerShell 执行策略阻止了 pnpm 脚本的运行。这是 Windows 系统为了安全而设置的默认策略。\n">
+<title>Windows被禁止运行脚本</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250620174220/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Windows被禁止运行脚本">
+<meta property='og:description' content="Windows powershell 运行脚本出现了：\n1 2 3 4 5 6 7 pnpm : 无法加载文件 D:\\develop\\nodejs\\pnpm.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwl ink/?LinkID=135170 中的 about_Execution_Policies。 所在位置 行:1 字符: 1 + pnpm run dev + ~~~~ + CategoryInfo : SecurityError: (:) []，PSSecurityException + FullyQualifiedErrorId : UnauthorizedAccess 这个错误信息 无法加载文件 D:\\develop\\nodejs\\pnpm.ps1，因为在此系统上禁止运行脚本。 表明你的 PowerShell 执行策略阻止了 pnpm 脚本的运行。这是 Windows 系统为了安全而设置的默认策略。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250620174220/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-06-20T17:42:20&#43;08:00'/><meta property='article:modified_time' content='2025-06-20T17:42:20&#43;08:00'/>
+<meta name="twitter:title" content="Windows被禁止运行脚本">
+<meta name="twitter:description" content="Windows powershell 运行脚本出现了：\n1 2 3 4 5 6 7 pnpm : 无法加载文件 D:\\develop\\nodejs\\pnpm.ps1，因为在此系统上禁止运行脚本。有关详细信息，请参阅 https:/go.microsoft.com/fwl ink/?LinkID=135170 中的 about_Execution_Policies。 所在位置 行:1 字符: 1 + pnpm run dev + ~~~~ + CategoryInfo : SecurityError: (:) []，PSSecurityException + FullyQualifiedErrorId : UnauthorizedAccess 这个错误信息 无法加载文件 D:\\develop\\nodejs\\pnpm.ps1，因为在此系统上禁止运行脚本。 表明你的 PowerShell 执行策略阻止了 pnpm 脚本的运行。这是 Windows 系统为了安全而设置的默认策略。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/windows/" style="background-color: hsl(330, 60%, 84%); color: hsl(330, 60%, 15%);">
+                Windows
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250620174220/">Windows被禁止运行脚本</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-06-20T17:42:20&#43;08:00'>Jun 20, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>Windows powershell 运行脚本出现了：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">pnpm</span> <span class="err">:</span> <span class="n">无法加载文件</span> <span class="n">D:</span><span class="p">\</span><span class="n">develop</span><span class="p">\</span><span class="n">nodejs</span><span class="p">\</span><span class="n">pnpm</span><span class="p">.</span><span class="n">ps1</span><span class="err">，</span><span class="n">因为在此系统上禁止运行脚本</span><span class="err">。</span><span class="n">有关详细信息</span><span class="err">，</span><span class="n">请参阅</span> <span class="n">https</span><span class="err">:</span><span class="p">/</span><span class="n">go</span><span class="p">.</span><span class="py">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">fwl</span>
+</span></span><span class="line"><span class="cl"><span class="n">ink</span><span class="p">/</span><span class="k">?</span><span class="n">LinkID</span><span class="p">=</span><span class="mf">135170</span> <span class="n">中的</span> <span class="n">about_Execution_Policies</span><span class="err">。</span>
+</span></span><span class="line"><span class="cl"><span class="n">所在位置</span> <span class="n">行</span><span class="err">:</span><span class="mf">1</span> <span class="n">字符</span><span class="err">:</span> <span class="mf">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">+</span> <span class="n">pnpm</span> <span class="n">run</span> <span class="n">dev</span>
+</span></span><span class="line"><span class="cl"><span class="p">+</span> <span class="p">~~~~</span>
+</span></span><span class="line"><span class="cl">    <span class="p">+</span> <span class="n">CategoryInfo</span>          <span class="err">:</span> <span class="n">SecurityError</span><span class="err">:</span> <span class="p">(</span><span class="err">:</span><span class="p">)</span> <span class="p">[]</span><span class="err">，</span><span class="n">PSSecurityException</span>
+</span></span><span class="line"><span class="cl">    <span class="p">+</span> <span class="n">FullyQualifiedErrorId</span> <span class="err">:</span> <span class="n">UnauthorizedAccess</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这个错误信息 <code>无法加载文件 D:\develop\nodejs\pnpm.ps1，因为在此系统上禁止运行脚本。</code> 表明你的 PowerShell 执行策略阻止了 pnpm 脚本的运行。这是 Windows 系统为了安全而设置的默认策略。</p>
+<p>要解决这个问题，你需要修改 PowerShell 的执行策略。推荐的策略是 <code>RemoteSigned</code>，它允许你本地创建的脚本运行，但会要求从网上下载的脚本必须经过数字签名。</p>
+<p><strong>解决方案步骤：</strong></p>
+<p><strong>以管理员身份打开 PowerShell。</strong></p>
+<ul>
+<li>在 Windows 搜索栏中输入 &ldquo;PowerShell&rdquo;。</li>
+<li>在搜索结果中找到 &ldquo;Windows PowerShell&rdquo;，然后右键点击它，选择 &ldquo;以管理员身份运行&rdquo;。</li>
+</ul>
+<p><strong>检查当前的执行策略（可选但推荐）：</strong></p>
+<ul>
+<li>在 PowerShell 窗口中输入以下命令并按 Enter：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Get-ExecutionPolicy</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这会显示当前的执行策略，很可能是 <code>Restricted</code>（受限）或 <code>AllSigned</code>。</p>
+<p><strong>设置新的执行策略：</strong></p>
+<ul>
+<li>在 PowerShell 窗口中输入以下命令并按 Enter：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Set-ExecutionPolicy</span> <span class="n">RemoteSigned</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>系统会提示你确认更改。输入 <code>Y</code> (表示 Yes) 并按 Enter。</p>
+<p><strong>验证策略是否已更改（可选但推荐）：</strong></p>
+<ul>
+<li>再次输入 <code>Get-ExecutionPolicy</code> 并按 Enter。</li>
+<li>确认显示的是 <code>RemoteSigned</code>。</li>
+</ul>
+<p><strong>关闭管理员 PowerShell 窗口。</strong></p>
+<p><strong>回到你的开发终端（Git Bash、CMD、VS Code Terminal 等），重新运行你的 pnpm 命令：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pnpm run dev
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>现在，<code>pnpm</code> 应该能够正常运行了。</p>
+<p><strong>解释和注意事项：</strong></p>
+<ul>
+<li><strong><code>RemoteSigned</code> 策略：</strong> 这是一个比较平衡的策略。它允许你在本地编写或通过安装器（如 Node.js 或 pnpm）生成的脚本运行，同时仍然对从互联网下载的脚本保持一定的安全性（要求签名）。</li>
+<li><strong>其他策略：</strong>
+<ul>
+<li><code>Restricted</code> (默认)：不允许任何脚本运行。</li>
+<li><code>Unrestricted</code>：允许所有脚本运行，但会警告从互联网下载的脚本。安全性最低。</li>
+<li><code>AllSigned</code>：只允许由受信任的发布者签名的脚本运行。</li>
+</ul>
+</li>
+<li><strong>安全性考虑：</strong> 更改执行策略会降低系统的安全性，但对于开发者来说，为了运行开发工具，这是必要的。<code>RemoteSigned</code> 是一个常用且相对安全的折衷方案。</li>
+<li><strong>如果只想针对当前用户生效：</strong>
+你也可以使用 <code>-Scope CurrentUser</code> 参数，这样只会影响当前登录的用户，而不是整个系统：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="nb">Set-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>但通常情况下，为了方便，开发者会选择影响全局。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260408093623/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Windows远程桌面修改端口</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260204160610/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">CMD，命令提示符的一些命令</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251211085423/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">rsync，windows环境下使用</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251124214228/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">windows运行常见命令</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251121190709/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">windows系统封装</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

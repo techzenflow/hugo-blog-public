@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 YOURLS 是一套 PHP 脚本，它能让你在自己的服务器上运行属于你自己的 URL 缩短服务。 你将完全掌控你的数据，还能获得详细的统计信息、分析报告、插件等等。 它是免费且开源的。\n">
+<title>yourls，行业标准自托管的PHP网址缩短程序</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/2407027/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="yourls，行业标准自托管的PHP网址缩短程序">
+<meta property='og:description' content="简介 YOURLS 是一套 PHP 脚本，它能让你在自己的服务器上运行属于你自己的 URL 缩短服务。 你将完全掌控你的数据，还能获得详细的统计信息、分析报告、插件等等。 它是免费且开源的。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/2407027/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='短链' /><meta property='article:tag' content='php' /><meta property='article:published_time' content='2024-07-07T15:07:53&#43;08:00'/><meta property='article:modified_time' content='2024-07-07T15:07:53&#43;08:00'/>
+<meta name="twitter:title" content="yourls，行业标准自托管的PHP网址缩短程序">
+<meta name="twitter:description" content="简介 YOURLS 是一套 PHP 脚本，它能让你在自己的服务器上运行属于你自己的 URL 缩短服务。 你将完全掌控你的数据，还能获得详细的统计信息、分析报告、插件等等。 它是免费且开源的。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#预览">预览</a></li>
+    <li><a href="#部署">部署</a>
+      <ol>
+        <li><a href="#serv00">serv00</a></li>
+        <li><a href="#docker-compose">docker compose</a></li>
+      </ol>
+    </li>
+    <li><a href="#主题">主题</a>
+      <ol>
+        <li><a href="#sleeky">Sleeky</a></li>
+      </ol>
+    </li>
+    <li><a href="#插件">插件</a>
+      <ol>
+        <li><a href="#浏览器">浏览器</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2407027/">yourls，行业标准自托管的PHP网址缩短程序</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-07-07T15:07:53&#43;08:00'>Jul 07, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#预览">预览</a></li>
+    <li><a href="#部署">部署</a>
+      <ol>
+        <li><a href="#serv00">serv00</a></li>
+        <li><a href="#docker-compose">docker compose</a></li>
+      </ol>
+    </li>
+    <li><a href="#主题">主题</a>
+      <ol>
+        <li><a href="#sleeky">Sleeky</a></li>
+      </ol>
+    </li>
+    <li><a href="#插件">插件</a>
+      <ol>
+        <li><a href="#浏览器">浏览器</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>YOURLS 是一套 PHP 脚本，它能让你在自己的服务器上运行属于你自己的 URL 缩短服务。 你将完全掌控你的数据，还能获得详细的统计信息、分析报告、插件等等。 它是免费且开源的。</p>
+<p>官网：<a class="link" href="https://yourls.org"  target="_blank" rel="noopener"
+    >https://yourls.org</a></p>
+<p>源码：<a class="link" href="https://github.com/YOURLS/YOURLS"  target="_blank" rel="noopener"
+    >https://github.com/YOURLS/YOURLS</a></p>
+<h2 id="预览">预览
+</h2><p><img alt="image-20240715123249171" class="gallery-image" data-flex-basis="439px" data-flex-grow="183" height="1397" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/15/hwqLOfRBcymG2ae.png" srcset="/hwqLOfRBcymG2ae_10317545430992664417_hu_978d703f722418a3.png 800w, /hwqLOfRBcymG2ae_10317545430992664417_hu_2f7d837694d67564.png 1600w, /hwqLOfRBcymG2ae_10317545430992664417_hu_1c5846033b9eb9bc.png 2400w, https://s2.loli.net/2024/07/15/hwqLOfRBcymG2ae.png 2560w" width="2560"></p>
+<p><img alt="image-20240715123326393" class="gallery-image" data-flex-basis="440px" data-flex-grow="183" height="1388" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/15/JQmsdgE7NKvA4Rp.png" srcset="/JQmsdgE7NKvA4Rp_2379872799035082277_hu_a87d2258fb7c4799.png 800w, /JQmsdgE7NKvA4Rp_2379872799035082277_hu_36dac32f34eadd24.png 1600w, /JQmsdgE7NKvA4Rp_2379872799035082277_hu_cbe18dff06f9c78.png 2400w, https://s2.loli.net/2024/07/15/JQmsdgE7NKvA4Rp.png 2549w" width="2549"></p>
+<h2 id="部署">部署
+</h2><h3 id="serv00">serv00
+</h3><p>下载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget https://github.com/YOURLS/YOURLS/archive/refs/tags/1.9.2.zip
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>解压</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">unzip 1.9.2.zip -d  public_html/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>复制文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> public_html/
+</span></span><span class="line"><span class="cl">rm -rf index.html
+</span></span><span class="line"><span class="cl">cp -r YOURLS-1.9.2/* ./
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">cp user/config-sample.php user/config.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改<code>user/config.php</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim user/config.php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>serv00 控制台创建 MySQL 数据库，将数据库信息填写到 <code>user/config.php</code></p>
+<p>除了数据库外，还需要修改其他信息，按需填写</p>
+<p>大致需要修改的如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span> <span class="s1">&#39;YOURLS_DB_USER&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span> <span class="s1">&#39;YOURLS_DB_PASS&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span> <span class="s1">&#39;YOURLS_DB_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span> <span class="s1">&#39;YOURLS_DB_HOST&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span> <span class="s1">&#39;YOURLS_DB_PREFIX&#39;</span><span class="p">,</span> <span class="s1">&#39;yourls_&#39;</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span> <span class="s1">&#39;YOURLS_SITE&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改完成之后访问：<code>域名/admin</code></p>
+<p>进入到这个界面，点击 <code>Install YOURLS</code></p>
+<p><img alt="image-20240715115528412" class="gallery-image" data-flex-basis="573px" data-flex-grow="238" height="1000" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/15/RwMSbTGBiFqvZpA.png" srcset="/RwMSbTGBiFqvZpA_5934059301032987468_hu_f34dec52256a4f6a.png 800w, /RwMSbTGBiFqvZpA_5934059301032987468_hu_547a73c38b04a2d4.png 1600w, https://s2.loli.net/2024/07/15/RwMSbTGBiFqvZpA.png 2389w" width="2389"></p>
+<p>登陆后台，长这样：</p>
+<p><img alt="image-20240715115833946" class="gallery-image" data-flex-basis="490px" data-flex-grow="204" height="1018" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/15/Hk4wrKIFhzMWfQc.png" srcset="/Hk4wrKIFhzMWfQc_5403328265949688757_hu_ddbd4ff0d49ca406.png 800w, /Hk4wrKIFhzMWfQc_5403328265949688757_hu_305b0d6eeeb900aa.png 1600w, https://s2.loli.net/2024/07/15/Hk4wrKIFhzMWfQc.png 2082w" width="2082"></p>
+<h3 id="docker-compose">docker compose
+</h3><p>待续</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"></code></pre></td></tr></table>
+</div>
+</div><h2 id="主题">主题
+</h2><h3 id="sleeky">Sleeky
+</h3><p>Sleeky 是一个最小的接口包，用于 <a class="link" href="https://github.com/YOURLS/YOURLS"  target="_blank" rel="noopener"
+    >YOURLS</a>，一个开源的 URL 缩短器。Sleeky 添加了一个公共接口，并对后端（管理员）接口进行了大修。使用此主题，您可以创建自己的 Bitly / URL 缩短网站或公司内部使用的缩</p>
+<p>源码：<a class="link" href="https://github.com/Flynntes/Sleeky"  target="_blank" rel="noopener"
+    >https://github.com/Flynntes/Sleeky</a></p>
+<p>预览</p>
+<p>前台</p>
+<p><img alt="image-20240715123249171" class="gallery-image" data-flex-basis="439px" data-flex-grow="183" height="1397" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/15/hwqLOfRBcymG2ae.png" srcset="/hwqLOfRBcymG2ae_10317545430992664417_hu_978d703f722418a3.png 800w, /hwqLOfRBcymG2ae_10317545430992664417_hu_2f7d837694d67564.png 1600w, /hwqLOfRBcymG2ae_10317545430992664417_hu_1c5846033b9eb9bc.png 2400w, https://s2.loli.net/2024/07/15/hwqLOfRBcymG2ae.png 2560w" width="2560"></p>
+<p>后台</p>
+<p><img alt="image-20240715123326393" class="gallery-image" data-flex-basis="440px" data-flex-grow="183" height="1388" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/07/15/JQmsdgE7NKvA4Rp.png" srcset="/JQmsdgE7NKvA4Rp_2379872799035082277_hu_a87d2258fb7c4799.png 800w, /JQmsdgE7NKvA4Rp_2379872799035082277_hu_36dac32f34eadd24.png 1600w, /JQmsdgE7NKvA4Rp_2379872799035082277_hu_cbe18dff06f9c78.png 2400w, https://s2.loli.net/2024/07/15/JQmsdgE7NKvA4Rp.png 2549w" width="2549"></p>
+<p>安装</p>
+<p>下载地址：<a class="link" href="https://github.com/Flynntes/Sleeky/releases/tag/v2.5.0"  target="_blank" rel="noopener"
+    >v2.5.0</a></p>
+<ul>
+<li>安装并运行 YOURLS</li>
+<li>将 <code>sleeky-frontend</code> 目录的内容移动到 YOURLS 安装的根目录</li>
+<li>将 <code>sleeky-backend</code> 文件夹移动到 YOURLS 安装的 <code>user/plugins/</code> 文件夹</li>
+<li>在 YOURLS 管理区（<code>example.com/admin/plugins.php</code>）激活插件。该插件将显示为 Sleeky Backend</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># serv00</span>
+</span></span><span class="line"><span class="cl">wget https://github.com/Flynntes/Sleeky/archive/refs/tags/v2.5.0.zip
+</span></span><span class="line"><span class="cl">unzip v2.5.0.zip
+</span></span><span class="line"><span class="cl">cp -r Sleeky-2.5.0/sleeky-frontend/* public_html/
+</span></span><span class="line"><span class="cl">cp -r Sleeky-2.5.0/sleeky-backend/ public_html/user/plugins/
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>如果 css 加载有问题，查看这个 issuse 解决：<a class="link" href="https://github.com/Flynntes/Sleeky/issues/89"  target="_blank" rel="noopener"
+    >https://github.com/Flynntes/Sleeky/issues/89</a></p>
+
+    </blockquote>
+<h2 id="插件">插件
+</h2><h3 id="浏览器">浏览器
+</h3><ul>
+<li>Firefox：<a class="link" href="https://addons.mozilla.org/zh-CN/firefox/addon/yourls-shortener/?utm_source=addons.mozilla.org&amp;utm_medium=referral&amp;utm_content=search"  target="_blank" rel="noopener"
+    >YOURLS shortener</a></li>
+</ul>
+<p>点击<code>Setting</code>进入设置，填写信息后测试保存</p>
+<ul>
+<li><code>Server URL</code>：网址链接</li>
+<li><code>Signature</code>：密钥，在<code>Tools</code> - <code>Secure passwordless API call</code> 可以找到</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E7%9F%AD%E9%93%BE/">短链</a>
+        
+            <a href="/tags/php/">Php</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/250403135551/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">kodbox，新一代企业私有云存储，协同办公平台</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/2407023/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">可用的短链系统</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

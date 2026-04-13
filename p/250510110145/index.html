@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 rsync (remote sync) 是一个快速且极其通用的文件复制工具。它可以在本地计算机之间、本地计算机和远程计算机之间以及远程计算机之间同步文件和目录。 rsync 的关键特性是它只传输源文件和目标文件之间 差异的部分，从而大大减少了网络传输量，使其成为备份、镜像和数据迁移的理想选择。\n">
+<title>rsync，快速且极其通用的文件复制工具</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250510110145/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="rsync，快速且极其通用的文件复制工具">
+<meta property='og:description' content="简介 rsync (remote sync) 是一个快速且极其通用的文件复制工具。它可以在本地计算机之间、本地计算机和远程计算机之间以及远程计算机之间同步文件和目录。 rsync 的关键特性是它只传输源文件和目标文件之间 差异的部分，从而大大减少了网络传输量，使其成为备份、镜像和数据迁移的理想选择。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250510110145/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='rsync' /><meta property='article:published_time' content='2025-05-10T11:01:45&#43;08:00'/><meta property='article:modified_time' content='2025-05-10T11:01:45&#43;08:00'/>
+<meta name="twitter:title" content="rsync，快速且极其通用的文件复制工具">
+<meta name="twitter:description" content="简介 rsync (remote sync) 是一个快速且极其通用的文件复制工具。它可以在本地计算机之间、本地计算机和远程计算机之间以及远程计算机之间同步文件和目录。 rsync 的关键特性是它只传输源文件和目标文件之间 差异的部分，从而大大减少了网络传输量，使其成为备份、镜像和数据迁移的理想选择。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#主要特点和优势">主要特点和优势</a></li>
+        <li><a href="#工作原理">工作原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#语法">语法</a></li>
+    <li><a href="#基本用法">基本用法</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/linux/" style="background-color: hsl(237, 60%, 84%); color: hsl(237, 60%, 15%);">
+                Linux
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250510110145/">rsync，快速且极其通用的文件复制工具</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-05-10T11:01:45&#43;08:00'>May 10, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#主要特点和优势">主要特点和优势</a></li>
+        <li><a href="#工作原理">工作原理</a></li>
+      </ol>
+    </li>
+    <li><a href="#语法">语法</a></li>
+    <li><a href="#基本用法">基本用法</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>rsync (remote sync) 是一个快速且极其通用的文件复制工具。它可以在本地计算机之间、本地计算机和远程计算机之间以及远程计算机之间同步文件和目录。 rsync 的关键特性是它只传输源文件和目标文件之间 <strong>差异的部分</strong>，从而大大减少了网络传输量，使其成为备份、镜像和数据迁移的理想选择。</p>
+<h3 id="主要特点和优势">主要特点和优势
+</h3><ul>
+<li><strong>增量传输：</strong> 这是 rsync 最重要的特性。 它只传输源文件和目标文件之间更改的部分，而不是整个文件。 这显著提高了同步速度，尤其是在处理大型文件或通过慢速网络连接传输数据时。</li>
+<li><strong>压缩：</strong> rsync 可以压缩数据以减少传输量，进一步提高速度。</li>
+<li><strong>安全性：</strong> rsync 可以通过 SSH (Secure Shell) 等安全协议进行传输，确保数据在传输过程中的机密性和完整性。</li>
+<li><strong>灵活性：</strong> rsync 提供了大量的选项，允许用户精确控制同步过程，例如：
+<ul>
+<li><strong>排除特定文件或目录：</strong> 可以通过指定模式来排除不需要同步的文件或目录。</li>
+<li><strong>保留文件属性：</strong> 可以保留文件权限、所有者、时间戳等属性。</li>
+<li><strong>删除目标文件：</strong> 可以删除目标目录中源目录中不存在的文件。</li>
+<li><strong>模拟运行：</strong> 可以进行模拟运行，查看同步过程，而不实际修改文件。</li>
+</ul>
+</li>
+<li><strong>支持多种传输协议：</strong> rsync 可以使用 rsh、ssh 或直接 TCP 连接进行传输。</li>
+<li><strong>镜像网站：</strong> rsync 非常适合镜像网站，因为它能够快速有效地同步网站内容。</li>
+<li><strong>备份：</strong> rsync 经常被用于创建备份，因为它只传输更改的部分，从而节省时间和存储空间。</li>
+<li><strong>免费开源：</strong> rsync 是一个免费且开源的工具，可以自由使用和修改。</li>
+</ul>
+<h3 id="工作原理">工作原理
+</h3><p>rsync 的增量传输算法的核心是 <strong>差分算法 (delta transfer algorithm)</strong>。 它大致的工作流程如下：</p>
+<ol>
+<li><strong>计算校验和：</strong> rsync 首先计算源文件和目标文件的校验和 (checksum)。</li>
+<li><strong>比较校验和：</strong> 它比较源文件和目标文件的校验和，以确定哪些部分相同，哪些部分不同。</li>
+<li><strong>传输差异：</strong> 对于不同的部分，rsync 只传输差异的数据块，而不是整个文件。</li>
+<li><strong>重建文件：</strong> 目标端接收到差异的数据块后，根据已有的目标文件和接收到的差异数据块，重建完整的目标文件。</li>
+</ol>
+<h2 id="语法">语法
+</h2><p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync <span class="o">[</span>OPTIONS<span class="o">]</span> SOURCE DESTINATION
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>OPTIONS: 各种选项，用于控制 rsync 的行为。</li>
+<li>SOURCE: 源文件或目录。</li>
+<li>DESTINATION: 目标文件或目录。</li>
+</ul>
+<p>选项：</p>
+<ul>
+<li><code>-v</code>: verbose，显示详细的同步过程。</li>
+<li><code>-a</code>: archive，归档模式，保留文件属性（权限、所有者、时间戳等），并递归复制目录。 这是最常用的选项，通常用于备份和同步。</li>
+<li><code>-z</code>: compress，压缩数据以减少传输量。</li>
+<li><code>-r</code>: recursive，递归复制目录。</li>
+<li><code>-u</code>: update，只更新目标文件中比源文件旧的文件。</li>
+<li><code>-n</code>: dry-run，模拟运行，不实际修改文件。</li>
+<li><code>--delete</code>: 删除目标目录中源目录中不存在的文件。</li>
+<li><code>--exclude=PATTERN</code>: 排除匹配 PATTERN 的文件或目录。</li>
+<li><code>--include=PATTERN</code>: 包含匹配 PATTERN 的文件或目录，即使它被其他排除规则排除。</li>
+<li><code>-e</code>: 指定使用的远程 shell，例如 <code>-e ssh</code> 使用 SSH 进行传输。</li>
+<li><code>-h</code>：使输出的<strong>文件大小、传输速度和总数据量</strong>等信息以更易于人类阅读的格式显示。</li>
+</ul>
+<h2 id="基本用法">基本用法
+</h2><p>将本地目录 <code>source_dir</code> 同步到远程服务器 <code>user@remote_host:/path/to/destination_dir</code>，使用 SSH 进行传输，并保留文件属性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -avz -e ssh source_dir user@remote_host:/path/to/destination_dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将远程服务器 <code>user@remote_host:/path/to/source_dir</code> 同步到本地目录 <code>destination_dir</code>，使用 SSH 进行传输，并删除目标目录中源目录中不存在的文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -avz -e ssh --delete user@remote_host:/path/to/source_dir destination_dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>将本地目录 <code>source_dir</code> 同步到本地目录 <code>destination_dir</code>，排除所有 <code>.log</code> 文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rsync -avz --exclude<span class="o">=</span><span class="s1">&#39;*.log&#39;</span> source_dir destination_dir
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/rsync/">Rsync</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/251211142800/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Zabbix，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251211135349/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Grafana，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250812112934/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">全新Linux初次必须要做的事项</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250502173451/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Paru，Archlinux轻量级的AUR管理器</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250502114118/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">fail2ban，保护服务器安全</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

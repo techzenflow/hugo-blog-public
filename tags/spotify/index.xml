@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Spotify on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/spotify/</link>
+        <description>Recent content in Spotify on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Fri, 10 May 2024 16:05:43 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/spotify/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>SpotX，Spotify的开源去广告工具</title>
+            <link>https://blog.seektao.cc/p/2405010/</link>
+            <pubDate>Fri, 10 May 2024 16:05:43 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/2405010/</guid>
+            <description>&lt;p&gt;项目地址：https://github.com/SpotX-Official/SpotX&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;&#xA;&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1&#xA;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&#xA;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;iex &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;amp; { &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;iwr &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;-useb&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;https://raw.githubusercontent.com/SpotX-Official/spotx-official.github.io/main/run.ps1&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; } -new_theme&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&lt;p&gt;&lt;img alt=&#34;image.png&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;360px&#34; data-flex-grow=&#34;150&#34; height=&#34;1119&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2024/05/20/uUXMygAcLDRpt4S.png&#34; srcset=&#34;https://blog.seektao.cc/uUXMygAcLDRpt4S_14274255491373364475_hu_8e1a6bbd91e20b7c.png 800w, https://blog.seektao.cc/uUXMygAcLDRpt4S_14274255491373364475_hu_ce690f5d395158de.png 1600w, https://s2.loli.net/2024/05/20/uUXMygAcLDRpt4S.png 1680w&#34; width=&#34;1680&#34;&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

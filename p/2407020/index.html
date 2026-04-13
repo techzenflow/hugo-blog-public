@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 rclone 是一个强大的命令行工具，旨在管理和同步文件到多种云存储服务及本地文件系统。它支持超过 70 种不同的云存储提供商，如 Google Drive、Dropbox、Amazon S3、OneDrive 等。\n">
+<title>rclone，统一管理、备份，同步文件，文件夹到多种云存储平台</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/2407020/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="rclone，统一管理、备份，同步文件，文件夹到多种云存储平台">
+<meta property='og:description' content="简介 rclone 是一个强大的命令行工具，旨在管理和同步文件到多种云存储服务及本地文件系统。它支持超过 70 种不同的云存储提供商，如 Google Drive、Dropbox、Amazon S3、OneDrive 等。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/2407020/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='rclone' /><meta property='article:published_time' content='2024-07-20T15:07:50&#43;08:00'/><meta property='article:modified_time' content='2024-07-20T15:07:50&#43;08:00'/><meta property='og:image' content='https://blog.seektao.cc/' />
+<meta name="twitter:title" content="rclone，统一管理、备份，同步文件，文件夹到多种云存储平台">
+<meta name="twitter:description" content="简介 rclone 是一个强大的命令行工具，旨在管理和同步文件到多种云存储服务及本地文件系统。它支持超过 70 种不同的云存储提供商，如 Google Drive、Dropbox、Amazon S3、OneDrive 等。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.seektao.cc/' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#主要特点">主要特点</a></li>
+      </ol>
+    </li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#linux--macos--bsd">Linux / macOS / BSD</a></li>
+        <li><a href="#windows">Windows</a></li>
+      </ol>
+    </li>
+    <li><a href="#配置">配置</a>
+      <ol>
+        <li><a href="#远程存储">远程存储</a></li>
+        <li><a href="#文件路径">文件路径</a></li>
+        <li><a href="#命令补全">命令补全</a></li>
+      </ol>
+    </li>
+    <li><a href="#基本用法">基本用法</a></li>
+    <li><a href="#命令详解">命令详解</a>
+      <ol>
+        <li><a href="#复制">复制</a></li>
+        <li><a href="#挂载">挂载</a></li>
+        <li><a href="#单向同步">单向同步</a></li>
+        <li><a href="#双向同步">双向同步</a></li>
+        <li><a href="#移动">移动</a></li>
+      </ol>
+    </li>
+    <li><a href="#其他命令">其他命令</a></li>
+    <li><a href="#web-ui">Web UI</a></li>
+    <li><a href="#一些技巧">一些技巧</a>
+      <ol>
+        <li><a href="#只创建相同目录结构">只创建相同目录结构</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/p/2407020/">
+            <img alt="Featured image of post rclone，统一管理、备份，同步文件，文件夹到多种云存储平台" height="1792" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/08/06/IyYvUsDeqloum4M.webp" srcset="/IyYvUsDeqloum4M_9114658645722264545_hu_e3abb45f93cb4fa2.webp 800w, https://s2.loli.net/2024/08/06/IyYvUsDeqloum4M.webp 1024w" width="1024">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2407020/">rclone，统一管理、备份，同步文件，文件夹到多种云存储平台</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-07-20T15:07:50&#43;08:00'>Jul 20, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#主要特点">主要特点</a></li>
+      </ol>
+    </li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#linux--macos--bsd">Linux / macOS / BSD</a></li>
+        <li><a href="#windows">Windows</a></li>
+      </ol>
+    </li>
+    <li><a href="#配置">配置</a>
+      <ol>
+        <li><a href="#远程存储">远程存储</a></li>
+        <li><a href="#文件路径">文件路径</a></li>
+        <li><a href="#命令补全">命令补全</a></li>
+      </ol>
+    </li>
+    <li><a href="#基本用法">基本用法</a></li>
+    <li><a href="#命令详解">命令详解</a>
+      <ol>
+        <li><a href="#复制">复制</a></li>
+        <li><a href="#挂载">挂载</a></li>
+        <li><a href="#单向同步">单向同步</a></li>
+        <li><a href="#双向同步">双向同步</a></li>
+        <li><a href="#移动">移动</a></li>
+      </ol>
+    </li>
+    <li><a href="#其他命令">其他命令</a></li>
+    <li><a href="#web-ui">Web UI</a></li>
+    <li><a href="#一些技巧">一些技巧</a>
+      <ol>
+        <li><a href="#只创建相同目录结构">只创建相同目录结构</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>rclone 是一个强大的命令行工具，旨在管理和同步文件到多种云存储服务及本地文件系统。它支持超过 70 种不同的云存储提供商，如 Google Drive、Dropbox、Amazon S3、OneDrive 等。</p>
+<p>官网地址：<a class="link" href="https://rclone.org"  target="_blank" rel="noopener"
+    >https://rclone.org</a></p>
+<h3 id="主要特点">主要特点
+</h3><ul>
+<li><strong>多种存储支持</strong>：支持超过 70 种不同的云存储服务。</li>
+<li><strong>文件同步</strong>：可以在本地和云之间同步文件或文件夹。</li>
+<li><strong>加密功能</strong>：支持文件加密，确保数据安全。</li>
+<li><strong>增量备份</strong>：只同步变化的文件，节省时间和带宽。</li>
+<li><strong>跨平台</strong>：可以在 Windows、macOS 和 Linux 上运行。</li>
+<li><strong>脚本自动化</strong>：可以通过脚本实现定期备份和同步。</li>
+</ul>
+<h2 id="安装">安装
+</h2><h3 id="linux--macos--bsd">Linux / macOS / BSD
+</h3><p>在 Linux/macOS/BSD 系统上安装 rclone，可以运行以下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -v <span class="p">;</span> curl https://rclone.org/install.sh <span class="p">|</span> sudo bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>若要安装测试版，可以运行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo -v <span class="p">;</span> curl https://rclone.org/install.sh <span class="p">|</span> sudo bash -s beta
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="windows">Windows
+</h3><p>下载地址：</p>
+<ul>
+<li>点击下载：<a class="link" href="https://github.com/rclone/rclone/releases/download/v1.68.2/rclone-v1.68.2-windows-amd64.zip"  target="_blank" rel="noopener"
+    >Windows AMD64 v1.68.2</a></li>
+</ul>
+<p>解压文件，将<code>rclone</code>所在的目录添加到<code>PATH</code>环境变量，即可在终端任意位置运行 <code>rclone</code>命令</p>
+<h2 id="配置">配置
+</h2><h3 id="远程存储">远程存储
+</h3><p>首次使用 rclone 时，需要配置远程存储。执行以下命令并根据提示操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone config
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果不清楚某个存储如何添加，请参考<a class="link" href="https://rclone.org/docs/"  target="_blank" rel="noopener"
+    >官方文档</a></p>
+<h3 id="文件路径">文件路径
+</h3><p>rclone 配置文件所在的路径</p>
+<p>Linux</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">~/.config/rclone
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Windows</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="nv">%USERPROFILE%</span>\AppData\Roaming\rclone
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>第一次安装没有配置文件和对应的路径，运行 <code>rclone config</code>退出就会自动创建</p>
+
+    </blockquote>
+<h3 id="命令补全">命令补全
+</h3><p>rclone 含有命令补全，输入 <code>rclone</code>按住 tab 键可以自动帮我们补全远程存储中的路径，如果没有这个功能，需要手动输入路径，可以尝试使用如下方法开启命令补全</p>
+<p>安装 <code>bash-completion</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt update  <span class="c1"># Debian/Ubuntu</span>
+</span></span><span class="line"><span class="cl">sudo apt install bash-completion
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo yum update  <span class="c1"># CentOS/RHEL/Fedora</span>
+</span></span><span class="line"><span class="cl">sudo yum install bash-completion
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo pacman -S bash-completion <span class="c1"># Arch Linux/Manjaro</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>开启补全功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo rclone genautocomplete bash <span class="p">|</span> sudo tee /etc/bash_completion.d/rclone
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> /etc/bash_completion.d/rclone
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>再次尝试 rclone 命令，输入，使用 tab 键查看是否有补全</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone lsd remote:/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="基本用法">基本用法
+</h2><p>rclone 的语法结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rclone subcommand <span class="o">[</span>options<span class="o">]</span> &lt;parameters&gt; &lt;parameters...&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>subcommand：rclone 的操作命令，比如：<code>sync</code>, <code>copy</code>, <code>ls</code>，可以通过 <a class="link" href="https://rclone.org/commands/"  target="_blank" rel="noopener"
+    >commands</a>查看所有支持的命令</p>
+<p>options：选项可以是单个字母标志 (例如 - v)、一组单个字母标志 (例如 - Pv) 或长标志 (例如 ——progress)。不需要任何选项。选项可以位于子命令之后、参数之间或最后，但只能在子命令之前使用全局选项。—— 选项之后的任何内容都不会被解释为选项，因此，如果需要添加一个以 - 开头的参数，请先将其自身设置为 -，例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone lsf -- -directory-starting-with-dash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>parameter：通常是文件路径或 rclone remote, 例如 /path/to/file 或 remote:path/to/file, 但也可以是其他内容 —— 子命令帮助会告诉你具体是什么。</p>
+
+    <blockquote>
+        <p>子命令</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># lists a remote</span>
+</span></span><span class="line"><span class="cl">rclone ls remote:path
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># copies /local/path to the remote</span>
+</span></span><span class="line"><span class="cl">rclone copy /local/path remote:path
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># syncs /local/path to the remote</span>
+</span></span><span class="line"><span class="cl">rclone sync --interactive /local/path remote:path
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为了区分本地路径和远程路径，远程路径需要使用 <code>remote_name:path</code> （最少也要一个 <code>:</code> 符号）</p>
+<ul>
+<li><code>remote_name</code>：rclone 配置远程存储时起的名字</li>
+<li><code>path</code>：配置的远程存储的路径</li>
+</ul>
+<p>比如查看远程存储的文件列表（假设已经创建了一个名为 <code>jianguoyun</code> 的远程存储）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rclone lsd jianguoyun:/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>而这个是不可以的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone lsd jianguoyun
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="命令详解">命令详解
+</h2><h3 id="复制">复制
+</h3><p>将文件从源位置复制到目标位置，根据文件大小、修改时间或 MD5SUM 判断跳过相同的文件</p>
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone copy <span class="o">[</span>options<span class="o">]</span> source:sourcepath dest:destpath -P
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>选项：</p>
+<ul>
+<li><code>-P</code>：查看具体信息</li>
+</ul>
+<p>复制可当作备份使用，不会删除远程文件和本地文件或文件夹</p>
+
+    <blockquote>
+        <p>本地复制到远程存储</p>
+
+    </blockquote>
+
+    <blockquote>
+        <p>案例：本地 <code>software</code> 文件夹复制到 <code>alist</code> 下的 <code>aliyunpan/software</code></p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone copy ~/software alist:/aliyunpan/software -P
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>远程存储 a 复制到远程存储 b</p>
+
+    </blockquote>
+<p>某些云盘支持秒传，可以快速将一个云盘文件内容复制到另一个云盘。rclone 使用 <code>copy</code> 复制也是支持的。</p>
+<p>有些云盘上传单个文件大小有限制，例如 115 原石会员最大支持单个文件 5G，超过该大小即使支持秒传也无法使用。为了秒传的可用性，可以添加 <code>--max-size</code> 参数跳过超大的文件，例如 <code>--max-size 500M</code> 跳过超过 500M 的文件。</p>
+
+    <blockquote>
+        <p>案例：<code>alist</code> 挂载的 <code>aliyunpan/infotech</code> 复制到 <code>alist</code> 挂载的 <code>115/infotech</code>，并跳过超过 500M 的文件</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/bin/rclone_copy_from_local_software_to_alist_aliyunpan_software.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone copy alist:aliyunpan/infotech/ alist:115/infotech/ --max-size 500M -P
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x ~/bin/rclone_copy_from_local_software_to_alist_aliyunpan_software.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>定时备份/复制</p>
+
+    </blockquote>
+<p>将复制命令写入到脚本文件，设置定时任务执行脚本</p>
+<h3 id="挂载">挂载
+</h3><p>将远程存储挂载到本地，作为本地文件系统使用，支持本地播放视频、打开文件，编辑文件等操作</p>
+<p>注意：Windows 平台挂载需要额外安装 <a class="link" href="https://github.com/winfsp/winfsp"  target="_blank" rel="noopener"
+    >winfsp</a>，且默认路径不存在</p>
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone mount <span class="o">[</span>options<span class="o">]</span> remote:path/to/files /path/to/local/mount
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>选项：</p>
+<ul>
+<li><code>--buffer-size</code>：在传输文件时，读取和写入操作的缓冲区大小，默认不清楚，建议挂载加上，大小 4M</li>
+<li><code>--vfs-cache-mode</code>：缓存模式，可选 off（默认），writes，full</li>
+<li><code>--vfs-cache-max-size</code>：限制 VFS 缓存的最大大小，默认无限制</li>
+<li><code>--vfs-cache-max-age</code>：限制缓存文件的最大存活时间，默认 1 小时</li>
+<li><code>--daemon</code>：后台挂载，Windows 不支持</li>
+<li><code>--volname</code>：挂载名字（显示在文件管理器的名字），Windows 平台</li>
+</ul>
+<p>取消挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fusermount -u 挂载路径
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>远程存储挂载到本地</p>
+
+    </blockquote>
+
+    <blockquote>
+        <p>案例：坚果云挂载到 <code>$HOME/mnt/jianguoyun</code></p>
+
+    </blockquote>
+<p>创建挂载点</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p <span class="nv">$HOME</span>/mnt/jianguoyun
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>前台挂载（退出终端挂载会取消）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone mount --buffer-size 4M --vfs-cache-mode writes jianguoyun: <span class="nv">$HOME</span>/mnt/jianguoyun
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后台挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone mount --buffer-size 4M --vfs-cache-mode writes jianguoyun: <span class="nv">$HOME</span>/mnt/jianguoyun --daemon
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>取消挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fusermount -u <span class="nv">$HOME</span>/mnt/jianguoyun
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>案例：<code>alist</code>挂载到本地 <code>$HOME/mnt/alist</code></p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkdir -p <span class="nv">$HOME</span>/mnt/alist
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>前台挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone mount --buffer-size 4M --vfs-cache-mode writes alist: <span class="nv">$HOME</span>/mnt/alist
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>后台挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone mount --buffer-size 4M --vfs-cache-mode writes alist: <span class="nv">$HOME</span>/mnt/alist --daemon
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>取消挂载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fusermount -u <span class="nv">$HOME</span>/mnt/alist
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>案例：windows 挂载 alist film 路径到本地驱动器 K</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">rclone mount alist:/film K: --buffer-size 4M --vfs-cache-mode writes --vfs-cache-max-size 2G --volname alist_127.0.0.1_film --network-mode
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>该命令作用：</p>
+<p>将 AList (一个文件列表程序) 中的 <code>/film</code> 目录挂载到 Windows 系统上的 <code>K:</code> 盘符，设置读缓冲的大小为 4MB，设置 VFS (Virtual File System) 缓存模式为 <code>writes</code>，设置 VFS 缓存的最大大小为 2GB。设置挂载卷的名称为 <code>alist_127.0.0.1_film</code>，启用网络模式。</p>
+
+    <blockquote>
+        <p>开机自动挂载</p>
+
+    </blockquote>
+<p>借助定时任务实现或者创建系统服务</p>
+
+    <blockquote>
+        <p>案例：开机挂载 alist</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">crontab -e
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">@reboot rclone mount --buffer-size 4M --vfs-cache-mode writes alist: <span class="nv">$HOME</span>/mnt/alist --daemon
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="单向同步">单向同步
+</h3><p>将 <strong>源路径</strong> 文件同步到 <strong>目的路径</strong>，会 <strong>删除目的路径文件</strong></p>
+<p>如果只是需要备份文件，使用 <strong>复制</strong></p>
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone sync <span class="o">[</span>options<span class="o">]</span> SOURCE remote:DESTINATION
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>这可能导致数据丢失，首先使用 <code>--dry-run</code> 或 <code>--interactive</code>/<code>-i</code> 进行测试。</strong></p>
+
+    <blockquote>
+        <p>远程存储同步到本地</p>
+
+    </blockquote>
+
+    <blockquote>
+        <p>案例：坚果云同步文件到本地</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone sync jianguoyun:/ <span class="nv">$HOME</span>/jianguoyun
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>本地同步到远程存储</p>
+
+    </blockquote>
+
+    <blockquote>
+        <p>案例：本地同步文件到坚果云</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone sync <span class="nv">$HOME</span>/jianguoyun jianguoyun:/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="双向同步">双向同步
+</h3><p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone bisync <span class="o">[</span>options<span class="o">]</span> remote1:path1 remote2:path2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>截止到 2025-08-06 rclone v1.58 仍暂处于测试阶段，官方建议谨慎使用，我的建议是不使用（数据无价）</strong></p>
+<h3 id="移动">移动
+</h3><p>将文件从 存储 1 移动到 存储 2，会在目的存储自动创建文件夹</p>
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone move remote1:path remote2:path
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>将本地文件移动到坚果云上</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone move /mnt/file jianguoyun:/test/file -P
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="其他命令">其他命令
+</h2><p>列出所有已经配置的远程存储名字</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone listremotes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看特定远程存储的配置详情</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone config show &lt;remote_name&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看所有远程存储的详情，以<code>json</code>格式输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone config dump
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="web-ui">Web UI
+</h2><p>rclone 提供了 Web UI 界面：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rclone rcd --rc-web-gui
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>此命令会从 GitHub 下载 UI 文件，因此需要能够访问 GitHub</p>
+<h2 id="一些技巧">一些技巧
+</h2><h3 id="只创建相同目录结构">只创建相同目录结构
+</h3><p>将目标位置拥有原位置同样的目录结构，保持目录结构的一致</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">rclone copy  source:/path dest:/path --filter <span class="s2">&#34;+ */&#34;</span> --filter <span class="s2">&#34;- *&#34;</span> --progress
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>source:/path</code>：源路径</li>
+<li><code>dest:/path</code>：远程目录</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/rclone/">Rclone</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/250405194220/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">服务器自动化打包应用程序，备份到远程存储</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

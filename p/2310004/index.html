@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="命令英文版 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 Usage: warp-cli [OPTIONS] &lt;COMMAND&gt; Commands: register Register with the WARP API, replacing any existing registration (Must be run before first connection!) teams-enroll Enroll with Cloudflare for Teams delete Delete current registration rotate-keys Generate a new key-pair, keeping the current registration status Ask the daemon to send the current status warp-stats Retrieve the stats for the current WARP connection warp-dns-stats Retrieve the DNS stats for the current WARP connection settings Retrieve the current application settings connect Connect to WARP whenever possible [aliases: enable-always-on] disconnect Disconnect from WARP [aliases: disable-always-on] disable-wifi Automatically disable WARP on Wi-Fi networks (disabled for Zero Trust customers) enable-wifi Allow WARP on Wi-Fi networks (disabled for Zero Trust customers) disable-ethernet Automatically disable WARP on ethernet networks (disabled for Zero Trust customers) enable-ethernet Allow WARP on ethernet networks (disabled for Zero Trust customers) add-trusted-ssid Add a trusted Wi-Fi network for which WARP will be automatically disconnected remove-trusted-ssid Remove a trusted Wi-Fi network exclude-private-ips Exclude private IP ranges from tunnel enable-dns-log Enable DNS logging (Use with the -l option) disable-dns-log Disable DNS logging account Display the account associated with the current registration devices Display the list of devices associated with the current registration network Display the current network information get-virtual-networks List the available virtual networks set-virtual-network Set the currently connected virtual network via the id from get-virtual-networks set-mode Set the mode set-families-mode Set the families mode set-license Attach the current registration to a different account using a license key set-gateway Force the app to use the specified Gateway ID for DNS queries clear-gateway Clear the Gateway ID set-custom-endpoint Force the client to connect to the specified IP:PORT endpoint (Zero Trust customers must run this command as a privileged user) clear-custom-endpoint Remove the custom endpoint setting add-excluded-route Add an excluded IP remove-excluded-route Remove an excluded IP get-excluded-routes Get the list of excluded routes get-included-routes Get the list of included routes get-excluded-hosts Get the list of excluded hosts get-included-hosts Get the list of included hosts add-excluded-host Add an excluded host remove-excluded-host Remove an excluded host add-fallback-domain Add a domain that should be resolved with the fallback resolver instead of WARP&#39;s remove-fallback-domain Stop a domain from being resolved with the fallback resolver get-fallback-domains Get the list of domains that go to the fallback resolver restore-fallback-domains Restore the list of fallback resolver domains to its default value get-device-posture Get the current device posture override Temporarily override MDM policies that require the client to stay enabled set-proxy-port Set the listening port for WARP proxy (127.0.0.1:{port}) is-mode-switch-allowed Outputs true if Teams users should be able to change connection mode, or false if not reset-settings Restore settings to default get-organization Get the name of the Teams organization currently in settings access-reauth Force refresh authentication with Cloudflare Access get-support-url Get the support url for the current Teams organization get-pause-end Retrieve the pause end time get-override-end Retrieve the admin override end time disable-connectivity-checks Disable the runtime connectivity checks enable-connectivity-checks Enable the runtime connectivity checks dump-excluded-routes Get split tunnel routing dump. For include-only mode, this shows routes NOT included get-alternate-network Get the name of the currently detected alternate network, if any get-dex-data Get the most recently uploaded DEX data. Returns the most recent test for each dex metric help Print this message or the help of the given subcommand(s) Options: -l, --listen Listen for status changes and DNS logs (if enabled) --accept-tos Accept the Terms of Service agreement -v, --verbose... Enable verbose output. Multiple &#34;v&#34;s adds more verbosity -h, --help Print help -V, --version Print version 命令中文版 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 用法：warp-cli [选项] &lt;命令&gt; 命令： register 注册到 WARP API，替换任何现有的注册（必须在首次连接之前运行！） teams-enroll 注册到 Cloudflare for Teams delete 删除当前注册 rotate-keys 生成新的密钥对，保留当前注册 status 请求守护进程发送当前状态 warp-stats 检索当前 WARP 连接的统计信息 warp-dns-stats 检索当前 WARP 连接的 DNS 统计信息 settings 检索当前应用程序设置 connect 尽可能连接到 WARP [别名：enable-always-on] disconnect 断开与 WARP 的连接 [别名：disable-always-on] disable-wifi 在 Wi-Fi 网络上自动禁用 WARP（对于 Zero Trust 客户禁用） enable-wifi 允许在 Wi-Fi 网络上使用 WARP（对于 Zero Trust 客户禁用） disable-ethernet 在以太网网络上自动禁用 WARP（对于 Zero Trust 客户禁用） enable-ethernet 允许在以太网网络上使用 WARP（对于 Zero Trust 客户禁用） add-trusted-ssid 添加一个受信任的 Wi-Fi 网络，WARP 将自动断开连接 remove-trusted-ssid 移除一个受信任的 Wi-Fi 网络 exclude-private-ips 从隧道中排除私有 IP 范围 enable-dns-log 启用 DNS 日志记录（与 -l 选项一起使用） disable-dns-log 禁用 DNS 日志记录 account 显示与当前注册关联的帐户 devices 显示与当前注册关联的设备列表 network 显示当前网络信息 get-virtual-networks 列出可用的虚拟网络 set-virtual-network 设置当前连接的虚拟网络（使用 get-virtual-networks 返回的 ID） set-mode 设置模式 set-families-mode 设置家庭模式 set-license 使用许可证密钥将当前注册关联到不同的帐户 set-gateway 强制应用程序使用指定的网关 ID 进行 DNS 查询 clear-gateway 清除网关 ID set-custom-endpoint 强制客户端连接到指定的 IP:PORT 端点（Zero Trust 客户必须以特权用户身份运行此命令） clear-custom-endpoint 删除自定义端点设置 add-excluded-route 添加一个被排除的 IP remove-excluded-route 移除一个被排除的 IP get-excluded-routes 获取被排除的路由列表 get-included-routes 获取包含的路由列表 get-excluded-hosts 获取被排除的主机列表 get-included-hosts 获取包含的主机列表 add-excluded-host 添加一个被排除的主机 remove-excluded-host 移除一个被排除的主机 add-fallback-domain 添加一个应使用回退解析器而不是 WARP 进行解析的域名 remove-fallback-domain 停止使用回退解析器解析域名 get-fallback-domains 获取使用回退解析器的域名列表 restore-fallback-domains 将回退解析器域名列表恢复为默认值 get-device-posture 获取当前设备姿态 override 临时覆盖需要客户端保持启用的 MDM 策略 set-proxy-port 设置 WARP 代理的监听端口（127.0.0.1:{port}） is-mode-switch-allowed 如果 Teams 用户可以更改连接模式，则输出 true；如果不可以，则输出 false reset-settings 恢复设置为默认值 get-organization 获取当前设置中的 Teams 组织名称 access-reauth 强制刷新与 Cloudflare Access 的身份验证 get-support-url 获取当前 Teams 组织的支持网址 get-pause-end 检索暂停结束时间 get-override-end 检索管理员覆盖结束时间 disable-connectivity-checks 禁用运行时连接性检查 enable-connectivity-checks 启用运行时连接性检查 dump-excluded-routes 获取分隔隧道路由转储。对于仅包含模式，显示未包含的路由 get-alternate-network 获取当前检测到的备用网络名称（如果有） get-dex-data 获取最近上传的 DEX 数据。返回每个 dex 指标的最新测试 help 打印此消息或给定子命令的帮助信息 选项： -l, --listen 监听状态变化和 DNS 日志（如果已启用） --accept-tos 接受服务条款协议 -v, --verbose... 启用详细输出。多个 &#34;v&#34; 增加更多详细程度 -h, --help 打印帮助信息 -V, --version 打印版本 ">
+<title>Debain12安装cloudflare-warp</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/2310004/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Debain12安装cloudflare-warp">
+<meta property='og:description' content="命令英文版 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 Usage: warp-cli [OPTIONS] &lt;COMMAND&gt; Commands: register Register with the WARP API, replacing any existing registration (Must be run before first connection!) teams-enroll Enroll with Cloudflare for Teams delete Delete current registration rotate-keys Generate a new key-pair, keeping the current registration status Ask the daemon to send the current status warp-stats Retrieve the stats for the current WARP connection warp-dns-stats Retrieve the DNS stats for the current WARP connection settings Retrieve the current application settings connect Connect to WARP whenever possible [aliases: enable-always-on] disconnect Disconnect from WARP [aliases: disable-always-on] disable-wifi Automatically disable WARP on Wi-Fi networks (disabled for Zero Trust customers) enable-wifi Allow WARP on Wi-Fi networks (disabled for Zero Trust customers) disable-ethernet Automatically disable WARP on ethernet networks (disabled for Zero Trust customers) enable-ethernet Allow WARP on ethernet networks (disabled for Zero Trust customers) add-trusted-ssid Add a trusted Wi-Fi network for which WARP will be automatically disconnected remove-trusted-ssid Remove a trusted Wi-Fi network exclude-private-ips Exclude private IP ranges from tunnel enable-dns-log Enable DNS logging (Use with the -l option) disable-dns-log Disable DNS logging account Display the account associated with the current registration devices Display the list of devices associated with the current registration network Display the current network information get-virtual-networks List the available virtual networks set-virtual-network Set the currently connected virtual network via the id from get-virtual-networks set-mode Set the mode set-families-mode Set the families mode set-license Attach the current registration to a different account using a license key set-gateway Force the app to use the specified Gateway ID for DNS queries clear-gateway Clear the Gateway ID set-custom-endpoint Force the client to connect to the specified IP:PORT endpoint (Zero Trust customers must run this command as a privileged user) clear-custom-endpoint Remove the custom endpoint setting add-excluded-route Add an excluded IP remove-excluded-route Remove an excluded IP get-excluded-routes Get the list of excluded routes get-included-routes Get the list of included routes get-excluded-hosts Get the list of excluded hosts get-included-hosts Get the list of included hosts add-excluded-host Add an excluded host remove-excluded-host Remove an excluded host add-fallback-domain Add a domain that should be resolved with the fallback resolver instead of WARP&#39;s remove-fallback-domain Stop a domain from being resolved with the fallback resolver get-fallback-domains Get the list of domains that go to the fallback resolver restore-fallback-domains Restore the list of fallback resolver domains to its default value get-device-posture Get the current device posture override Temporarily override MDM policies that require the client to stay enabled set-proxy-port Set the listening port for WARP proxy (127.0.0.1:{port}) is-mode-switch-allowed Outputs true if Teams users should be able to change connection mode, or false if not reset-settings Restore settings to default get-organization Get the name of the Teams organization currently in settings access-reauth Force refresh authentication with Cloudflare Access get-support-url Get the support url for the current Teams organization get-pause-end Retrieve the pause end time get-override-end Retrieve the admin override end time disable-connectivity-checks Disable the runtime connectivity checks enable-connectivity-checks Enable the runtime connectivity checks dump-excluded-routes Get split tunnel routing dump. For include-only mode, this shows routes NOT included get-alternate-network Get the name of the currently detected alternate network, if any get-dex-data Get the most recently uploaded DEX data. Returns the most recent test for each dex metric help Print this message or the help of the given subcommand(s) Options: -l, --listen Listen for status changes and DNS logs (if enabled) --accept-tos Accept the Terms of Service agreement -v, --verbose... Enable verbose output. Multiple &#34;v&#34;s adds more verbosity -h, --help Print help -V, --version Print version 命令中文版 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 用法：warp-cli [选项] &lt;命令&gt; 命令： register 注册到 WARP API，替换任何现有的注册（必须在首次连接之前运行！） teams-enroll 注册到 Cloudflare for Teams delete 删除当前注册 rotate-keys 生成新的密钥对，保留当前注册 status 请求守护进程发送当前状态 warp-stats 检索当前 WARP 连接的统计信息 warp-dns-stats 检索当前 WARP 连接的 DNS 统计信息 settings 检索当前应用程序设置 connect 尽可能连接到 WARP [别名：enable-always-on] disconnect 断开与 WARP 的连接 [别名：disable-always-on] disable-wifi 在 Wi-Fi 网络上自动禁用 WARP（对于 Zero Trust 客户禁用） enable-wifi 允许在 Wi-Fi 网络上使用 WARP（对于 Zero Trust 客户禁用） disable-ethernet 在以太网网络上自动禁用 WARP（对于 Zero Trust 客户禁用） enable-ethernet 允许在以太网网络上使用 WARP（对于 Zero Trust 客户禁用） add-trusted-ssid 添加一个受信任的 Wi-Fi 网络，WARP 将自动断开连接 remove-trusted-ssid 移除一个受信任的 Wi-Fi 网络 exclude-private-ips 从隧道中排除私有 IP 范围 enable-dns-log 启用 DNS 日志记录（与 -l 选项一起使用） disable-dns-log 禁用 DNS 日志记录 account 显示与当前注册关联的帐户 devices 显示与当前注册关联的设备列表 network 显示当前网络信息 get-virtual-networks 列出可用的虚拟网络 set-virtual-network 设置当前连接的虚拟网络（使用 get-virtual-networks 返回的 ID） set-mode 设置模式 set-families-mode 设置家庭模式 set-license 使用许可证密钥将当前注册关联到不同的帐户 set-gateway 强制应用程序使用指定的网关 ID 进行 DNS 查询 clear-gateway 清除网关 ID set-custom-endpoint 强制客户端连接到指定的 IP:PORT 端点（Zero Trust 客户必须以特权用户身份运行此命令） clear-custom-endpoint 删除自定义端点设置 add-excluded-route 添加一个被排除的 IP remove-excluded-route 移除一个被排除的 IP get-excluded-routes 获取被排除的路由列表 get-included-routes 获取包含的路由列表 get-excluded-hosts 获取被排除的主机列表 get-included-hosts 获取包含的主机列表 add-excluded-host 添加一个被排除的主机 remove-excluded-host 移除一个被排除的主机 add-fallback-domain 添加一个应使用回退解析器而不是 WARP 进行解析的域名 remove-fallback-domain 停止使用回退解析器解析域名 get-fallback-domains 获取使用回退解析器的域名列表 restore-fallback-domains 将回退解析器域名列表恢复为默认值 get-device-posture 获取当前设备姿态 override 临时覆盖需要客户端保持启用的 MDM 策略 set-proxy-port 设置 WARP 代理的监听端口（127.0.0.1:{port}） is-mode-switch-allowed 如果 Teams 用户可以更改连接模式，则输出 true；如果不可以，则输出 false reset-settings 恢复设置为默认值 get-organization 获取当前设置中的 Teams 组织名称 access-reauth 强制刷新与 Cloudflare Access 的身份验证 get-support-url 获取当前 Teams 组织的支持网址 get-pause-end 检索暂停结束时间 get-override-end 检索管理员覆盖结束时间 disable-connectivity-checks 禁用运行时连接性检查 enable-connectivity-checks 启用运行时连接性检查 dump-excluded-routes 获取分隔隧道路由转储。对于仅包含模式，显示未包含的路由 get-alternate-network 获取当前检测到的备用网络名称（如果有） get-dex-data 获取最近上传的 DEX 数据。返回每个 dex 指标的最新测试 help 打印此消息或给定子命令的帮助信息 选项： -l, --listen 监听状态变化和 DNS 日志（如果已启用） --accept-tos 接受服务条款协议 -v, --verbose... 启用详细输出。多个 &#34;v&#34; 增加更多详细程度 -h, --help 打印帮助信息 -V, --version 打印版本 ">
+<meta property='og:url' content='https://blog.seektao.cc/p/2310004/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='cloudflare' /><meta property='article:tag' content='warp' /><meta property='article:published_time' content='2023-10-04T14:07:10&#43;08:00'/><meta property='article:modified_time' content='2023-10-04T14:07:10&#43;08:00'/>
+<meta name="twitter:title" content="Debain12安装cloudflare-warp">
+<meta name="twitter:description" content="命令英文版 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 Usage: warp-cli [OPTIONS] &lt;COMMAND&gt; Commands: register Register with the WARP API, replacing any existing registration (Must be run before first connection!) teams-enroll Enroll with Cloudflare for Teams delete Delete current registration rotate-keys Generate a new key-pair, keeping the current registration status Ask the daemon to send the current status warp-stats Retrieve the stats for the current WARP connection warp-dns-stats Retrieve the DNS stats for the current WARP connection settings Retrieve the current application settings connect Connect to WARP whenever possible [aliases: enable-always-on] disconnect Disconnect from WARP [aliases: disable-always-on] disable-wifi Automatically disable WARP on Wi-Fi networks (disabled for Zero Trust customers) enable-wifi Allow WARP on Wi-Fi networks (disabled for Zero Trust customers) disable-ethernet Automatically disable WARP on ethernet networks (disabled for Zero Trust customers) enable-ethernet Allow WARP on ethernet networks (disabled for Zero Trust customers) add-trusted-ssid Add a trusted Wi-Fi network for which WARP will be automatically disconnected remove-trusted-ssid Remove a trusted Wi-Fi network exclude-private-ips Exclude private IP ranges from tunnel enable-dns-log Enable DNS logging (Use with the -l option) disable-dns-log Disable DNS logging account Display the account associated with the current registration devices Display the list of devices associated with the current registration network Display the current network information get-virtual-networks List the available virtual networks set-virtual-network Set the currently connected virtual network via the id from get-virtual-networks set-mode Set the mode set-families-mode Set the families mode set-license Attach the current registration to a different account using a license key set-gateway Force the app to use the specified Gateway ID for DNS queries clear-gateway Clear the Gateway ID set-custom-endpoint Force the client to connect to the specified IP:PORT endpoint (Zero Trust customers must run this command as a privileged user) clear-custom-endpoint Remove the custom endpoint setting add-excluded-route Add an excluded IP remove-excluded-route Remove an excluded IP get-excluded-routes Get the list of excluded routes get-included-routes Get the list of included routes get-excluded-hosts Get the list of excluded hosts get-included-hosts Get the list of included hosts add-excluded-host Add an excluded host remove-excluded-host Remove an excluded host add-fallback-domain Add a domain that should be resolved with the fallback resolver instead of WARP&#39;s remove-fallback-domain Stop a domain from being resolved with the fallback resolver get-fallback-domains Get the list of domains that go to the fallback resolver restore-fallback-domains Restore the list of fallback resolver domains to its default value get-device-posture Get the current device posture override Temporarily override MDM policies that require the client to stay enabled set-proxy-port Set the listening port for WARP proxy (127.0.0.1:{port}) is-mode-switch-allowed Outputs true if Teams users should be able to change connection mode, or false if not reset-settings Restore settings to default get-organization Get the name of the Teams organization currently in settings access-reauth Force refresh authentication with Cloudflare Access get-support-url Get the support url for the current Teams organization get-pause-end Retrieve the pause end time get-override-end Retrieve the admin override end time disable-connectivity-checks Disable the runtime connectivity checks enable-connectivity-checks Enable the runtime connectivity checks dump-excluded-routes Get split tunnel routing dump. For include-only mode, this shows routes NOT included get-alternate-network Get the name of the currently detected alternate network, if any get-dex-data Get the most recently uploaded DEX data. Returns the most recent test for each dex metric help Print this message or the help of the given subcommand(s) Options: -l, --listen Listen for status changes and DNS logs (if enabled) --accept-tos Accept the Terms of Service agreement -v, --verbose... Enable verbose output. Multiple &#34;v&#34;s adds more verbosity -h, --help Print help -V, --version Print version 命令中文版 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 用法：warp-cli [选项] &lt;命令&gt; 命令： register 注册到 WARP API，替换任何现有的注册（必须在首次连接之前运行！） teams-enroll 注册到 Cloudflare for Teams delete 删除当前注册 rotate-keys 生成新的密钥对，保留当前注册 status 请求守护进程发送当前状态 warp-stats 检索当前 WARP 连接的统计信息 warp-dns-stats 检索当前 WARP 连接的 DNS 统计信息 settings 检索当前应用程序设置 connect 尽可能连接到 WARP [别名：enable-always-on] disconnect 断开与 WARP 的连接 [别名：disable-always-on] disable-wifi 在 Wi-Fi 网络上自动禁用 WARP（对于 Zero Trust 客户禁用） enable-wifi 允许在 Wi-Fi 网络上使用 WARP（对于 Zero Trust 客户禁用） disable-ethernet 在以太网网络上自动禁用 WARP（对于 Zero Trust 客户禁用） enable-ethernet 允许在以太网网络上使用 WARP（对于 Zero Trust 客户禁用） add-trusted-ssid 添加一个受信任的 Wi-Fi 网络，WARP 将自动断开连接 remove-trusted-ssid 移除一个受信任的 Wi-Fi 网络 exclude-private-ips 从隧道中排除私有 IP 范围 enable-dns-log 启用 DNS 日志记录（与 -l 选项一起使用） disable-dns-log 禁用 DNS 日志记录 account 显示与当前注册关联的帐户 devices 显示与当前注册关联的设备列表 network 显示当前网络信息 get-virtual-networks 列出可用的虚拟网络 set-virtual-network 设置当前连接的虚拟网络（使用 get-virtual-networks 返回的 ID） set-mode 设置模式 set-families-mode 设置家庭模式 set-license 使用许可证密钥将当前注册关联到不同的帐户 set-gateway 强制应用程序使用指定的网关 ID 进行 DNS 查询 clear-gateway 清除网关 ID set-custom-endpoint 强制客户端连接到指定的 IP:PORT 端点（Zero Trust 客户必须以特权用户身份运行此命令） clear-custom-endpoint 删除自定义端点设置 add-excluded-route 添加一个被排除的 IP remove-excluded-route 移除一个被排除的 IP get-excluded-routes 获取被排除的路由列表 get-included-routes 获取包含的路由列表 get-excluded-hosts 获取被排除的主机列表 get-included-hosts 获取包含的主机列表 add-excluded-host 添加一个被排除的主机 remove-excluded-host 移除一个被排除的主机 add-fallback-domain 添加一个应使用回退解析器而不是 WARP 进行解析的域名 remove-fallback-domain 停止使用回退解析器解析域名 get-fallback-domains 获取使用回退解析器的域名列表 restore-fallback-domains 将回退解析器域名列表恢复为默认值 get-device-posture 获取当前设备姿态 override 临时覆盖需要客户端保持启用的 MDM 策略 set-proxy-port 设置 WARP 代理的监听端口（127.0.0.1:{port}） is-mode-switch-allowed 如果 Teams 用户可以更改连接模式，则输出 true；如果不可以，则输出 false reset-settings 恢复设置为默认值 get-organization 获取当前设置中的 Teams 组织名称 access-reauth 强制刷新与 Cloudflare Access 的身份验证 get-support-url 获取当前 Teams 组织的支持网址 get-pause-end 检索暂停结束时间 get-override-end 检索管理员覆盖结束时间 disable-connectivity-checks 禁用运行时连接性检查 enable-connectivity-checks 启用运行时连接性检查 dump-excluded-routes 获取分隔隧道路由转储。对于仅包含模式，显示未包含的路由 get-alternate-network 获取当前检测到的备用网络名称（如果有） get-dex-data 获取最近上传的 DEX 数据。返回每个 dex 指标的最新测试 help 打印此消息或给定子命令的帮助信息 选项： -l, --listen 监听状态变化和 DNS 日志（如果已启用） --accept-tos 接受服务条款协议 -v, --verbose... 启用详细输出。多个 &#34;v&#34; 增加更多详细程度 -h, --help 打印帮助信息 -V, --version 打印版本 ">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/linux/" style="background-color: hsl(237, 60%, 84%); color: hsl(237, 60%, 15%);">
+                Linux
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2310004/">Debain12安装cloudflare-warp</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2023-10-04T14:07:10&#43;08:00'>Oct 04, 2023</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <h1 id="命令英文版">命令英文版
+</h1><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Usage: warp-cli <span class="o">[</span>OPTIONS<span class="o">]</span> &lt;COMMAND&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Commands:  
+</span></span><span class="line"><span class="cl">register Register with the WARP API, replacing any existing registration <span class="o">(</span>Must be run before first connection!<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">teams-enroll Enroll with Cloudflare <span class="k">for</span> Teams  
+</span></span><span class="line"><span class="cl">delete Delete current registration  
+</span></span><span class="line"><span class="cl">rotate-keys Generate a new key-pair, keeping the current registration  
+</span></span><span class="line"><span class="cl">status Ask the daemon to send the current status  
+</span></span><span class="line"><span class="cl">warp-stats Retrieve the stats <span class="k">for</span> the current WARP connection  
+</span></span><span class="line"><span class="cl">warp-dns-stats Retrieve the DNS stats <span class="k">for</span> the current WARP connection  
+</span></span><span class="line"><span class="cl">settings Retrieve the current application settings  
+</span></span><span class="line"><span class="cl">connect Connect to WARP whenever possible <span class="o">[</span>aliases: enable-always-on<span class="o">]</span>  
+</span></span><span class="line"><span class="cl">disconnect Disconnect from WARP <span class="o">[</span>aliases: disable-always-on<span class="o">]</span>  
+</span></span><span class="line"><span class="cl">disable-wifi Automatically disable WARP on Wi-Fi networks <span class="o">(</span>disabled <span class="k">for</span> Zero Trust customers<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">enable-wifi Allow WARP on Wi-Fi networks <span class="o">(</span>disabled <span class="k">for</span> Zero Trust customers<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">disable-ethernet Automatically disable WARP on ethernet networks <span class="o">(</span>disabled <span class="k">for</span> Zero Trust customers<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">enable-ethernet Allow WARP on ethernet networks <span class="o">(</span>disabled <span class="k">for</span> Zero Trust customers<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">add-trusted-ssid Add a trusted Wi-Fi network <span class="k">for</span> which WARP will be automatically disconnected  
+</span></span><span class="line"><span class="cl">remove-trusted-ssid Remove a trusted Wi-Fi network  
+</span></span><span class="line"><span class="cl">exclude-private-ips Exclude private IP ranges from tunnel  
+</span></span><span class="line"><span class="cl">enable-dns-log Enable DNS logging <span class="o">(</span>Use with the -l option<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">disable-dns-log Disable DNS logging  
+</span></span><span class="line"><span class="cl">account Display the account associated with the current registration  
+</span></span><span class="line"><span class="cl">devices Display the list of devices associated with the current registration  
+</span></span><span class="line"><span class="cl">network Display the current network information  
+</span></span><span class="line"><span class="cl">get-virtual-networks List the available virtual networks  
+</span></span><span class="line"><span class="cl">set-virtual-network Set the currently connected virtual network via the id from get-virtual-networks  
+</span></span><span class="line"><span class="cl">set-mode Set the mode  
+</span></span><span class="line"><span class="cl">set-families-mode Set the families mode  
+</span></span><span class="line"><span class="cl">set-license Attach the current registration to a different account using a license key  
+</span></span><span class="line"><span class="cl">set-gateway Force the app to use the specified Gateway ID <span class="k">for</span> DNS queries  
+</span></span><span class="line"><span class="cl">clear-gateway Clear the Gateway ID  
+</span></span><span class="line"><span class="cl">set-custom-endpoint Force the client to connect to the specified IP:PORT endpoint <span class="o">(</span>Zero Trust customers must run this <span class="nb">command</span> as a privileged user<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">clear-custom-endpoint Remove the custom endpoint setting  
+</span></span><span class="line"><span class="cl">add-excluded-route Add an excluded IP  
+</span></span><span class="line"><span class="cl">remove-excluded-route Remove an excluded IP  
+</span></span><span class="line"><span class="cl">get-excluded-routes Get the list of excluded routes  
+</span></span><span class="line"><span class="cl">get-included-routes Get the list of included routes  
+</span></span><span class="line"><span class="cl">get-excluded-hosts Get the list of excluded hosts  
+</span></span><span class="line"><span class="cl">get-included-hosts Get the list of included hosts  
+</span></span><span class="line"><span class="cl">add-excluded-host Add an excluded host  
+</span></span><span class="line"><span class="cl">remove-excluded-host Remove an excluded host  
+</span></span><span class="line"><span class="cl">add-fallback-domain Add a domain that should be resolved with the fallback resolver instead of WARP<span class="err">&#39;</span>s  
+</span></span><span class="line"><span class="cl">remove-fallback-domain Stop a domain from being resolved with the fallback resolver  
+</span></span><span class="line"><span class="cl">get-fallback-domains Get the list of domains that go to the fallback resolver  
+</span></span><span class="line"><span class="cl">restore-fallback-domains Restore the list of fallback resolver domains to its default value  
+</span></span><span class="line"><span class="cl">get-device-posture Get the current device posture  
+</span></span><span class="line"><span class="cl">override Temporarily override MDM policies that require the client to stay enabled  
+</span></span><span class="line"><span class="cl">set-proxy-port Set the listening port <span class="k">for</span> WARP proxy <span class="o">(</span>127.0.0.1:<span class="o">{</span>port<span class="o">})</span>  
+</span></span><span class="line"><span class="cl">is-mode-switch-allowed Outputs <span class="nb">true</span> <span class="k">if</span> Teams users should be able to change connection mode, or <span class="nb">false</span> <span class="k">if</span> not  
+</span></span><span class="line"><span class="cl">reset-settings Restore settings to default  
+</span></span><span class="line"><span class="cl">get-organization Get the name of the Teams organization currently in settings  
+</span></span><span class="line"><span class="cl">access-reauth Force refresh authentication with Cloudflare Access  
+</span></span><span class="line"><span class="cl">get-support-url Get the support url <span class="k">for</span> the current Teams organization  
+</span></span><span class="line"><span class="cl">get-pause-end Retrieve the pause end <span class="nb">time</span>  
+</span></span><span class="line"><span class="cl">get-override-end Retrieve the admin override end <span class="nb">time</span>  
+</span></span><span class="line"><span class="cl">disable-connectivity-checks Disable the runtime connectivity checks  
+</span></span><span class="line"><span class="cl">enable-connectivity-checks Enable the runtime connectivity checks  
+</span></span><span class="line"><span class="cl">dump-excluded-routes Get split tunnel routing dump. For include-only mode, this shows routes NOT included  
+</span></span><span class="line"><span class="cl">get-alternate-network Get the name of the currently detected alternate network, <span class="k">if</span> any  
+</span></span><span class="line"><span class="cl">get-dex-data Get the most recently uploaded DEX data. Returns the most recent <span class="nb">test</span> <span class="k">for</span> each dex metric  
+</span></span><span class="line"><span class="cl"><span class="nb">help</span> Print this message or the <span class="nb">help</span> of the given subcommand<span class="o">(</span>s<span class="o">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:  
+</span></span><span class="line"><span class="cl">-l, --listen Listen <span class="k">for</span> status changes and DNS logs <span class="o">(</span><span class="k">if</span> enabled<span class="o">)</span>  
+</span></span><span class="line"><span class="cl">--accept-tos Accept the Terms of Service agreement  
+</span></span><span class="line"><span class="cl">-v, --verbose... Enable verbose output. Multiple <span class="s2">&#34;v&#34;</span>s adds more verbosity  
+</span></span><span class="line"><span class="cl">-h, --help Print <span class="nb">help</span>  
+</span></span><span class="line"><span class="cl">-V, --version Print version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="命令中文版">命令中文版
+</h1><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">用法：warp-cli <span class="o">[</span>选项<span class="o">]</span> &lt;命令&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">命令：  
+</span></span><span class="line"><span class="cl">register 注册到 WARP API，替换任何现有的注册（必须在首次连接之前运行！）  
+</span></span><span class="line"><span class="cl">teams-enroll 注册到 Cloudflare <span class="k">for</span> Teams  
+</span></span><span class="line"><span class="cl">delete 删除当前注册  
+</span></span><span class="line"><span class="cl">rotate-keys 生成新的密钥对，保留当前注册  
+</span></span><span class="line"><span class="cl">status 请求守护进程发送当前状态  
+</span></span><span class="line"><span class="cl">warp-stats 检索当前 WARP 连接的统计信息  
+</span></span><span class="line"><span class="cl">warp-dns-stats 检索当前 WARP 连接的 DNS 统计信息  
+</span></span><span class="line"><span class="cl">settings 检索当前应用程序设置  
+</span></span><span class="line"><span class="cl">connect 尽可能连接到 WARP <span class="o">[</span>别名：enable-always-on<span class="o">]</span>  
+</span></span><span class="line"><span class="cl">disconnect 断开与 WARP 的连接 <span class="o">[</span>别名：disable-always-on<span class="o">]</span>  
+</span></span><span class="line"><span class="cl">disable-wifi 在 Wi-Fi 网络上自动禁用 WARP（对于 Zero Trust 客户禁用）  
+</span></span><span class="line"><span class="cl">enable-wifi 允许在 Wi-Fi 网络上使用 WARP（对于 Zero Trust 客户禁用）  
+</span></span><span class="line"><span class="cl">disable-ethernet 在以太网网络上自动禁用 WARP（对于 Zero Trust 客户禁用）  
+</span></span><span class="line"><span class="cl">enable-ethernet 允许在以太网网络上使用 WARP（对于 Zero Trust 客户禁用）  
+</span></span><span class="line"><span class="cl">add-trusted-ssid 添加一个受信任的 Wi-Fi 网络，WARP 将自动断开连接  
+</span></span><span class="line"><span class="cl">remove-trusted-ssid 移除一个受信任的 Wi-Fi 网络  
+</span></span><span class="line"><span class="cl">exclude-private-ips 从隧道中排除私有 IP 范围  
+</span></span><span class="line"><span class="cl">enable-dns-log 启用 DNS 日志记录（与 -l 选项一起使用）  
+</span></span><span class="line"><span class="cl">disable-dns-log 禁用 DNS 日志记录  
+</span></span><span class="line"><span class="cl">account 显示与当前注册关联的帐户  
+</span></span><span class="line"><span class="cl">devices 显示与当前注册关联的设备列表  
+</span></span><span class="line"><span class="cl">network 显示当前网络信息  
+</span></span><span class="line"><span class="cl">get-virtual-networks 列出可用的虚拟网络  
+</span></span><span class="line"><span class="cl">set-virtual-network 设置当前连接的虚拟网络（使用 get-virtual-networks 返回的 ID）  
+</span></span><span class="line"><span class="cl">set-mode 设置模式  
+</span></span><span class="line"><span class="cl">set-families-mode 设置家庭模式  
+</span></span><span class="line"><span class="cl">set-license 使用许可证密钥将当前注册关联到不同的帐户  
+</span></span><span class="line"><span class="cl">set-gateway 强制应用程序使用指定的网关 ID 进行 DNS 查询  
+</span></span><span class="line"><span class="cl">clear-gateway 清除网关 ID  
+</span></span><span class="line"><span class="cl">set-custom-endpoint 强制客户端连接到指定的 IP:PORT 端点（Zero Trust 客户必须以特权用户身份运行此命令）  
+</span></span><span class="line"><span class="cl">clear-custom-endpoint 删除自定义端点设置  
+</span></span><span class="line"><span class="cl">add-excluded-route 添加一个被排除的 IP  
+</span></span><span class="line"><span class="cl">remove-excluded-route 移除一个被排除的 IP  
+</span></span><span class="line"><span class="cl">get-excluded-routes 获取被排除的路由列表  
+</span></span><span class="line"><span class="cl">get-included-routes 获取包含的路由列表  
+</span></span><span class="line"><span class="cl">get-excluded-hosts 获取被排除的主机列表  
+</span></span><span class="line"><span class="cl">get-included-hosts 获取包含的主机列表  
+</span></span><span class="line"><span class="cl">add-excluded-host 添加一个被排除的主机  
+</span></span><span class="line"><span class="cl">remove-excluded-host 移除一个被排除的主机  
+</span></span><span class="line"><span class="cl">add-fallback-domain 添加一个应使用回退解析器而不是 WARP 进行解析的域名  
+</span></span><span class="line"><span class="cl">remove-fallback-domain 停止使用回退解析器解析域名  
+</span></span><span class="line"><span class="cl">get-fallback-domains 获取使用回退解析器的域名列表  
+</span></span><span class="line"><span class="cl">restore-fallback-domains 将回退解析器域名列表恢复为默认值  
+</span></span><span class="line"><span class="cl">get-device-posture 获取当前设备姿态  
+</span></span><span class="line"><span class="cl">override 临时覆盖需要客户端保持启用的 MDM 策略  
+</span></span><span class="line"><span class="cl">set-proxy-port 设置 WARP 代理的监听端口（127.0.0.1:<span class="o">{</span>port<span class="o">}</span>）  
+</span></span><span class="line"><span class="cl">is-mode-switch-allowed 如果 Teams 用户可以更改连接模式，则输出 true；如果不可以，则输出 <span class="nb">false</span>  
+</span></span><span class="line"><span class="cl">reset-settings 恢复设置为默认值  
+</span></span><span class="line"><span class="cl">get-organization 获取当前设置中的 Teams 组织名称  
+</span></span><span class="line"><span class="cl">access-reauth 强制刷新与 Cloudflare Access 的身份验证  
+</span></span><span class="line"><span class="cl">get-support-url 获取当前 Teams 组织的支持网址  
+</span></span><span class="line"><span class="cl">get-pause-end 检索暂停结束时间  
+</span></span><span class="line"><span class="cl">get-override-end 检索管理员覆盖结束时间  
+</span></span><span class="line"><span class="cl">disable-connectivity-checks 禁用运行时连接性检查  
+</span></span><span class="line"><span class="cl">enable-connectivity-checks 启用运行时连接性检查  
+</span></span><span class="line"><span class="cl">dump-excluded-routes 获取分隔隧道路由转储。对于仅包含模式，显示未包含的路由  
+</span></span><span class="line"><span class="cl">get-alternate-network 获取当前检测到的备用网络名称（如果有）  
+</span></span><span class="line"><span class="cl">get-dex-data 获取最近上传的 DEX 数据。返回每个 dex 指标的最新测试  
+</span></span><span class="line"><span class="cl"><span class="nb">help</span> 打印此消息或给定子命令的帮助信息
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">选项：  
+</span></span><span class="line"><span class="cl">-l, --listen 监听状态变化和 DNS 日志（如果已启用）  
+</span></span><span class="line"><span class="cl">--accept-tos 接受服务条款协议  
+</span></span><span class="line"><span class="cl">-v, --verbose... 启用详细输出。多个 <span class="s2">&#34;v&#34;</span> 增加更多详细程度  
+</span></span><span class="line"><span class="cl">-h, --help 打印帮助信息  
+</span></span><span class="line"><span class="cl">-V, --version 打印版本
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cloudflare/">Cloudflare</a>
+        
+            <a href="/tags/warp/">Warp</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/2310010/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Debian下使用warp</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251211142800/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Zabbix，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251211135349/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Grafana，</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250812112934/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">全新Linux初次必须要做的事项</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250510110145/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">rsync，快速且极其通用的文件复制工具</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

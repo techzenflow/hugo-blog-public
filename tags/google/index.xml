@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Google on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/google/</link>
+        <description>Recent content in Google on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Fri, 07 Jun 2024 16:06:01 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/google/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>google三件套</title>
+            <link>https://blog.seektao.cc/p/2406007/</link>
+            <pubDate>Fri, 07 Jun 2024 16:06:01 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/2406007/</guid>
+            <description>&lt;p&gt;GitHub地址：https://github.com/hideuvpn/android-google-play-store&lt;/p&gt;&#xA;&lt;p&gt;本篇介绍如何安装最新版google框架和play store&lt;/p&gt;&#xA;&lt;p&gt;三件套是：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;google服务框架&lt;/li&gt;&#xA;&lt;li&gt;google play service&lt;/li&gt;&#xA;&lt;li&gt;google play store&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;安装google服务框架&#34;&gt;安装google服务框架&#xA;&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.apkmirror.com/apk/google-inc/google-services-framework/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://www.apkmirror.com/apk/google-inc/google-services-framework/&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

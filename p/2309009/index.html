@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="概述 v2rayA 是一款使用 Golang 和 Vue.js 编写的轻量级代理工具，旨在为几乎所有应用程序提供代理服务，无需考虑应用程序本身是否支持代理。\n核心特性：\n全局透明代理： 在 Linux 系统，v2rayA 支持一键开启透明代理，省去了繁琐的配置操作。 在 Windows 和 MacOS 支持一键配置系统代理。 强大而轻便 ⚡️： 运行时没有任何外部依赖库，可跨平台运行。 借助任意一款浏览器均可操作。 外部访问： 对于无图形界面的操作系统，安装 v2rayA 后，借助另一台 PC 或移动设备即可完成对其的操作。 这对于远程服务器、路由器是极其方便的。 多出站负载均衡和分流： v2rayA 允许用户创建和连接多个出站节点，以实现负载均衡及分流。 RoutingA 自定义路由： RoutingA 是 v2rayA 专为 V2Ray 设计的一种路由语言。 为分流提供强大而便捷的支持。 多种策略应对 DNS 污染： v2rayA 提供多种策略应对 DNS 污染。 高级设置可为用户提供更多的客制化定义。 官网：https://v2raya.org/\n">
+<title>v2rayA，跨平台的V2Ray客户端，网页端控制</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/2309009/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="v2rayA，跨平台的V2Ray客户端，网页端控制">
+<meta property='og:description' content="概述 v2rayA 是一款使用 Golang 和 Vue.js 编写的轻量级代理工具，旨在为几乎所有应用程序提供代理服务，无需考虑应用程序本身是否支持代理。\n核心特性：\n全局透明代理： 在 Linux 系统，v2rayA 支持一键开启透明代理，省去了繁琐的配置操作。 在 Windows 和 MacOS 支持一键配置系统代理。 强大而轻便 ⚡️： 运行时没有任何外部依赖库，可跨平台运行。 借助任意一款浏览器均可操作。 外部访问： 对于无图形界面的操作系统，安装 v2rayA 后，借助另一台 PC 或移动设备即可完成对其的操作。 这对于远程服务器、路由器是极其方便的。 多出站负载均衡和分流： v2rayA 允许用户创建和连接多个出站节点，以实现负载均衡及分流。 RoutingA 自定义路由： RoutingA 是 v2rayA 专为 V2Ray 设计的一种路由语言。 为分流提供强大而便捷的支持。 多种策略应对 DNS 污染： v2rayA 提供多种策略应对 DNS 污染。 高级设置可为用户提供更多的客制化定义。 官网：https://v2raya.org/\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/2309009/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='v2raya' /><meta property='article:tag' content='v2ray' /><meta property='article:tag' content='proxy' /><meta property='article:published_time' content='2023-09-10T14:07:10&#43;08:00'/><meta property='article:modified_time' content='2025-03-02T22:12:49&#43;08:00'/>
+<meta name="twitter:title" content="v2rayA，跨平台的V2Ray客户端，网页端控制">
+<meta name="twitter:description" content="概述 v2rayA 是一款使用 Golang 和 Vue.js 编写的轻量级代理工具，旨在为几乎所有应用程序提供代理服务，无需考虑应用程序本身是否支持代理。\n核心特性：\n全局透明代理： 在 Linux 系统，v2rayA 支持一键开启透明代理，省去了繁琐的配置操作。 在 Windows 和 MacOS 支持一键配置系统代理。 强大而轻便 ⚡️： 运行时没有任何外部依赖库，可跨平台运行。 借助任意一款浏览器均可操作。 外部访问： 对于无图形界面的操作系统，安装 v2rayA 后，借助另一台 PC 或移动设备即可完成对其的操作。 这对于远程服务器、路由器是极其方便的。 多出站负载均衡和分流： v2rayA 允许用户创建和连接多个出站节点，以实现负载均衡及分流。 RoutingA 自定义路由： RoutingA 是 v2rayA 专为 V2Ray 设计的一种路由语言。 为分流提供强大而便捷的支持。 多种策略应对 DNS 污染： v2rayA 提供多种策略应对 DNS 污染。 高级设置可为用户提供更多的客制化定义。 官网：https://v2raya.org/\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#debianubuntu">Debian/Ubuntu</a>
+          <ol>
+            <li><a href="#方法一通过软件源安装">方法一：通过软件源安装</a></li>
+            <li><a href="#方法二手动安装-deb-包">方法二：手动安装 deb 包</a></li>
+            <li><a href="#启动-v2raya--设置-v2raya-自动启动">启动 v2raya / 设置 v2rayA 自动启动</a></li>
+          </ol>
+        </li>
+        <li><a href="#docker">Docker</a>
+          <ol>
+            <li><a href="#方式一始终使用最新版">方式一：始终使用最新版</a></li>
+            <li><a href="#方式二获取指定版本">方式二：获取指定版本</a></li>
+            <li><a href="#更新-v2raya">更新 v2rayA</a></li>
+          </ol>
+        </li>
+        <li><a href="#windows">Windows</a>
+          <ol>
+            <li><a href="#通过-winget-自动安装">通过 WinGet 自动安装</a></li>
+            <li><a href="#手动运行安装包">手动运行安装包</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#使用方式">使用方式</a></li>
+    <li><a href="#免费节点">免费节点</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/proxy/" style="background-color: hsl(275, 60%, 84%); color: hsl(275, 60%, 15%);">
+                Proxy
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2309009/">v2rayA，跨平台的V2Ray客户端，网页端控制</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2023-09-10T14:07:10&#43;08:00'>Sep 10, 2023</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#安装">安装</a>
+      <ol>
+        <li><a href="#debianubuntu">Debian/Ubuntu</a>
+          <ol>
+            <li><a href="#方法一通过软件源安装">方法一：通过软件源安装</a></li>
+            <li><a href="#方法二手动安装-deb-包">方法二：手动安装 deb 包</a></li>
+            <li><a href="#启动-v2raya--设置-v2raya-自动启动">启动 v2raya / 设置 v2rayA 自动启动</a></li>
+          </ol>
+        </li>
+        <li><a href="#docker">Docker</a>
+          <ol>
+            <li><a href="#方式一始终使用最新版">方式一：始终使用最新版</a></li>
+            <li><a href="#方式二获取指定版本">方式二：获取指定版本</a></li>
+            <li><a href="#更新-v2raya">更新 v2rayA</a></li>
+          </ol>
+        </li>
+        <li><a href="#windows">Windows</a>
+          <ol>
+            <li><a href="#通过-winget-自动安装">通过 WinGet 自动安装</a></li>
+            <li><a href="#手动运行安装包">手动运行安装包</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#使用方式">使用方式</a></li>
+    <li><a href="#免费节点">免费节点</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="概述">概述
+</h2><p>v2rayA 是一款使用 Golang 和 Vue.js 编写的轻量级代理工具，旨在为几乎所有应用程序提供代理服务，无需考虑应用程序本身是否支持代理。</p>
+<p><strong>核心特性：</strong></p>
+<ul>
+<li><strong>全局透明代理：</strong>
+<ul>
+<li>在 Linux 系统，v2rayA 支持一键开启透明代理，省去了繁琐的配置操作。</li>
+<li>在 Windows 和 MacOS 支持一键配置系统代理。</li>
+</ul>
+</li>
+<li><strong>强大而轻便 ⚡️：</strong>
+<ul>
+<li>运行时没有任何外部依赖库，可跨平台运行。</li>
+<li>借助任意一款浏览器均可操作。</li>
+</ul>
+</li>
+<li><strong>外部访问：</strong>
+<ul>
+<li>对于无图形界面的操作系统，安装 v2rayA 后，借助另一台 PC 或移动设备即可完成对其的操作。</li>
+<li>这对于远程服务器、路由器是极其方便的。</li>
+</ul>
+</li>
+<li><strong>多出站负载均衡和分流：</strong>
+<ul>
+<li>v2rayA 允许用户创建和连接多个出站节点，以实现负载均衡及分流。</li>
+</ul>
+</li>
+<li><strong>RoutingA 自定义路由：</strong>
+<ul>
+<li>RoutingA 是 v2rayA 专为 V2Ray 设计的一种路由语言。</li>
+<li>为分流提供强大而便捷的支持。</li>
+</ul>
+</li>
+<li><strong>多种策略应对 DNS 污染：</strong>
+<ul>
+<li>v2rayA 提供多种策略应对 DNS 污染。</li>
+<li>高级设置可为用户提供更多的客制化定义。</li>
+</ul>
+</li>
+</ul>
+<p>官网：<a class="link" href="https://v2raya.org/"  target="_blank" rel="noopener"
+    >https://v2raya.org/</a></p>
+<h2 id="安装">安装
+</h2><h3 id="debianubuntu">Debian/Ubuntu
+</h3><h4 id="方法一通过软件源安装">方法一：通过软件源安装
+</h4><p>添加公钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">wget -qO - https://apt.v2raya.org/key/public-key.asc <span class="p">|</span> sudo tee /etc/apt/keyrings/v2raya.asc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>添加 V2RayA 软件源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/etc/apt/keyrings/v2raya.asc] https://apt.v2raya.org/ v2raya main&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/v2raya.list
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装 V2RayA</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install v2raya v2ray <span class="c1">## 也可以使用 xray 包</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="方法二手动安装-deb-包">方法二：手动安装 deb 包
+</h4><p><a class="link" href="https://github.com/v2rayA/v2rayA/releases"  target="_blank" rel="noopener"
+    >从 Release 下载 v2rayA 的 deb 包</a> 后可以使用 Gdebi、QApt 等图形化工具来安装，也可以使用命令行：</p>
+<p>下载地址：</p>
+<p>v2raya: <a class="link" href="https://github.com/v2rayA/v2raya-apt/tree/master/pool/main/v/v2ray"  target="_blank" rel="noopener"
+    >https://github.com/v2rayA/v2raya-apt/tree/master/pool/main/v/v2ray</a></p>
+<p>v2ray: <a class="link" href="https://github.com/v2rayA/v2raya-apt/tree/master/pool/main/v/v2raya"  target="_blank" rel="noopener"
+    >https://github.com/v2rayA/v2raya-apt/tree/master/pool/main/v/v2raya</a></p>
+<p>使用国内网盘：</p>
+<p>123: <a class="link" href="https://www.123pan.com/s/4MOKVv-52Ppd.html"  target="_blank" rel="noopener"
+    >https://www.123pan.com/s/4MOKVv-52Ppd.html</a>提取码:7F4p</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install ****.deb <span class="c1">### 自行替换 deb 包所在的实际路径</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="启动-v2raya--设置-v2raya-自动启动">启动 v2raya / 设置 v2rayA 自动启动
+</h4>
+    <blockquote>
+        <p>从 1.5 版开始将不再默认为用户启动 v2rayA 及设置开机自动。</p>
+
+    </blockquote>
+<p>启动 v2rayA</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl start v2raya.service
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置开机自动启动</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo systemctl <span class="nb">enable</span> v2raya.service
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="docker">Docker
+</h3><p>Docker 镜像内集成了 V2Ray 内核，因此内核无需额外被安装。</p>
+<h4 id="方式一始终使用最新版">方式一：始终使用最新版
+</h4><p>获取镜像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker pull mzz2017/v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行 v2rayA</p>
+<p>停止正在运行的版本（如果存在）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker container stop v2raya
+</span></span><span class="line"><span class="cl">docker container rm v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <ol>
+<li><code>V2RAYA_V2RAY_BIN</code> 的值应当是 <code>/usr/local/bin/v2ray</code> 或 <code>/usr/local/bin/xray</code>，默认的核心是 xray。</li>
+<li>如果你的宿主系统使用原生的 nftables，那么就把 <code>V2RAYA_NFTABLES_SUPPORT</code> 设置为 <code>on</code>。 3.你的宿主系统使用 iptables，那么可以通过 <code>IPTABLES_MODE</code> 变量来指定后端，将该变量的值设置为 <code>nftables</code> 将使用 nft 后端，设置为 <code>legacy</code> 将使用传统后端。</li>
+</ol>
+
+    </blockquote>
+<p>以下是一个使用传统后端的示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --restart<span class="o">=</span>always <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --privileged <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --network<span class="o">=</span>host <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --name v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_LOG_FILE</span><span class="o">=</span>/tmp/v2raya.log <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_V2RAY_BIN</span><span class="o">=</span>/usr/local/bin/v2ray <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_NFTABLES_SUPPORT</span><span class="o">=</span>off <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">IPTABLES_MODE</span><span class="o">=</span>legacy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /lib/modules:/lib/modules:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /etc/resolv.conf:/etc/resolv.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /etc/v2raya:/etc/v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  mzz2017/v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你使用 macOS 或其他不支持 host 模式的环境，在该情况下<strong>无法使用全局透明代理</strong>，或者你不希望使用全局透明代理，docker 命令会略有不同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 2017:2017 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 20170-20172:20170-20172 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --restart<span class="o">=</span>always <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --name v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_V2RAY_BIN</span><span class="o">=</span>/usr/local/bin/v2ray <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_LOG_FILE</span><span class="o">=</span>/tmp/v2raya.log <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /etc/v2raya:/etc/v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  mzz2017/v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker container stats v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="方式二获取指定版本">方式二：获取指定版本
+</h4><p>Docker 允许用户同时下载不同版本的 v2rayA。通过错开端口等操作，用户还可以运行多个不同版本的 v2rayA。</p>
+<p>获取镜像</p>
+<p>获取最新的版本号：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">Latest_version</span><span class="o">=</span><span class="k">$(</span>curl -L <span class="s2">&#34;https://api.github.com/repos/v2rayA/v2rayA/releases/latest&#34;</span> <span class="p">|</span> grep <span class="s1">&#39;tag_name&#39;</span> <span class="p">|</span> awk -F <span class="s1">&#39;&#34;&#39;</span> <span class="s1">&#39;{print $4}&#39;</span> <span class="p">|</span> awk -F <span class="s1">&#39;v&#39;</span> <span class="s1">&#39;{print $2}&#39;</span><span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="nv">$Latest_version</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你不需要最新的版本，你也可以访问 <a class="link" href="https://hub.docker.com/r/mzz2017/v2raya/tags"  target="_blank" rel="noopener"
+    >Docker 镜像仓库</a></p>
+<p>查找所需的版本。比如，你需要 1.5.8 版本，那么将 <code>$Latest_version</code> 替换为你所需的版本即可。</p>
+<p>获取 Docker 镜像：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">docker pull mzz2017/v2raya:<span class="nv">$Latest_version</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>运行 v2rayA</p>
+<p>使用 docker 运行 v2rayA:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --restart<span class="o">=</span>always <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --privileged <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --network<span class="o">=</span>host <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --name v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_LOG_FILE</span><span class="o">=</span>/tmp/v2raya.log <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_V2RAY_BIN</span><span class="o">=</span>/usr/local/bin/v2ray <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_NFTABLES_SUPPORT</span><span class="o">=</span>off <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">IPTABLES_MODE</span><span class="o">=</span>legacy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /lib/modules:/lib/modules:ro <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /etc/resolv.conf:/etc/resolv.conf <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /etc/v2raya:/etc/v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  mzz2017/v2raya:<span class="nv">$Latest_version</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果你使用 MacOSX 或其他不支持 host 模式的环境，在该情况下<strong>无法使用全局透明代理</strong>，或者你不希望使用全局透明代理，docker 命令会略有不同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 2017:2017 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 20170-20172:20170-20172 <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --restart<span class="o">=</span>always <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --name v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">V2RAYA_LOG_FILE</span><span class="o">=</span>/tmp/v2raya.log <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v /etc/v2raya:/etc/v2raya <span class="se">\
+</span></span></span><span class="line"><span class="cl">  mzz2017/v2raya:<span class="nv">$Latest_version</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>查看状态：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker container stats v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="更新-v2raya">更新 v2rayA
+</h4><p>使用 <a class="link" href="https://v2raya.org/docs/prologue/installation/docker/#%e8%8e%b7%e5%8f%96%e9%95%9c%e5%83%8f"  target="_blank" rel="noopener"
+    >获取镜像</a> 中所提到的命令获取最新版本的镜像，然后停止当前容器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker container stop v2raya
+</span></span><span class="line"><span class="cl">docker container rm v2raya
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>最后使用 <a class="link" href="https://v2raya.org/docs/prologue/installation/docker/#%e8%bf%90%e8%a1%8c-v2raya"  target="_blank" rel="noopener"
+    >运行 v2rayA</a> 里面所提到的命令运行新版本 v2rayA。更新 v2rayA 之后，你可以考虑删除旧版本镜像。</p>
+<h3 id="windows">Windows
+</h3><p>目前在 Windows 上仅支持一键配置系统代理而非透明代理</p>
+<h4 id="通过-winget-自动安装">通过 WinGet 自动安装
+</h4><p><a class="link" href="https://www.microsoft.com/en-us/p/app-installer/9nblggh4nns1"  target="_blank" rel="noopener"
+    >WinGet</a> 是微软推出的软件包管理器，适用于 Windows 10 以及更新版本的操作系统。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">winget install --id v2rayA.v2rayA
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="手动运行安装包">手动运行安装包
+</h4><p>从 <a class="link" href="https://github.com/v2rayA/v2rayA/releases"  target="_blank" rel="noopener"
+    >GitHub Releases</a> 下载适用于 Windows 的安装包，例如</p>
+<p><code>installer_windows_inno_x64_2.0.1.exe</code>，按照指示安装完毕即可。</p>
+<h2 id="使用方式">使用方式
+</h2><p>安装 v2rayA 后，访问 http://127.0.0.1:2017 打开管理页面。</p>
+<h2 id="免费节点">免费节点
+</h2><style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice warning" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="126 76.5 300 300">
+  <path d="M297.431 324.397v-34.255c0-3.245-2.344-5.95-5.358-5.95h-32.146c-3.014 0-5.358 2.705-5.358 5.95v34.255c0 3.245 2.344 5.95 5.358 5.95h32.146c3.014 0 5.358-2.705 5.358-5.95Zm-.335-67.428 3.014-82.753c0-1.081-.502-2.524-1.674-3.425-1.005-.902-2.512-1.983-4.019-1.983h-36.834c-1.507 0-3.014 1.081-4.019 1.983-1.172.901-1.674 2.704-1.674 3.786l2.846 82.392c0 2.344 2.512 4.146 5.693 4.146h30.975c3.013 0 5.525-1.803 5.692-4.146Zm-2.344-168.39L423.34 342.425c3.683 7.032 3.516 15.686-.335 22.717-3.85 7.031-10.883 11.358-18.417 11.358H147.413c-7.534 0-14.566-4.327-18.417-11.358-3.85-7.031-4.018-15.685-.335-22.716L257.248 88.578C260.93 81.188 268.13 76.5 276 76.5c7.87 0 15.069 4.688 18.752 12.08Z"/>
+</svg>
+
+        </span> 警告 </p><p>订阅节点仅作学习交流使用，用于查找资料，学习知识，不做任何违法行为。所有资源均来自互联网，仅供大家交流学习使用，出现违法问题概不负责。</p></div>
+
+<p>订阅地址</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">https://mirror.ghproxy.com/https://raw.githubusercontent.com/Barabama/FreeNodes/master/nodes/yudou66.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">https://mirror.ghproxy.com/https://raw.githubusercontent.com/Barabama/FreeNodes/master/nodes/blues.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">https://mirror.ghproxy.com/https://raw.githubusercontent.com/Barabama/FreeNodes/master/nodes/zyfxs.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>合集</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">https://mirror.ghproxy.com/https://raw.githubusercontent.com/Barabama/FreeNodes/master/nodes/merged.txt
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/v2raya/">V2raya</a>
+        
+            <a href="/tags/v2ray/">V2ray</a>
+        
+            <a href="/tags/proxy/">Proxy</a>
+        
+    </section>
+
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+             Mar 02, 2025 22:12 &#43;0800
+        </span>
+    </section><section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/240909024137/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">v2rayA高级应用：指定 Docker 容器代理</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260315121132/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">subconverter，用于在各种代理订阅格式之间转换的实用工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251216224140/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SublinkPro，强大的代理订阅管理与转换工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251130124444/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">s-ui，高级 Web 面板，基于 SagerNet、Sing-Box 构建</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250926080028/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpenWrt安装科学上网工具momo</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

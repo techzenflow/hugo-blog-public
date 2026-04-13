@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 Sink 是一款简单、快速、安全的链路缩短器，配备分析功能，100% 在 Cloudflare 上运行。\n特性 URL Shortening: Compress your URLs to their minimal length. Analytics: Monitor link analytics and gather insightful statistics. Serverless: Deploy without the need for traditional servers. Customizable Slug: Support for personalized slugs and case sensitivity. AI Slug: Leverage AI to generate slugs. Link Expiration: Set expiration dates for your links. URL 缩短： 将您的 URL 压缩到最短长度。 分析： 监控链接分析并收集有价值的统计数据。 无服务器： 无需传统服务器即可部署。 自定义 Slug： 支持个性化 Slug 和区分大小写。 AI Slug： 利用 AI 生成 Slug。 链接过期： 为您的链接设置过期日期。 预览 ">
+<title>sink，一款简单、快速、安全的链路缩短器，配备分析功能</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250507101603/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="sink，一款简单、快速、安全的链路缩短器，配备分析功能">
+<meta property='og:description' content="简介 Sink 是一款简单、快速、安全的链路缩短器，配备分析功能，100% 在 Cloudflare 上运行。\n特性 URL Shortening: Compress your URLs to their minimal length. Analytics: Monitor link analytics and gather insightful statistics. Serverless: Deploy without the need for traditional servers. Customizable Slug: Support for personalized slugs and case sensitivity. AI Slug: Leverage AI to generate slugs. Link Expiration: Set expiration dates for your links. URL 缩短： 将您的 URL 压缩到最短长度。 分析： 监控链接分析并收集有价值的统计数据。 无服务器： 无需传统服务器即可部署。 自定义 Slug： 支持个性化 Slug 和区分大小写。 AI Slug： 利用 AI 生成 Slug。 链接过期： 为您的链接设置过期日期。 预览 ">
+<meta property='og:url' content='https://blog.seektao.cc/p/250507101603/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-05-07T10:16:03&#43;08:00'/><meta property='article:modified_time' content='2025-05-07T10:16:03&#43;08:00'/>
+<meta name="twitter:title" content="sink，一款简单、快速、安全的链路缩短器，配备分析功能">
+<meta name="twitter:description" content="简介 Sink 是一款简单、快速、安全的链路缩短器，配备分析功能，100% 在 Cloudflare 上运行。\n特性 URL Shortening: Compress your URLs to their minimal length. Analytics: Monitor link analytics and gather insightful statistics. Serverless: Deploy without the need for traditional servers. Customizable Slug: Support for personalized slugs and case sensitivity. AI Slug: Leverage AI to generate slugs. Link Expiration: Set expiration dates for your links. URL 缩短： 将您的 URL 压缩到最短长度。 分析： 监控链接分析并收集有价值的统计数据。 无服务器： 无需传统服务器即可部署。 自定义 Slug： 支持个性化 Slug 和区分大小写。 AI Slug： 利用 AI 生成 Slug。 链接过期： 为您的链接设置过期日期。 预览 ">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#特性">特性</a></li>
+        <li><a href="#预览">预览</a></li>
+        <li><a href="#体验">体验</a></li>
+      </ol>
+    </li>
+    <li><a href="#部署">部署</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/project/" style="background-color: hsl(126, 60%, 84%); color: hsl(126, 60%, 15%);">
+                Project
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250507101603/">sink，一款简单、快速、安全的链路缩短器，配备分析功能</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-05-07T10:16:03&#43;08:00'>May 07, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#特性">特性</a></li>
+        <li><a href="#预览">预览</a></li>
+        <li><a href="#体验">体验</a></li>
+      </ol>
+    </li>
+    <li><a href="#部署">部署</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>Sink 是一款简单、快速、安全的链路缩短器，配备分析功能，100% 在 Cloudflare 上运行。</p>
+<h3 id="特性">特性
+</h3><ul>
+<li><strong>URL Shortening:</strong> Compress your URLs to their minimal length.</li>
+<li><strong>Analytics:</strong> Monitor link analytics and gather insightful statistics.</li>
+<li><strong>Serverless:</strong> Deploy without the need for traditional servers.</li>
+<li><strong>Customizable Slug:</strong> Support for personalized slugs and case sensitivity.</li>
+<li><strong>AI Slug:</strong> Leverage AI to generate slugs.</li>
+<li><strong>Link Expiration:</strong> Set expiration dates for your links.</li>
+</ul>
+<ul>
+<li><strong>URL 缩短：</strong> 将您的 URL 压缩到最短长度。</li>
+<li><strong>分析：</strong> 监控链接分析并收集有价值的统计数据。</li>
+<li><strong>无服务器：</strong> 无需传统服务器即可部署。</li>
+<li><strong>自定义 Slug：</strong> 支持个性化 Slug 和区分大小写。</li>
+<li><strong>AI Slug：</strong> 利用 AI 生成 Slug。</li>
+<li><strong>链接过期：</strong> 为您的链接设置过期日期。</li>
+</ul>
+<h3 id="预览">预览
+</h3><p><img alt="Hero" class="gallery-image" data-flex-basis="457px" data-flex-grow="190" height="630" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://github.com/ccbikai/Sink/raw/master/public/image.png" srcset="/image_9468183545767194754_hu_576474f3d6c2cf02.png 800w, https://github.com/ccbikai/Sink/raw/master/public/image.png 1200w" width="1200"></p>
+<h3 id="体验">体验
+</h3><p>Experience the demo at <a class="link" href="https://sink.cool/dashboard"  target="_blank" rel="noopener"
+    >Sink.Cool</a>. Log in using the Site Token below:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Site Token: SinkCool
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="部署">部署
+</h2><ol>
+<li>
+<p><a class="link" href="https://github.com/ccbikai/Sink/fork"  target="_blank" rel="noopener"
+    >Fork</a> 仓库到您的 GitHub 账户。</p>
+</li>
+<li>
+<p>在 <a class="link" href="https://developers.cloudflare.com/pages/"  target="_blank" rel="noopener"
+    >Cloudflare Pages</a> 中创建一个项目。</p>
+</li>
+<li>
+<p>选择 <code>Sink</code> 仓库并选择 <code>Nuxt.js</code> 预设。</p>
+</li>
+<li>
+<p>配置以下环境变量：</p>
+<ul>
+<li><code>NUXT_SITE_TOKEN</code>: 必须长于 <strong>8</strong> 个字符。此令牌授予访问您仪表盘的权限。</li>
+<li><code>NUXT_CF_ACCOUNT_ID</code>: 找到您的 <a class="link" href="https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/"  target="_blank" rel="noopener"
+    >账户 ID</a>。</li>
+<li><code>NUXT_CF_API_TOKEN</code>: 创建一个至少具有 <code>Account.Account Analytics</code> 权限的 <a class="link" href="https://developers.cloudflare.com/fundamentals/api/get-started/create-token/"  target="_blank" rel="noopener"
+    >Cloudflare API 令牌</a>。 <a class="link" href="https://developers.cloudflare.com/analytics/analytics-engine/sql-api/#authentication"  target="_blank" rel="noopener"
+    >请参阅参考资料。</a></li>
+</ul>
+</li>
+<li>
+<p>保存并部署项目。</p>
+</li>
+<li>
+<p>取消部署，然后导航到 <strong>设置</strong> -&gt; <strong>绑定</strong> -&gt; <strong>添加</strong>：</p>
+<ul>
+<li><strong>KV 命名空间</strong>: 将变量名 <code>KV</code> 绑定到一个 <a class="link" href="https://developers.cloudflare.com/kv/"  target="_blank" rel="noopener"
+    >KV 命名空间</a>（在 <strong>存储 &amp; 数据库</strong> -&gt; <strong>KV</strong> 下创建一个新的）。</li>
+<li><strong>Workers AI</strong> (<em>可选</em>): 将变量名 <code>AI</code> 绑定到 Workers AI Catalog。</li>
+<li><strong>Analytics Engine</strong>:
+<ul>
+<li>在 <strong>Workers &amp; Pages</strong> 中，转到右侧的 <strong>账户详细信息</strong>，找到 <code>Analytics Engine</code>，然后单击 <code>设置</code> 以启用免费版本。</li>
+<li>返回到 <strong>设置</strong> -&gt; <strong>绑定</strong> -&gt; <strong>添加</strong> 并选择 <strong>Analytics engine</strong>。</li>
+<li>将变量名 <code>ANALYTICS</code> 绑定到 <code>sink</code> 数据集。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>重新部署项目。</p>
+</li>
+<li>
+<p>更新代码，请参考官方 GitHub 文档 <a class="link" href="https://docs.github.com/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-web-ui"  target="_blank" rel="noopener"
+    >从 Web UI 同步 Fork 分支</a>。</p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/251029091117/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">cloudreve，开源的自建云盘项目，可使用mircosoft e5</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250904110013/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">lucky，集端口转发，动态域名(DDNS)，Web服务，Stun内网穿透，网络唤醒，计划任务，ACME自动证，，网络存储 一体的工具</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250814103642/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">beszel，一个轻量级的服务器监控平台，包含 Docker 统计信息、历史数据和警报功能。</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250602191701/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Navidrome，自建音乐流媒体服务</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250531185915/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">alist-proxy，alist的代理下载，支持Cloudflare部署</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

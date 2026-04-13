@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Windows11 on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/windows11/</link>
+        <description>Recent content in Windows11 on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Sun, 03 Nov 2024 19:24:25 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/windows11/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Window11安装，跳过网络连接</title>
+            <link>https://blog.seektao.cc/p/241103192425/</link>
+            <pubDate>Sun, 03 Nov 2024 19:24:25 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/241103192425/</guid>
+            <description>&lt;p&gt;下一步下一步&amp;hellip;&lt;/p&gt;&#xA;&lt;p&gt;连接网络这里，跳过设置网络&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;Shift + F10&lt;/code&gt; 打开命令行&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;&#xA;&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1&#xA;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&#xA;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cmd&#34; data-lang=&#34;cmd&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;oobe\byPassNRO.cmd&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意是大写的英文字母 O，而不是数字 0&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;执行后会重启&lt;/p&gt;&#xA;&lt;p&gt;进行到 网络连接之后，就会出现 &lt;code&gt;我没有Inter网络连接&lt;/code&gt;，选择即可跳过&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

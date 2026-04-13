@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="文生图 概念 通用型提示词（可与其他提示词组合）：\n风格: 写实主义 (Photorealistic) 印象派 (Impressionistic) 抽象派 (Abstract) 超现实主义 (Surreal) 卡通 (Cartoon) 动漫 (Anime) 像素艺术 (Pixel art) 油画 (Oil painting) 水彩画 (Watercolor painting) 数字绘画 (Digital painting) 蒸汽朋克 (Steampunk) 赛博朋克 (Cyberpunk) 奇幻 (Fantasy) 哥特 (Gothic) 光线: 金色光芒 (Golden hour) 背光 (Backlighting) 柔和光线 (Soft lighting) 强烈光线 (Dramatic lighting) 环境光 (Ambient lighting) 体积光 (Volumetric lighting) 视角: 鸟瞰图 (Bird&rsquo;s-eye view) 仰视 (Low angle) 俯视 (High angle) 特写 (Close-up) 全景 (Panoramic view) 情绪: 平静 (Calm) 悲伤 (Sad) 快乐 (Happy) 愤怒 (Angry) 神秘 (Mysterious) 浪漫 (Romantic) 具体场景/主题提示词：\n">
+<title>AI画图提示词，draw prompt</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250523095452/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="AI画图提示词，draw prompt">
+<meta property='og:description' content="文生图 概念 通用型提示词（可与其他提示词组合）：\n风格: 写实主义 (Photorealistic) 印象派 (Impressionistic) 抽象派 (Abstract) 超现实主义 (Surreal) 卡通 (Cartoon) 动漫 (Anime) 像素艺术 (Pixel art) 油画 (Oil painting) 水彩画 (Watercolor painting) 数字绘画 (Digital painting) 蒸汽朋克 (Steampunk) 赛博朋克 (Cyberpunk) 奇幻 (Fantasy) 哥特 (Gothic) 光线: 金色光芒 (Golden hour) 背光 (Backlighting) 柔和光线 (Soft lighting) 强烈光线 (Dramatic lighting) 环境光 (Ambient lighting) 体积光 (Volumetric lighting) 视角: 鸟瞰图 (Bird&rsquo;s-eye view) 仰视 (Low angle) 俯视 (High angle) 特写 (Close-up) 全景 (Panoramic view) 情绪: 平静 (Calm) 悲伤 (Sad) 快乐 (Happy) 愤怒 (Angry) 神秘 (Mysterious) 浪漫 (Romantic) 具体场景/主题提示词：\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250523095452/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='prompt' /><meta property='article:published_time' content='2025-05-23T09:54:52&#43;08:00'/><meta property='article:modified_time' content='2025-05-23T09:54:52&#43;08:00'/>
+<meta name="twitter:title" content="AI画图提示词，draw prompt">
+<meta name="twitter:description" content="文生图 概念 通用型提示词（可与其他提示词组合）：\n风格: 写实主义 (Photorealistic) 印象派 (Impressionistic) 抽象派 (Abstract) 超现实主义 (Surreal) 卡通 (Cartoon) 动漫 (Anime) 像素艺术 (Pixel art) 油画 (Oil painting) 水彩画 (Watercolor painting) 数字绘画 (Digital painting) 蒸汽朋克 (Steampunk) 赛博朋克 (Cyberpunk) 奇幻 (Fantasy) 哥特 (Gothic) 光线: 金色光芒 (Golden hour) 背光 (Backlighting) 柔和光线 (Soft lighting) 强烈光线 (Dramatic lighting) 环境光 (Ambient lighting) 体积光 (Volumetric lighting) 视角: 鸟瞰图 (Bird&rsquo;s-eye view) 仰视 (Low angle) 俯视 (High angle) 特写 (Close-up) 全景 (Panoramic view) 情绪: 平静 (Calm) 悲伤 (Sad) 快乐 (Happy) 愤怒 (Angry) 神秘 (Mysterious) 浪漫 (Romantic) 具体场景/主题提示词：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#文生图">文生图</a>
+      <ol>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#案例">案例</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/llm/" style="background-color: hsl(216, 60%, 84%); color: hsl(216, 60%, 15%);">
+                Llm
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250523095452/">AI画图提示词，draw prompt</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-05-23T09:54:52&#43;08:00'>May 23, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#文生图">文生图</a>
+      <ol>
+        <li><a href="#概念">概念</a></li>
+        <li><a href="#案例">案例</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="文生图">文生图
+</h2><h3 id="概念">概念
+</h3><p><strong>通用型提示词（可与其他提示词组合）：</strong></p>
+<ul>
+<li><strong>风格:</strong>
+<ul>
+<li>写实主义 (Photorealistic)</li>
+<li>印象派 (Impressionistic)</li>
+<li>抽象派 (Abstract)</li>
+<li>超现实主义 (Surreal)</li>
+<li>卡通 (Cartoon)</li>
+<li>动漫 (Anime)</li>
+<li>像素艺术 (Pixel art)</li>
+<li>油画 (Oil painting)</li>
+<li>水彩画 (Watercolor painting)</li>
+<li>数字绘画 (Digital painting)</li>
+<li>蒸汽朋克 (Steampunk)</li>
+<li>赛博朋克 (Cyberpunk)</li>
+<li>奇幻 (Fantasy)</li>
+<li>哥特 (Gothic)</li>
+</ul>
+</li>
+<li><strong>光线:</strong>
+<ul>
+<li>金色光芒 (Golden hour)</li>
+<li>背光 (Backlighting)</li>
+<li>柔和光线 (Soft lighting)</li>
+<li>强烈光线 (Dramatic lighting)</li>
+<li>环境光 (Ambient lighting)</li>
+<li>体积光 (Volumetric lighting)</li>
+</ul>
+</li>
+<li><strong>视角:</strong>
+<ul>
+<li>鸟瞰图 (Bird&rsquo;s-eye view)</li>
+<li>仰视 (Low angle)</li>
+<li>俯视 (High angle)</li>
+<li>特写 (Close-up)</li>
+<li>全景 (Panoramic view)</li>
+</ul>
+</li>
+<li><strong>情绪:</strong>
+<ul>
+<li>平静 (Calm)</li>
+<li>悲伤 (Sad)</li>
+<li>快乐 (Happy)</li>
+<li>愤怒 (Angry)</li>
+<li>神秘 (Mysterious)</li>
+<li>浪漫 (Romantic)</li>
+</ul>
+</li>
+</ul>
+<p><strong>具体场景/主题提示词：</strong></p>
+<ul>
+<li><strong>自然景观:</strong>
+<ul>
+<li>“日落时分，被雪覆盖的山脉，紫色的天空，反射在湖面上，写实主义风格” (Snow-covered mountains at sunset, purple sky, reflected in a lake, photorealistic style)</li>
+<li>“热带雨林，茂密的植被，瀑布，阳光穿过树叶，印象派风格” (Tropical rainforest, lush vegetation, waterfall, sunlight filtering through the leaves, impressionistic style)</li>
+<li>“夜晚的星空，银河，流星，山脉轮廓，数字绘画，梦幻般的光芒” (Night sky, milky way, shooting stars, mountain silhouettes, digital painting, dreamy glow)</li>
+<li>&ldquo;沙漠中的绿洲，棕榈树，清澈的水，阳光明媚，绿洲中有一座古老的石头建筑，真实风格&rdquo; (Oasis in the desert, palm trees, clear water, sunny, with an ancient stone structure in the oasis, realistic style)</li>
+</ul>
+</li>
+<li><strong>人物/肖像:</strong>
+<ul>
+<li>“一位年轻女性，蓝色眼睛，长长的黑发，穿着未来主义服装，赛博朋克风格” (A young woman, blue eyes, long black hair, wearing futuristic clothing, cyberpunk style)</li>
+<li>“一个老水手，满脸皱纹，叼着烟斗，背景是暴风雨的大海，油画风格” (An old sailor, wrinkled face, smoking a pipe, with a stormy sea in the background, oil painting style)</li>
+<li>“一位穿着华丽礼服的公主，站在城堡阳台上，背景是烟花，奇幻风格” (A princess in a gorgeous dress, standing on a castle balcony, with fireworks in the background, fantasy style)</li>
+<li>&ldquo;一个穿着宇航服的宇航员站在火星表面，背后是地球升起，未来风格&rdquo; (An astronaut in a spacesuit standing on the surface of Mars, with Earth rising in the background, futuristic style)</li>
+</ul>
+</li>
+<li><strong>动物:</strong>
+<ul>
+<li>“一只巨大的龙，盘踞在城堡之上，喷着火焰，哥特风格” (A giant dragon, perched on a castle, breathing fire, gothic style)</li>
+<li>“一群狼在月光下嚎叫，雪地，冷色调，写实主义风格” (A pack of wolves howling in the moonlight, snowy landscape, cold colors, photorealistic style)</li>
+<li>“一只五彩缤纷的鹦鹉，栖息在热带花朵上，鲜艳的颜色，卡通风格” (A colorful parrot, perched on tropical flowers, vibrant colors, cartoon style)</li>
+<li>&ldquo;一只猫头鹰在夜间飞翔，月光照亮它的羽毛，背景是古老的森林，神秘和黑暗&rdquo; (An owl flying at night, moonlight illuminating its feathers, with an ancient forest in the background, mysterious and dark)</li>
+</ul>
+</li>
+<li><strong>建筑/城市:</strong>
+<ul>
+<li>“一座漂浮在云端的城市，未来主义建筑，飞艇，科幻风格” (A city floating in the clouds, futuristic architecture, airships, sci-fi style)</li>
+<li>“一个充满霓虹灯的夜间城市街道，雨水，赛博朋克风格” (A nighttime city street full of neon lights, rain, cyberpunk style)</li>
+<li>“一座古老的城堡，被森林环绕，雾气弥漫，浪漫主义风格” (An ancient castle, surrounded by forest, misty atmosphere, romantic style)</li>
+</ul>
+</li>
+<li><strong>抽象艺术:</strong>
+<ul>
+<li>“蓝色和金色的漩涡，动态流动，抽象派” (Swirls of blue and gold, dynamic flow, abstract style)</li>
+<li>“几何形状的组合，鲜艳的颜色，现代艺术” (A combination of geometric shapes, bright colors, modern art)</li>
+<li>&ldquo;多种颜色混合在一起，形成抽象的星云，充满活力和创意&rdquo; (Multiple colors mixed together to form an abstract nebula, full of energy and creativity)</li>
+</ul>
+</li>
+</ul>
+<p><strong>更具体的提示词示例：</strong></p>
+<ul>
+<li>&ldquo;A majestic griffin soaring through a stormy sky, lightning striking in the background, dramatic lighting, oil painting style, intricate details&rdquo; (一只雄伟的狮鹫翱翔在暴风雨的天空中，背景中闪电，戏剧性的光线，油画风格，错综复杂的细节)</li>
+<li>&ldquo;A cozy cottage nestled in a snowy forest, smoke rising from the chimney, warm light emanating from the windows, watercolor painting, whimsical style&rdquo; (一个舒适的小屋坐落在白雪皑皑的森林里，烟囱里冒着烟，窗户里散发出温暖的光芒，水彩画，异想天开的风格)</li>
+<li>&ldquo;A robot bartender mixing a cocktail in a futuristic bar, neon lights reflecting off chrome surfaces, cyberpunk style, highly detailed&rdquo; (一个机器人酒保在未来主义酒吧里调制鸡尾酒，霓虹灯反射在镀铬表面上，赛博朋克风格，高度详细)</li>
+<li>&ldquo;A surreal dreamscape featuring floating islands, giant mushrooms, and a sky filled with clocks, surrealism, vibrant colors, highly imaginative&rdquo; (一个超现实的梦境，有漂浮的岛屿、巨大的蘑菇和布满钟表的天空，超现实主义，鲜艳的色彩，极富想象力)</li>
+</ul>
+<p><strong>一些可以添加的细节词语：</strong></p>
+<ul>
+<li>精致的 (Intricate)</li>
+<li>生动的 (Vibrant)</li>
+<li>逼真的 (Realistic)</li>
+<li>梦幻般的 (Dreamlike)</li>
+<li>细腻的 (Delicate)</li>
+<li>粗犷的 (Rough)</li>
+<li>明亮的 (Bright)</li>
+<li>柔和的 (Soft)</li>
+<li>黑暗的 (Dark)</li>
+<li>充满活力的 (Energetic)</li>
+</ul>
+<p><strong>使用提示词的技巧：</strong></p>
+<ul>
+<li><strong>循序渐进:</strong> 先用简单的提示词，然后逐步添加细节。</li>
+<li><strong>尝试不同的组合:</strong> 混合搭配不同的风格、主题和细节。</li>
+<li><strong>使用关键词:</strong> AI 对关键词比较敏感，确保你的提示词包含关键元素。</li>
+<li><strong>注意语法和拼写:</strong> 虽然 AI 可以理解一定的错误，但清晰的表达会带来更好的结果。</li>
+<li><strong>不断尝试和迭代:</strong> 不要害怕失败，多尝试不同的提示词，直到找到你想要的效果。</li>
+<li><strong>参考现有艺术作品:</strong> 你可以指定“inspired by [艺术家]”来模仿特定艺术家的风格。</li>
+<li><strong>使用负面提示词:</strong> 告诉 AI 你 <em>不</em> 想要什么，可以帮助优化图像。 例如 &ldquo;ugly, distorted, blurry&rdquo;</li>
+<li><strong>使用图片作为参考:</strong> 许多 AI 工具允许你上传图片，并根据该图片生成类似的图像。</li>
+</ul>
+<p>示例：</p>
+<p><strong>1. 科幻/未来 场景:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A bustling cyberpunk marketplace at night, overflowing with neon signs, robots selling wares, holographic advertisements, rain-slicked streets, highly detailed, cinematic lighting.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 夜晚一个熙熙攘攘的赛博朋克市场，到处都是霓虹灯招牌，机器人售卖商品，全息广告，雨水湿润的街道，高度详细，电影级光照。</li>
+<li><strong>说明:</strong> 这个提示词侧重于细节丰富的场景，强调赛博朋克的视觉元素，使用“cinematic lighting”可以提升整体的视觉效果。</li>
+</ul>
+</li>
+</ul>
+<p><strong>2. 奇幻/梦幻 场景:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A majestic unicorn standing in a moonlit forest clearing, surrounded by glowing flowers, fireflies dancing in the air, ethereal atmosphere, fantasy art, highly detailed, digital painting.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 一只雄伟的独角兽站在月光照耀的森林空地上，周围环绕着发光的花朵，萤火虫在空中飞舞，空灵的氛围，奇幻艺术，高度详细，数字绘画。</li>
+<li><strong>说明:</strong> “ethereal atmosphere” 可以创造出一种梦幻般、超凡脱俗的氛围。 &ldquo;digital painting&rdquo; 能让画面更精致。</li>
+</ul>
+</li>
+</ul>
+<p><strong>3. 肖像/人物:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A portrait of a wise old wizard with a long white beard, wearing a tattered robe, holding a glowing staff, intricate details, dramatic lighting, fantasy art, oil painting.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 一位留着长长的白色胡须的睿智老巫师的肖像，穿着破旧的长袍，拿着一根发光的手杖，错综复杂的细节，戏剧性的光照，奇幻艺术，油画。</li>
+<li><strong>说明:</strong> “intricate details” 可以让人物的细节更加丰富，比如皱纹、服饰纹理等。“dramatic lighting” 可以增强人物的神秘感。</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. 动物/生物:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A photorealistic image of a bengal tiger resting in tall grass, sunlight filtering through the trees, shallow depth of field, wildlife photography, national geographic style.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 一张孟加拉虎在茂盛的草丛中休息的逼真图像，阳光穿过树木，浅景深，野生动物摄影，国家地理风格。</li>
+<li><strong>说明:</strong> “shallow depth of field” 可以突出主体（老虎），虚化背景。“national geographic style” 可以让图像更具纪实性和专业性。</li>
+</ul>
+</li>
+</ul>
+<p><strong>5. 抽象艺术:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;Abstract painting, swirling colors of blue, purple, and gold, dynamic composition, fluid motion, cosmic energy, modern art, high resolution.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 抽象绘画，蓝色、紫色和金色的漩涡色彩，动态构图，流动运动，宇宙能量，现代艺术，高分辨率。</li>
+<li><strong>说明:</strong> 强调颜色的组合和动态感，&ldquo;cosmic energy&rdquo; 可以赋予画面一种神秘的力量感。“high resolution”可以确保图像清晰度。</li>
+</ul>
+</li>
+</ul>
+<p><strong>6. 建筑/场景:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A medieval castle perched on a rocky cliff overlooking the ocean, stormy skies, dramatic lighting, gothic architecture, oil painting, fantasy art.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 一座中世纪城堡坐落在俯瞰大海的岩石悬崖上，暴风雨的天空，戏剧性的光照，哥特式建筑，油画，奇幻艺术。</li>
+<li><strong>说明:</strong> &ldquo;gothic architecture&rdquo; 明确了建筑风格， “stormy skies” 增加了画面的戏剧性。</li>
+</ul>
+</li>
+</ul>
+<p><strong>7. 像素艺术:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A pixel art landscape of a peaceful forest, a small cabin with a chimney, a winding river, 8-bit style, bright colors, cute and charming.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 一个宁静森林的像素艺术景观，一个小木屋带着烟囱，一条蜿蜒的河流，8 位风格，明亮的颜色，可爱迷人。</li>
+<li><strong>说明:</strong> &ldquo;8-bit style&rdquo; 是像素艺术的关键元素。</li>
+</ul>
+</li>
+</ul>
+<p><strong>更复杂的例子（结合更多元素）:</strong></p>
+<ul>
+<li><strong>提示词:</strong> &ldquo;A cyberpunk cityscape at night, a lone female hacker sitting at a rooftop terminal, neon lights reflecting in her glasses, holographic projections displaying code, rain pouring down, cinematic lighting, highly detailed, dystopian future.&rdquo;
+<ul>
+<li><strong>翻译:</strong> 夜晚一个赛博朋克城市景观，一个孤独的女黑客坐在屋顶终端，霓虹灯反射在她的眼镜里，全息投影显示代码，大雨倾盆，电影级光照，高度详细，反乌托邦未来。</li>
+<li><strong>说明:</strong> 这个提示词结合了场景、人物、天气和氛围，创造了一个复杂而引人入胜的画面。</li>
+</ul>
+</li>
+</ul>
+<p><strong>使用这些示例的建议：</strong></p>
+<ol>
+<li><strong>复制粘贴，开始尝试:</strong> 直接复制这些提示词到你的 AI 绘画工具中，看看效果。</li>
+<li><strong>修改调整，个性化:</strong> 在这些示例的基础上，修改颜色、细节、风格等，创造出你独一无二的作品。</li>
+<li><strong>多关键词组合，更精细:</strong> 尝试添加更多描述性的关键词，例如 &ldquo;hyperrealistic&rdquo;，&ldquo;photorealistic&rdquo;，&ldquo;artstation&rdquo;，&ldquo;trending on artstation&rdquo;，让 AI 生成更符合你预期的图像。</li>
+<li><strong>使用负面提示词:</strong> 如果 AI 总是生成你不想要的东西，尝试使用负面提示词来排除它。例如，如果不想出现模糊的图像，可以添加 &ldquo;blurry, out of focus&rdquo; 到负面提示词中。</li>
+</ol>
+<h3 id="案例">案例
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">一位中国年轻女子，黑发双马尾，脸红，害羞，脸上有白色液体。斜倚在铺着柔软灰色枕头和床单的床上，双腿大张，膝盖弯曲，姿态完全开放，充满诱惑，穿着百褶裙。她丰满自然的乳房，粉嫩的乳晕轻轻地贴着胸膛，肌肤光滑，泛着淡淡的情欲光泽。她剃光的阴部完全暴露，整齐对称的外阴唇微微分开，露出娇嫩的粉嫩内阴唇和阴蒂，隐约可见一丝湿润。一只纤细的手放松地放在阴部旁边的大腿内侧，手指轻轻张开，不再遮掩任何东西，将目光直接引向她坦露的私密之处。她用紧张的眼睛直视着观者。温暖昏暗的室内灯光从上方倾泻而下，在她乳房下方和大腿间投下柔和的阴影，凸显出她裸露私处的每一处曲线和细节。亲密的特写镜头，略微低角度的视角，以她的躯干和完全张开的双腿为中心，高度逼真的渲染，细腻的皮肤纹理，细小的毛孔，自然的红晕，以及不容置疑的色情焦点。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Create a close-up image of an incredibly cute puppy, perhaps a light-colored Cocker Spaniel with curly fur and long ears, and a grey and white tabby kitten sit side by side on a stone wall overlooking the ocean under a slightly cloudy sky. The puppy and the cat have their backs to the camera. It is obviously, that the kitten and the puppy are very young. They are the focus of the scene and are super cute. The stone wall is a light greyish-brown. The water in the background is light blue, suggesting a calm sea. The sky is light blue with very large, fluffy white clouds drifting across it. The lighting suggests a bright, sunny day. The scene exudes a peaceful tranquility and serenity. Friendship, perfect composition, haze, low angle shot, super cute, vibrant colors, highest quality, realistic, fantastic, hyper-detailed, maximalist style, photorealistic, concept art, sharp focus, harmony, ambient occlusion, halo, dynamic lighting, a masterpiece, award-winning, DB4RZ, DB4RZ style painting, NeoPigma, in the style of cksc, anime, cyberpunk
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/prompt/">Prompt</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260310112423/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpenClaw，真正会做事的 AI。</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251208213734/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">n8n，工作流搭建</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251207162625/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型回答质量实际体验总结</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251129005029/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">comfyui配置z-image-turbo工作流，本地生成图片，8G显存可用，从零开始</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250816174237/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">whisper，OpenAI开源的语音转文字大模型</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

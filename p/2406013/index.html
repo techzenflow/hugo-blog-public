@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="marktext 破解 typora 怎么说都不是一件值得推广的事，在寻找 typora 替代软件的过程中，发现了 marktext，外观类似 typora，有些方面可能更美观。神奇的是目前（2024-06-15）已经 45k star 了，但是已经很久没有更新发行版了，最新的版本还停留在 2022 年 3 月，Issuse 已经积累到 1.1k，pull requests42 各没有处理。仓库的 develop 分支还在小幅度不定时更新，也一直没合并到主分支。\n">
+<title>Markdown软件推荐，Typora下位替代品marktext</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/2406013/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Markdown软件推荐，Typora下位替代品marktext">
+<meta property='og:description' content="marktext 破解 typora 怎么说都不是一件值得推广的事，在寻找 typora 替代软件的过程中，发现了 marktext，外观类似 typora，有些方面可能更美观。神奇的是目前（2024-06-15）已经 45k star 了，但是已经很久没有更新发行版了，最新的版本还停留在 2022 年 3 月，Issuse 已经积累到 1.1k，pull requests42 各没有处理。仓库的 develop 分支还在小幅度不定时更新，也一直没合并到主分支。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/2406013/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='markdown' /><meta property='article:published_time' content='2024-06-13T16:06:01&#43;08:00'/><meta property='article:modified_time' content='2024-06-13T16:06:01&#43;08:00'/>
+<meta name="twitter:title" content="Markdown软件推荐，Typora下位替代品marktext">
+<meta name="twitter:description" content="marktext 破解 typora 怎么说都不是一件值得推广的事，在寻找 typora 替代软件的过程中，发现了 marktext，外观类似 typora，有些方面可能更美观。神奇的是目前（2024-06-15）已经 45k star 了，但是已经很久没有更新发行版了，最新的版本还停留在 2022 年 3 月，Issuse 已经积累到 1.1k，pull requests42 各没有处理。仓库的 develop 分支还在小幅度不定时更新，也一直没合并到主分支。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#marktext">marktext</a></li>
+    <li><a href="#obsibian">Obsibian</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2406013/">Markdown软件推荐，Typora下位替代品marktext</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-06-13T16:06:01&#43;08:00'>Jun 13, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#marktext">marktext</a></li>
+    <li><a href="#obsibian">Obsibian</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="marktext">marktext
+</h2><p>破解 typora 怎么说都不是一件值得推广的事，在寻找 typora 替代软件的过程中，发现了 marktext，外观类似 typora，有些方面可能更美观。神奇的是目前（2024-06-15）已经 45k star 了，但是已经很久没有更新发行版了，最新的版本还停留在 2022 年 3 月，Issuse 已经积累到 1.1k，pull requests42 各没有处理。仓库的 develop 分支还在小幅度不定时更新，也一直没合并到主分支。</p>
+
+    <blockquote>
+        <p>地址：<a class="link" href="https://github.com/marktext/marktext"  target="_blank" rel="noopener"
+    >https://github.com/marktext/marktext</a></p>
+
+    </blockquote>
+<p><img alt="image-20240615160637754" class="gallery-image" data-flex-basis="450px" data-flex-grow="187" height="1290" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/06/15/cAPfu7MxSOaknj8.png" srcset="/cAPfu7MxSOaknj8_6711606507120546984_hu_f7c75b467a64b702.png 800w, /cAPfu7MxSOaknj8_6711606507120546984_hu_47304121b79d58d7.png 1600w, /cAPfu7MxSOaknj8_6711606507120546984_hu_f1b321e8bf7a565b.png 2400w, https://s2.loli.net/2024/06/15/cAPfu7MxSOaknj8.png 2423w" width="2423"></p>
+<p>安装后主界面长这样</p>
+<p><img alt="image-20240615160838872" class="gallery-image" data-flex-basis="403px" data-flex-grow="168" height="1522" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/06/15/L7H5XD8lGYnt6mR.png" srcset="/L7H5XD8lGYnt6mR_16108487293640800253_hu_2eb0664a662d4107.png 800w, /L7H5XD8lGYnt6mR_16108487293640800253_hu_6512470a7068ce1f.png 1600w, /L7H5XD8lGYnt6mR_16108487293640800253_hu_ae4ca676440cb3c.png 2400w, https://s2.loli.net/2024/06/15/L7H5XD8lGYnt6mR.png 2557w" width="2557"></p>
+<p>整体默认的样式看上去就很舒服，细心的同学可以看到，代码块有复制按钮，同 obsibian 一样，但是 obsibian 太丑了。</p>
+<p>目前有几个影响写作体验感的方面：</p>
+<ol>
+<li>无法识别 picgo，也无法设置命令行，这对写文章需要图片上传的时候是个很严重的影响。</li>
+</ol>
+<p><img alt="image-20240615161507701" class="gallery-image" data-flex-basis="694px" data-flex-grow="289" height="862" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/06/15/MFqmaxGDXSrJW5g.png" srcset="/MFqmaxGDXSrJW5g_5394267938780670860_hu_f785b5678852db26.png 800w, /MFqmaxGDXSrJW5g_5394267938780670860_hu_4f2f90dd12d85d0d.png 1600w, /MFqmaxGDXSrJW5g_5394267938780670860_hu_fb400585fd35b55f.png 2400w, https://s2.loli.net/2024/06/15/MFqmaxGDXSrJW5g.png 2496w" width="2496"></p>
+<p>可以看到左侧显示没有 picgo，右边全局变量设置后其实已经可以用了，切换到命令行脚本，实际上却无法保存。</p>
+<p>当然了，这也不知道是不是和我的环境有关。</p>
+<ol start="2">
+<li>
+<p>typora 剪贴板有超链接，使用 ctrl+k 后自动补全，光标自动跳转到链接标题，输入即可，这点体验感很好。但是 marktext 还是在链接末尾，需要手动调整光标到标题框。</p>
+<p>另一个是 marktext 粘贴超链接到文档中有明显的卡顿。</p>
+</li>
+</ol>
+<p>这两点对于我写作就有相当大的考验，总观全文，你就知道我为了方便查看跳转设置了多个带标题的超链接，而不是直接粘贴链接，那样太影响阅读体验了。</p>
+<ol start="3">
+<li>
+<p>marktext 连续的两个代码块之间新增一行，~~变得很困难，~~比如我有时侯会修改内容，现在有两个代码块，我在后面的代码块前面新增说明而不是写入代码块中，typora 只需要通过键盘将光标定位到前面的代码块最后一行的最后位置，按 ctrl+enter，即可新建一行不包含代码块的内容。</p>
+<p><del>在 marktext 中则是需要移动鼠标到代码块前面，在弹出的框选择<code>New Paragraph</code>。</del></p>
+<p>使用少，经验不足，原来有个内置的快捷键<code>ctrl+shift+n</code>即可新建一行，不管光标在代码哪个位置，即可新建一行，反转！比 typora 更好用，typora 要么使用上述使用的方案，要么使用菜单-段落-在下方插入段落。而这个操作 typora 自定义快捷键更麻烦。</p>
+</li>
+</ol>
+<p><strong>最后，如果在众多软件中选择一个替代品，我优先推荐 marktext。</strong></p>
+<h2 id="obsibian">Obsibian
+</h2><p>它并不能算一个纯粹的 Markdown 编辑器，而是一个 markdown 仓库管理软件，网络上已经有很多人介绍过了，我这就不献丑了。</p>
+<p>推荐和 typora 或 marktext 一起使用，obsibian 管理仓库，不好编辑的时候交给 typora 或者 marktext。</p>
+<p>它很强大，但是默认有点点丑，需要自己摸索。我一般用来管理 markdown 文章。</p>
+<p>下面是我定制 obsibian 过后的界面：</p>
+<p><img alt="image-20240615164759697" class="gallery-image" data-flex-basis="403px" data-flex-grow="168" height="1522" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/06/15/rxifpA6WVkQZNEC.png" srcset="/rxifpA6WVkQZNEC_17975959673416990728_hu_63c876d770bbf42b.png 800w, /rxifpA6WVkQZNEC_17975959673416990728_hu_df2a47b0fe7375f7.png 1600w, /rxifpA6WVkQZNEC_17975959673416990728_hu_658dc78e3ef03940.png 2400w, https://s2.loli.net/2024/06/15/rxifpA6WVkQZNEC.png 2557w" width="2557"></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/markdown/">Markdown</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/2309004/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">markdown实时渲染外链图片的解决方案（未完成）</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Superset on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/superset/</link>
+        <description>Recent content in Superset on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Thu, 25 Dec 2025 22:25:57 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/superset/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>superset，一款开源的可视化平台</title>
+            <link>https://blog.seektao.cc/p/251225222557/</link>
+            <pubDate>Thu, 25 Dec 2025 22:25:57 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/251225222557/</guid>
+            <description>&lt;h2 id=&#34;简介&#34;&gt;简介&#xA;&lt;/h2&gt;&lt;p&gt;官网：&lt;a class=&#34;link&#34; href=&#34;https://superset.apache.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://superset.apache.org/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;部署&#34;&gt;部署&#xA;&lt;/h2&gt;&lt;h3 id=&#34;docker-compose&#34;&gt;docker compose&#xA;&lt;/h3&gt;</description>
+        </item></channel>
+</rss>

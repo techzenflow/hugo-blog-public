@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="视频编码格式兼容性、播放支持及文件后缀 视频编码格式决定了视频数据如何被压缩和解压缩，进而影响文件大小、画质以及播放设备的兼容性。\n关键兼容性总结：\n最常用且兼容性最好的： H.264 (AVC) 新一代高效编码： H.265 (HEVC), AV1 (逐渐普及，硬件支持是关键) 开源免版税： VP9, AV1 旧设备可能需要转码的： AV1, VP9, H.265 (HEVC) 以及一些较旧或不常见的格式。 1. H.264 (AVC) 全称： H.264 (MPEG-4 Part 10 AVC - Advanced Video Coding) 标识： avc1 (FourCC code) 兼容性与支持： 兼容性非常好，几乎所有的设备和播放器都支持，是目前视频流媒体和本地播放最广泛使用的标准。 通常不需要转码。 典型应用： 网络流媒体（YouTube、Netflix 等）、蓝光光盘、数字电视广播、多数视频文件。 常见文件后缀： .mp4, .mkv, .mov, .avi, .ts 2. H.265 (HEVC) 全称： H.265 (High Efficiency Video Coding) 标识： hev1 或 hvc1 (FourCC code) 兼容性与支持： H.264 的继任者，提供更高的压缩效率（在相同画质下文件更小，或在相同文件大小下画质更好），尤其适合 4K 及以上分辨率视频。 支持度逐渐普及，但不如 H.264 广泛。较新的设备和软件通常支持，但老旧设备可能需要硬件解码器支持或额外的软件解码包。 可能需要转码，特别是对于老旧设备或不带 HEVC 解码器的播放器。 典型应用： 4K/UHD 视频流媒体、UHD 蓝光光盘、部分高清电视广播、新一代移动设备视频录制。 常见文件后缀： .mp4, .mkv, .mov 3. VP9 全称： VP9 标识： vp09 (FourCC code) 兼容性与支持： 由 Google 开发的免版税视频编码格式。 在许多现代浏览器（如 Chrome、Firefox、Edge）和设备上得到良好支持，尤其是在流媒体平台（如 YouTube）上被广泛使用。 但某些旧设备可能不支持，可能需要转码。 典型应用： YouTube 等平台的流媒体视频，HTML5 视频。 常见文件后缀： .webm, .mkv 4. AV1 全称： AV1 (AOMedia Video 1) 标识： av01 (FourCC code) 兼容性与支持： 由 Alliance for Open Media (AOMedia) 开发的免版税、高效率的视频编码格式，旨在提供比 H.265 和 VP9 更好的压缩性能。 逐渐获得支持，但仍然不如 H.264 广泛。主要在较新的设备、浏览器（如 Chrome、Firefox、Edge、Safari）和操作系统中得到原生支持。硬件解码器的普及率正在提高。 老旧设备或缺乏硬件支持的设备可能无法流畅播放，可能需要转码。 典型应用： 未来的高效率网络流媒体、高质量视频分发。 常见文件后缀： .mp4, .mkv（有时可能会使用 .av1，但不太常见） 5. MPEG-2 全称： MPEG-2 (MPEG-2 Video) 描述： 曾经最主流的视频编码格式之一，在 DVD 时代占据主导地位。压缩效率低于 H.264，但兼容性依然广泛。 兼容性与支持： 绝大多数播放器和设备都支持，是 DVD 播放器和数字电视广播（如 DVB, ATSC）的标准。 典型应用： DVD 视频、数字电视广播。 常见文件后缀： .mpg, .mpeg, .vob (DVD 视频对象文件), .ts (传输流), .mkv 6. MPEG-4 Part 2 (DivX / XviD) 全称： MPEG-4 Part 2 (也常被称为 DivX 或 XviD，它们是该标准的主要实现) 描述： 在 H.264 普及之前，MPEG-4 Part 2 编码器（如 DivX 和 XviD）曾是网络视频共享和下载的主流格式，能在较低比特率下提供相对不错的画质。 兼容性与支持： 许多较老的独立 DVD 播放器和电脑播放器都支持。现代播放器通常也兼容，但不如 H.264 常见。 典型应用： 早期网络视频下载和文件共享。 常见文件后缀： .avi, .mp4, .ogm, .mkv 7. WMV (Windows Media Video) 全称： WMV (Windows Media Video) 描述： 微软开发的一系列视频编码格式。早期在 Windows 生态系统中非常流行。 兼容性与支持： 在 Windows 操作系统和相关应用程序中支持良好。在非 Windows 平台上可能需要额外的解码器或播放器。 典型应用： 微软平台上的流媒体和本地视频播放。 常见文件后缀： .wmv, .asf 8. 专业级/高画质视频编码 (ProRes, DNxHD/HR) 全称： Apple ProRes, Avid DNxHD/HR (Digital Nonlinear Extensible High Definition/Resolution) 描述： 这些是主要用于专业视频编辑和后期制作的编码格式。它们通常是帧内编码（不依赖前后帧），提供视觉上无损的画质，便于快速编辑，但文件尺寸远大于消费级编码格式（如 H.264/H.265）。 兼容性与支持： 主要由专业视频编辑软件（如 Final Cut Pro, Adobe Premiere Pro, Avid Media Composer）支持。普通播放器可能需要特定的插件。 典型应用： 电影、电视节目制作、广播、高质量素材存档。 常见文件后缀： .mov (通常为 ProRes), .mxf (通常为 DNxHD/HR) 音频编码格式及其常见文件后缀 音频编码格式决定了音频数据如何被压缩和存储。\n">
+<title>视频编码格式选择和常见后缀，音频编码格式及后缀</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/240804220845/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="视频编码格式选择和常见后缀，音频编码格式及后缀">
+<meta property='og:description' content="视频编码格式兼容性、播放支持及文件后缀 视频编码格式决定了视频数据如何被压缩和解压缩，进而影响文件大小、画质以及播放设备的兼容性。\n关键兼容性总结：\n最常用且兼容性最好的： H.264 (AVC) 新一代高效编码： H.265 (HEVC), AV1 (逐渐普及，硬件支持是关键) 开源免版税： VP9, AV1 旧设备可能需要转码的： AV1, VP9, H.265 (HEVC) 以及一些较旧或不常见的格式。 1. H.264 (AVC) 全称： H.264 (MPEG-4 Part 10 AVC - Advanced Video Coding) 标识： avc1 (FourCC code) 兼容性与支持： 兼容性非常好，几乎所有的设备和播放器都支持，是目前视频流媒体和本地播放最广泛使用的标准。 通常不需要转码。 典型应用： 网络流媒体（YouTube、Netflix 等）、蓝光光盘、数字电视广播、多数视频文件。 常见文件后缀： .mp4, .mkv, .mov, .avi, .ts 2. H.265 (HEVC) 全称： H.265 (High Efficiency Video Coding) 标识： hev1 或 hvc1 (FourCC code) 兼容性与支持： H.264 的继任者，提供更高的压缩效率（在相同画质下文件更小，或在相同文件大小下画质更好），尤其适合 4K 及以上分辨率视频。 支持度逐渐普及，但不如 H.264 广泛。较新的设备和软件通常支持，但老旧设备可能需要硬件解码器支持或额外的软件解码包。 可能需要转码，特别是对于老旧设备或不带 HEVC 解码器的播放器。 典型应用： 4K/UHD 视频流媒体、UHD 蓝光光盘、部分高清电视广播、新一代移动设备视频录制。 常见文件后缀： .mp4, .mkv, .mov 3. VP9 全称： VP9 标识： vp09 (FourCC code) 兼容性与支持： 由 Google 开发的免版税视频编码格式。 在许多现代浏览器（如 Chrome、Firefox、Edge）和设备上得到良好支持，尤其是在流媒体平台（如 YouTube）上被广泛使用。 但某些旧设备可能不支持，可能需要转码。 典型应用： YouTube 等平台的流媒体视频，HTML5 视频。 常见文件后缀： .webm, .mkv 4. AV1 全称： AV1 (AOMedia Video 1) 标识： av01 (FourCC code) 兼容性与支持： 由 Alliance for Open Media (AOMedia) 开发的免版税、高效率的视频编码格式，旨在提供比 H.265 和 VP9 更好的压缩性能。 逐渐获得支持，但仍然不如 H.264 广泛。主要在较新的设备、浏览器（如 Chrome、Firefox、Edge、Safari）和操作系统中得到原生支持。硬件解码器的普及率正在提高。 老旧设备或缺乏硬件支持的设备可能无法流畅播放，可能需要转码。 典型应用： 未来的高效率网络流媒体、高质量视频分发。 常见文件后缀： .mp4, .mkv（有时可能会使用 .av1，但不太常见） 5. MPEG-2 全称： MPEG-2 (MPEG-2 Video) 描述： 曾经最主流的视频编码格式之一，在 DVD 时代占据主导地位。压缩效率低于 H.264，但兼容性依然广泛。 兼容性与支持： 绝大多数播放器和设备都支持，是 DVD 播放器和数字电视广播（如 DVB, ATSC）的标准。 典型应用： DVD 视频、数字电视广播。 常见文件后缀： .mpg, .mpeg, .vob (DVD 视频对象文件), .ts (传输流), .mkv 6. MPEG-4 Part 2 (DivX / XviD) 全称： MPEG-4 Part 2 (也常被称为 DivX 或 XviD，它们是该标准的主要实现) 描述： 在 H.264 普及之前，MPEG-4 Part 2 编码器（如 DivX 和 XviD）曾是网络视频共享和下载的主流格式，能在较低比特率下提供相对不错的画质。 兼容性与支持： 许多较老的独立 DVD 播放器和电脑播放器都支持。现代播放器通常也兼容，但不如 H.264 常见。 典型应用： 早期网络视频下载和文件共享。 常见文件后缀： .avi, .mp4, .ogm, .mkv 7. WMV (Windows Media Video) 全称： WMV (Windows Media Video) 描述： 微软开发的一系列视频编码格式。早期在 Windows 生态系统中非常流行。 兼容性与支持： 在 Windows 操作系统和相关应用程序中支持良好。在非 Windows 平台上可能需要额外的解码器或播放器。 典型应用： 微软平台上的流媒体和本地视频播放。 常见文件后缀： .wmv, .asf 8. 专业级/高画质视频编码 (ProRes, DNxHD/HR) 全称： Apple ProRes, Avid DNxHD/HR (Digital Nonlinear Extensible High Definition/Resolution) 描述： 这些是主要用于专业视频编辑和后期制作的编码格式。它们通常是帧内编码（不依赖前后帧），提供视觉上无损的画质，便于快速编辑，但文件尺寸远大于消费级编码格式（如 H.264/H.265）。 兼容性与支持： 主要由专业视频编辑软件（如 Final Cut Pro, Adobe Premiere Pro, Avid Media Composer）支持。普通播放器可能需要特定的插件。 典型应用： 电影、电视节目制作、广播、高质量素材存档。 常见文件后缀： .mov (通常为 ProRes), .mxf (通常为 DNxHD/HR) 音频编码格式及其常见文件后缀 音频编码格式决定了音频数据如何被压缩和存储。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/240804220845/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-08-04T22:08:45&#43;08:00'/><meta property='article:modified_time' content='2024-08-04T22:08:45&#43;08:00'/><meta property='og:image' content='https://blog.seektao.cc/' />
+<meta name="twitter:title" content="视频编码格式选择和常见后缀，音频编码格式及后缀">
+<meta name="twitter:description" content="视频编码格式兼容性、播放支持及文件后缀 视频编码格式决定了视频数据如何被压缩和解压缩，进而影响文件大小、画质以及播放设备的兼容性。\n关键兼容性总结：\n最常用且兼容性最好的： H.264 (AVC) 新一代高效编码： H.265 (HEVC), AV1 (逐渐普及，硬件支持是关键) 开源免版税： VP9, AV1 旧设备可能需要转码的： AV1, VP9, H.265 (HEVC) 以及一些较旧或不常见的格式。 1. H.264 (AVC) 全称： H.264 (MPEG-4 Part 10 AVC - Advanced Video Coding) 标识： avc1 (FourCC code) 兼容性与支持： 兼容性非常好，几乎所有的设备和播放器都支持，是目前视频流媒体和本地播放最广泛使用的标准。 通常不需要转码。 典型应用： 网络流媒体（YouTube、Netflix 等）、蓝光光盘、数字电视广播、多数视频文件。 常见文件后缀： .mp4, .mkv, .mov, .avi, .ts 2. H.265 (HEVC) 全称： H.265 (High Efficiency Video Coding) 标识： hev1 或 hvc1 (FourCC code) 兼容性与支持： H.264 的继任者，提供更高的压缩效率（在相同画质下文件更小，或在相同文件大小下画质更好），尤其适合 4K 及以上分辨率视频。 支持度逐渐普及，但不如 H.264 广泛。较新的设备和软件通常支持，但老旧设备可能需要硬件解码器支持或额外的软件解码包。 可能需要转码，特别是对于老旧设备或不带 HEVC 解码器的播放器。 典型应用： 4K/UHD 视频流媒体、UHD 蓝光光盘、部分高清电视广播、新一代移动设备视频录制。 常见文件后缀： .mp4, .mkv, .mov 3. VP9 全称： VP9 标识： vp09 (FourCC code) 兼容性与支持： 由 Google 开发的免版税视频编码格式。 在许多现代浏览器（如 Chrome、Firefox、Edge）和设备上得到良好支持，尤其是在流媒体平台（如 YouTube）上被广泛使用。 但某些旧设备可能不支持，可能需要转码。 典型应用： YouTube 等平台的流媒体视频，HTML5 视频。 常见文件后缀： .webm, .mkv 4. AV1 全称： AV1 (AOMedia Video 1) 标识： av01 (FourCC code) 兼容性与支持： 由 Alliance for Open Media (AOMedia) 开发的免版税、高效率的视频编码格式，旨在提供比 H.265 和 VP9 更好的压缩性能。 逐渐获得支持，但仍然不如 H.264 广泛。主要在较新的设备、浏览器（如 Chrome、Firefox、Edge、Safari）和操作系统中得到原生支持。硬件解码器的普及率正在提高。 老旧设备或缺乏硬件支持的设备可能无法流畅播放，可能需要转码。 典型应用： 未来的高效率网络流媒体、高质量视频分发。 常见文件后缀： .mp4, .mkv（有时可能会使用 .av1，但不太常见） 5. MPEG-2 全称： MPEG-2 (MPEG-2 Video) 描述： 曾经最主流的视频编码格式之一，在 DVD 时代占据主导地位。压缩效率低于 H.264，但兼容性依然广泛。 兼容性与支持： 绝大多数播放器和设备都支持，是 DVD 播放器和数字电视广播（如 DVB, ATSC）的标准。 典型应用： DVD 视频、数字电视广播。 常见文件后缀： .mpg, .mpeg, .vob (DVD 视频对象文件), .ts (传输流), .mkv 6. MPEG-4 Part 2 (DivX / XviD) 全称： MPEG-4 Part 2 (也常被称为 DivX 或 XviD，它们是该标准的主要实现) 描述： 在 H.264 普及之前，MPEG-4 Part 2 编码器（如 DivX 和 XviD）曾是网络视频共享和下载的主流格式，能在较低比特率下提供相对不错的画质。 兼容性与支持： 许多较老的独立 DVD 播放器和电脑播放器都支持。现代播放器通常也兼容，但不如 H.264 常见。 典型应用： 早期网络视频下载和文件共享。 常见文件后缀： .avi, .mp4, .ogm, .mkv 7. WMV (Windows Media Video) 全称： WMV (Windows Media Video) 描述： 微软开发的一系列视频编码格式。早期在 Windows 生态系统中非常流行。 兼容性与支持： 在 Windows 操作系统和相关应用程序中支持良好。在非 Windows 平台上可能需要额外的解码器或播放器。 典型应用： 微软平台上的流媒体和本地视频播放。 常见文件后缀： .wmv, .asf 8. 专业级/高画质视频编码 (ProRes, DNxHD/HR) 全称： Apple ProRes, Avid DNxHD/HR (Digital Nonlinear Extensible High Definition/Resolution) 描述： 这些是主要用于专业视频编辑和后期制作的编码格式。它们通常是帧内编码（不依赖前后帧），提供视觉上无损的画质，便于快速编辑，但文件尺寸远大于消费级编码格式（如 H.264/H.265）。 兼容性与支持： 主要由专业视频编辑软件（如 Final Cut Pro, Adobe Premiere Pro, Avid Media Composer）支持。普通播放器可能需要特定的插件。 典型应用： 电影、电视节目制作、广播、高质量素材存档。 常见文件后缀： .mov (通常为 ProRes), .mxf (通常为 DNxHD/HR) 音频编码格式及其常见文件后缀 音频编码格式决定了音频数据如何被压缩和存储。\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.seektao.cc/' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#视频编码格式兼容性播放支持及文件后缀">视频编码格式兼容性、播放支持及文件后缀</a>
+      <ol>
+        <li><a href="#1-h264-avc">1. H.264 (AVC)</a></li>
+        <li><a href="#2-h265-hevc">2. H.265 (HEVC)</a></li>
+        <li><a href="#3-vp9">3. VP9</a></li>
+        <li><a href="#4-av1">4. AV1</a></li>
+        <li><a href="#5-mpeg-2">5. MPEG-2</a></li>
+        <li><a href="#6-mpeg-4-part-2-divx--xvid">6. MPEG-4 Part 2 (DivX / XviD)</a></li>
+        <li><a href="#7-wmv-windows-media-video">7. WMV (Windows Media Video)</a></li>
+        <li><a href="#8-专业级高画质视频编码-prores-dnxhdhr">8. 专业级/高画质视频编码 (ProRes, DNxHD/HR)</a></li>
+      </ol>
+    </li>
+    <li><a href="#音频编码格式及其常见文件后缀">音频编码格式及其常见文件后缀</a>
+      <ol>
+        <li><a href="#1-aac-advanced-audio-coding">1. AAC (Advanced Audio Coding)</a></li>
+        <li><a href="#2-mp3">2. MP3</a></li>
+        <li><a href="#3-opus">3. Opus</a></li>
+        <li><a href="#4-ac-3-dolby-digital--e-ac-3-dolby-digital-plus">4. AC-3 (Dolby Digital) / E-AC-3 (Dolby Digital Plus)</a></li>
+        <li><a href="#5-dts-digital-theater-system">5. DTS (Digital Theater System)</a></li>
+        <li><a href="#6-flac-free-lossless-audio-codec">6. FLAC (Free Lossless Audio Codec)</a></li>
+        <li><a href="#7-alac-apple-lossless-audio-codec">7. ALAC (Apple Lossless Audio Codec)</a></li>
+        <li><a href="#8-wma-windows-media-audio">8. WMA (Windows Media Audio)</a></li>
+        <li><a href="#9-vorbis-ogg-vorbis">9. Vorbis (Ogg Vorbis)</a></li>
+        <li><a href="#10-wav-waveform-audio-file-format--pcm">10. WAV (Waveform Audio File Format) / PCM</a></li>
+        <li><a href="#特殊说明音频格式中的-drc">特殊说明：音频格式中的 &ldquo;drc&rdquo;</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/p/240804220845/">
+            <img alt="Featured image of post 视频编码格式选择和常见后缀，音频编码格式及后缀" height="1024" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/08/04/Chm17KaLquFPU36.webp" srcset="/Chm17KaLquFPU36_6806820010999136908_hu_82de8c43d3eaea5c.webp 800w, https://s2.loli.net/2024/08/04/Chm17KaLquFPU36.webp 1024w" width="1024">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/240804220845/">视频编码格式选择和常见后缀，音频编码格式及后缀</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-08-04T22:08:45&#43;08:00'>Aug 04, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#视频编码格式兼容性播放支持及文件后缀">视频编码格式兼容性、播放支持及文件后缀</a>
+      <ol>
+        <li><a href="#1-h264-avc">1. H.264 (AVC)</a></li>
+        <li><a href="#2-h265-hevc">2. H.265 (HEVC)</a></li>
+        <li><a href="#3-vp9">3. VP9</a></li>
+        <li><a href="#4-av1">4. AV1</a></li>
+        <li><a href="#5-mpeg-2">5. MPEG-2</a></li>
+        <li><a href="#6-mpeg-4-part-2-divx--xvid">6. MPEG-4 Part 2 (DivX / XviD)</a></li>
+        <li><a href="#7-wmv-windows-media-video">7. WMV (Windows Media Video)</a></li>
+        <li><a href="#8-专业级高画质视频编码-prores-dnxhdhr">8. 专业级/高画质视频编码 (ProRes, DNxHD/HR)</a></li>
+      </ol>
+    </li>
+    <li><a href="#音频编码格式及其常见文件后缀">音频编码格式及其常见文件后缀</a>
+      <ol>
+        <li><a href="#1-aac-advanced-audio-coding">1. AAC (Advanced Audio Coding)</a></li>
+        <li><a href="#2-mp3">2. MP3</a></li>
+        <li><a href="#3-opus">3. Opus</a></li>
+        <li><a href="#4-ac-3-dolby-digital--e-ac-3-dolby-digital-plus">4. AC-3 (Dolby Digital) / E-AC-3 (Dolby Digital Plus)</a></li>
+        <li><a href="#5-dts-digital-theater-system">5. DTS (Digital Theater System)</a></li>
+        <li><a href="#6-flac-free-lossless-audio-codec">6. FLAC (Free Lossless Audio Codec)</a></li>
+        <li><a href="#7-alac-apple-lossless-audio-codec">7. ALAC (Apple Lossless Audio Codec)</a></li>
+        <li><a href="#8-wma-windows-media-audio">8. WMA (Windows Media Audio)</a></li>
+        <li><a href="#9-vorbis-ogg-vorbis">9. Vorbis (Ogg Vorbis)</a></li>
+        <li><a href="#10-wav-waveform-audio-file-format--pcm">10. WAV (Waveform Audio File Format) / PCM</a></li>
+        <li><a href="#特殊说明音频格式中的-drc">特殊说明：音频格式中的 &ldquo;drc&rdquo;</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="视频编码格式兼容性播放支持及文件后缀">视频编码格式兼容性、播放支持及文件后缀
+</h2><p>视频编码格式决定了视频数据如何被压缩和解压缩，进而影响文件大小、画质以及播放设备的兼容性。</p>
+<p><strong>关键兼容性总结：</strong></p>
+<ul>
+<li><strong>最常用且兼容性最好的：</strong> <code>H.264 (AVC)</code></li>
+<li><strong>新一代高效编码：</strong> <code>H.265 (HEVC)</code>, <code>AV1</code> (逐渐普及，硬件支持是关键)</li>
+<li><strong>开源免版税：</strong> <code>VP9</code>, <code>AV1</code></li>
+<li><strong>旧设备可能需要转码的：</strong> <code>AV1</code>, <code>VP9</code>, <code>H.265 (HEVC)</code> 以及一些较旧或不常见的格式。</li>
+</ul>
+<h3 id="1-h264-avc">1. H.264 (AVC)
+</h3><ul>
+<li><strong>全称：</strong> H.264 (MPEG-4 Part 10 AVC - Advanced Video Coding)</li>
+<li><strong>标识：</strong> <code>avc1</code> (FourCC code)</li>
+<li><strong>兼容性与支持：</strong>
+<ul>
+<li><strong>兼容性非常好，几乎所有的设备和播放器都支持</strong>，是目前视频流媒体和本地播放最广泛使用的标准。</li>
+<li>通常<strong>不需要转码</strong>。</li>
+</ul>
+</li>
+<li><strong>典型应用：</strong> 网络流媒体（YouTube、Netflix 等）、蓝光光盘、数字电视广播、多数视频文件。</li>
+<li><strong>常见文件后缀：</strong> <code>.mp4</code>, <code>.mkv</code>, <code>.mov</code>, <code>.avi</code>, <code>.ts</code></li>
+</ul>
+<h3 id="2-h265-hevc">2. H.265 (HEVC)
+</h3><ul>
+<li><strong>全称：</strong> H.265 (High Efficiency Video Coding)</li>
+<li><strong>标识：</strong> <code>hev1</code> 或 <code>hvc1</code> (FourCC code)</li>
+<li><strong>兼容性与支持：</strong>
+<ul>
+<li>H.264 的继任者，<strong>提供更高的压缩效率</strong>（在相同画质下文件更小，或在相同文件大小下画质更好），尤其适合 4K 及以上分辨率视频。</li>
+<li>支持度<strong>逐渐普及</strong>，但不如 H.264 广泛。较新的设备和软件通常支持，但老旧设备可能需要硬件解码器支持或额外的软件解码包。</li>
+<li><strong>可能需要转码</strong>，特别是对于老旧设备或不带 HEVC 解码器的播放器。</li>
+</ul>
+</li>
+<li><strong>典型应用：</strong> 4K/UHD 视频流媒体、UHD 蓝光光盘、部分高清电视广播、新一代移动设备视频录制。</li>
+<li><strong>常见文件后缀：</strong> <code>.mp4</code>, <code>.mkv</code>, <code>.mov</code></li>
+</ul>
+<h3 id="3-vp9">3. VP9
+</h3><ul>
+<li><strong>全称：</strong> VP9</li>
+<li><strong>标识：</strong> <code>vp09</code> (FourCC code)</li>
+<li><strong>兼容性与支持：</strong>
+<ul>
+<li>由 Google 开发的<strong>免版税</strong>视频编码格式。</li>
+<li>在许多现代浏览器（如 Chrome、Firefox、Edge）和设备上得到良好支持，尤其是在流媒体平台（如 YouTube）上被广泛使用。</li>
+<li>但某些旧设备可能不支持，<strong>可能需要转码</strong>。</li>
+</ul>
+</li>
+<li><strong>典型应用：</strong> YouTube 等平台的流媒体视频，HTML5 视频。</li>
+<li><strong>常见文件后缀：</strong> <code>.webm</code>, <code>.mkv</code></li>
+</ul>
+<h3 id="4-av1">4. AV1
+</h3><ul>
+<li><strong>全称：</strong> AV1 (AOMedia Video 1)</li>
+<li><strong>标识：</strong> <code>av01</code> (FourCC code)</li>
+<li><strong>兼容性与支持：</strong>
+<ul>
+<li>由 Alliance for Open Media (AOMedia) 开发的<strong>免版税</strong>、<strong>高效率</strong>的视频编码格式，旨在提供比 H.265 和 VP9 更好的压缩性能。</li>
+<li><strong>逐渐获得支持</strong>，但仍然不如 H.264 广泛。主要在较新的设备、浏览器（如 Chrome、Firefox、Edge、Safari）和操作系统中得到原生支持。硬件解码器的普及率正在提高。</li>
+<li>老旧设备或缺乏硬件支持的设备可能无法流畅播放，<strong>可能需要转码</strong>。</li>
+</ul>
+</li>
+<li><strong>典型应用：</strong> 未来的高效率网络流媒体、高质量视频分发。</li>
+<li><strong>常见文件后缀：</strong> <code>.mp4</code>, <code>.mkv</code>（有时可能会使用 <code>.av1</code>，但不太常见）</li>
+</ul>
+<h3 id="5-mpeg-2">5. MPEG-2
+</h3><ul>
+<li><strong>全称：</strong> MPEG-2 (MPEG-2 Video)</li>
+<li><strong>描述：</strong> 曾经最主流的视频编码格式之一，在 DVD 时代占据主导地位。压缩效率低于 H.264，但兼容性依然广泛。</li>
+<li><strong>兼容性与支持：</strong> 绝大多数播放器和设备都支持，是 DVD 播放器和数字电视广播（如 DVB, ATSC）的标准。</li>
+<li><strong>典型应用：</strong> DVD 视频、数字电视广播。</li>
+<li><strong>常见文件后缀：</strong> <code>.mpg</code>, <code>.mpeg</code>, <code>.vob</code> (DVD 视频对象文件), <code>.ts</code> (传输流), <code>.mkv</code></li>
+</ul>
+<h3 id="6-mpeg-4-part-2-divx--xvid">6. MPEG-4 Part 2 (DivX / XviD)
+</h3><ul>
+<li><strong>全称：</strong> MPEG-4 Part 2 (也常被称为 DivX 或 XviD，它们是该标准的主要实现)</li>
+<li><strong>描述：</strong> 在 H.264 普及之前，MPEG-4 Part 2 编码器（如 DivX 和 XviD）曾是网络视频共享和下载的主流格式，能在较低比特率下提供相对不错的画质。</li>
+<li><strong>兼容性与支持：</strong> 许多较老的独立 DVD 播放器和电脑播放器都支持。现代播放器通常也兼容，但不如 H.264 常见。</li>
+<li><strong>典型应用：</strong> 早期网络视频下载和文件共享。</li>
+<li><strong>常见文件后缀：</strong> <code>.avi</code>, <code>.mp4</code>, <code>.ogm</code>, <code>.mkv</code></li>
+</ul>
+<h3 id="7-wmv-windows-media-video">7. WMV (Windows Media Video)
+</h3><ul>
+<li><strong>全称：</strong> WMV (Windows Media Video)</li>
+<li><strong>描述：</strong> 微软开发的一系列视频编码格式。早期在 Windows 生态系统中非常流行。</li>
+<li><strong>兼容性与支持：</strong> 在 Windows 操作系统和相关应用程序中支持良好。在非 Windows 平台上可能需要额外的解码器或播放器。</li>
+<li><strong>典型应用：</strong> 微软平台上的流媒体和本地视频播放。</li>
+<li><strong>常见文件后缀：</strong> <code>.wmv</code>, <code>.asf</code></li>
+</ul>
+<h3 id="8-专业级高画质视频编码-prores-dnxhdhr">8. 专业级/高画质视频编码 (ProRes, DNxHD/HR)
+</h3><ul>
+<li><strong>全称：</strong> Apple ProRes, Avid DNxHD/HR (Digital Nonlinear Extensible High Definition/Resolution)</li>
+<li><strong>描述：</strong> 这些是主要用于专业视频编辑和后期制作的编码格式。它们通常是<strong>帧内编码</strong>（不依赖前后帧），提供<strong>视觉上无损</strong>的画质，便于快速编辑，但文件尺寸远大于消费级编码格式（如 H.264/H.265）。</li>
+<li><strong>兼容性与支持：</strong> 主要由专业视频编辑软件（如 Final Cut Pro, Adobe Premiere Pro, Avid Media Composer）支持。普通播放器可能需要特定的插件。</li>
+<li><strong>典型应用：</strong> 电影、电视节目制作、广播、高质量素材存档。</li>
+<li><strong>常见文件后缀：</strong> <code>.mov</code> (通常为 ProRes), <code>.mxf</code> (通常为 DNxHD/HR)</li>
+</ul>
+<h2 id="音频编码格式及其常见文件后缀">音频编码格式及其常见文件后缀
+</h2><p>音频编码格式决定了音频数据如何被压缩和存储。</p>
+<h3 id="1-aac-advanced-audio-coding">1. AAC (Advanced Audio Coding)
+</h3><ul>
+<li><strong>全称：</strong> AAC (Advanced Audio Coding)</li>
+<li><strong>描述：</strong> 一种高效的有损音频压缩格式，通常在相同比特率下提供比 MP3 更好的音质。</li>
+<li><strong>兼容性：</strong> <strong>非常广泛</strong>，是视频文件（如 H.264/H.265 视频）中最常用的伴随音频格式，也被许多流媒体服务和移动设备支持。</li>
+<li><strong>常见文件后缀：</strong> 通常作为视频文件（<code>.mp4</code>, <code>.mkv</code>, <code>.mov</code>）的音轨，单独的音频文件多使用 <code>.m4a</code>。</li>
+</ul>
+<h3 id="2-mp3">2. MP3
+</h3><ul>
+<li><strong>全称：</strong> MPEG-1 Audio Layer III</li>
+<li><strong>描述：</strong> 最广为人知的有损音频压缩格式。尽管其效率不如 AAC 或 Opus，但因其悠久的历史和极高的普及度，仍是音频领域的重要标准。</li>
+<li><strong>兼容性：</strong> <strong>极高，几乎所有设备和播放器都支持</strong>。</li>
+<li><strong>常见文件后缀：</strong> <code>.mp3</code></li>
+</ul>
+<h3 id="3-opus">3. Opus
+</h3><ul>
+<li><strong>全称：</strong> Opus</li>
+<li><strong>描述：</strong> 一种免版税、高度灵活的有损音频编码格式，旨在同时支持语音和音乐，在低比特率下也能提供高质量音频。</li>
+<li><strong>兼容性：</strong> 在现代浏览器（如 Chrome、Firefox）和 VoIP 应用中得到良好支持。但一些老旧或嵌入式设备可能不支持。</li>
+<li><strong>常见文件后缀：</strong> <code>.opus</code>，也可嵌入到 <code>.webm</code>, <code>.mkv</code> 等视频容器中。</li>
+</ul>
+<h3 id="4-ac-3-dolby-digital--e-ac-3-dolby-digital-plus">4. AC-3 (Dolby Digital) / E-AC-3 (Dolby Digital Plus)
+</h3><ul>
+<li><strong>全称：</strong> AC-3 (Dolby Digital), E-AC-3 (Dolby Digital Plus)</li>
+<li><strong>描述：</strong> 杜比公司开发的一种有损音频压缩格式，主要用于多声道环绕声。E-AC-3 是 AC-3 的改进版本，提供更高的效率和更多的声道支持。</li>
+<li><strong>兼容性：</strong> 广泛应用于电影、蓝光光盘、数字电视广播和部分流媒体服务。设备支持度取决于是否有杜比解码器授权。</li>
+<li><strong>常见文件后缀：</strong> 通常嵌入在 <code>.mp4</code>, <code>.mkv</code>, <code>.ts</code> 等视频容器中，也有单独的 <code>.ac3</code> 文件。</li>
+</ul>
+<h3 id="5-dts-digital-theater-system">5. DTS (Digital Theater System)
+</h3><ul>
+<li><strong>全称：</strong> DTS (Digital Theater System)</li>
+<li><strong>描述：</strong> 与杜比数字竞争的另一种多声道有损音频编码格式，也广泛用于电影和家庭影院系统，提供高品质环绕声。</li>
+<li><strong>兼容性：</strong> 广泛应用于蓝光光盘、电影院。设备支持度取决于是否有 DTS 解码器授权。</li>
+<li><strong>常见文件后缀：</strong> 通常嵌入在 <code>.mp4</code>, <code>.mkv</code>, <code>.ts</code> 等视频容器中，也有单独的 <code>.dts</code> 文件。</li>
+</ul>
+<h3 id="6-flac-free-lossless-audio-codec">6. FLAC (Free Lossless Audio Codec)
+</h3><ul>
+<li><strong>全称：</strong> FLAC (Free Lossless Audio Codec)</li>
+<li><strong>描述：</strong> 一种<strong>无损</strong>音频压缩格式，文件大小比 WAV 小但能完全还原原始音频数据。</li>
+<li><strong>兼容性：</strong> 在音乐爱好者和高品质音频领域非常流行。许多现代播放器和设备都支持，但不如有损格式普及。</li>
+<li><strong>常见文件后缀：</strong> <code>.flac</code></li>
+</ul>
+<h3 id="7-alac-apple-lossless-audio-codec">7. ALAC (Apple Lossless Audio Codec)
+</h3><ul>
+<li><strong>全称：</strong> ALAC (Apple Lossless Audio Codec)</li>
+<li><strong>描述：：</strong> 苹果公司开发的<strong>无损</strong>音频压缩格式。与 FLAC 类似，提供无损音质，但通常在苹果生态系统（iTunes, iOS 设备）中更受欢迎。</li>
+<li><strong>兼容性：</strong> 在苹果设备和软件中原生支持。其他平台可能需要额外支持。</li>
+<li><strong>常见文件后缀：</strong> <code>.m4a</code> (与 AAC 共享后缀，但编码不同)</li>
+</ul>
+<h3 id="8-wma-windows-media-audio">8. WMA (Windows Media Audio)
+</h3><ul>
+<li><strong>全称：</strong> WMA (Windows Media Audio)</li>
+<li><strong>描述：</strong> 微软开发的一系列音频编码格式，包括有损和无损版本。旨在提供比 MP3 更好的压缩效率。</li>
+<li><strong>兼容性：</strong> 在 Windows 操作系统和相关应用程序中支持良好。在非 Windows 平台上可能需要额外的解码器或播放器。</li>
+<li><strong>常见文件后缀：</strong> <code>.wma</code></li>
+</ul>
+<h3 id="9-vorbis-ogg-vorbis">9. Vorbis (Ogg Vorbis)
+</h3><ul>
+<li><strong>全称：</strong> Vorbis (通常与 Ogg 容器结合，故称 Ogg Vorbis)</li>
+<li><strong>描述：</strong> 一种开源、免版税的有损音频压缩格式，旨在成为 MP3 和 AAC 的替代品。在游戏和一些开源项目中较为常见。</li>
+<li><strong>兼容性：</strong> 在现代浏览器、Linux 发行版以及支持 Ogg 容器的播放器中支持。</li>
+<li><strong>常见文件后缀：</strong> <code>.ogg</code>, <code>.oga</code></li>
+</ul>
+<h3 id="10-wav-waveform-audio-file-format--pcm">10. WAV (Waveform Audio File Format) / PCM
+</h3><ul>
+<li><strong>全称：</strong> WAV (Waveform Audio File Format) / PCM (Pulse Code Modulation)</li>
+<li><strong>描述：</strong> WAV 是一种容器格式，通常用于存储<strong>未压缩的 PCM (脉冲编码调制)</strong> 音频数据。PCM 是最基本的数字音频表示形式，直接记录原始声波的振幅。文件尺寸最大，但音质最高，因为它没有经过任何有损压缩。</li>
+<li><strong>兼容性：</strong> <strong>极高</strong>，几乎所有音频编辑软件和播放器都支持。</li>
+<li><strong>常见文件后缀：</strong> <code>.wav</code></li>
+</ul>
+<h3 id="特殊说明音频格式中的-drc">特殊说明：音频格式中的 &ldquo;drc&rdquo;
+</h3><p>音频格式中的 &ldquo;drc&rdquo; 通常表示 &ldquo;Dynamic Range Compression&rdquo;（动态范围压缩）。这是一种音频处理技术，旨在减小音频信号中最响和最静的部分之间的差异。通过压缩音频的动态范围，可以使安静的部分听起来更清晰，同时在不失真或过度饱和的情况下增加响亮部分的音量。它不是一种编码格式，而是一种可选的音频处理元数据或特性，通常嵌入在编码后的音频流中，尤其在杜比数字等环绕声格式中常见。</p>
+<p><strong>重要提示：</strong> 文件后缀（如 <code>.mp4</code>, <code>.mkv</code>, <code>.mov</code> 等）通常代表的是<strong>容器格式</strong>，而不是具体的视频或音频编码格式。一个容器文件可以包含不同编码格式的视频流和音频流。因此，即使文件后缀相同，其内部的编码格式也可能不同，具体播放支持仍需查看播放器的兼容性。例如，一个 <code>.mp4</code> 文件可能包含 H.264 视频和 AAC 音频，也可能包含 H.265 视频和 Opus 音频。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403180703/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng设备使用</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

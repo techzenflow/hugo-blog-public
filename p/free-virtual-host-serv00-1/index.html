@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 Serv00 是一个提供免费虚拟主机的平台，支持的服务众多，可选择 php 版本，有多款数据库，MySQL，postgresql，mongdodb，支持 ssh 连接，没有广告，3G 空间。\n">
+<title>Serv00，免费虚拟主机，提供多种服务支持</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/free-virtual-host-serv00-1/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Serv00，免费虚拟主机，提供多种服务支持">
+<meta property='og:description' content="简介 Serv00 是一个提供免费虚拟主机的平台，支持的服务众多，可选择 php 版本，有多款数据库，MySQL，postgresql，mongdodb，支持 ssh 连接，没有广告，3G 空间。\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/free-virtual-host-serv00-1/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='serv00' /><meta property='article:published_time' content='2024-06-22T00:06:14&#43;08:00'/><meta property='article:modified_time' content='2024-06-22T00:06:14&#43;08:00'/>
+<meta name="twitter:title" content="Serv00，免费虚拟主机，提供多种服务支持">
+<meta name="twitter:description" content="简介 Serv00 是一个提供免费虚拟主机的平台，支持的服务众多，可选择 php 版本，有多款数据库，MySQL，postgresql，mongdodb，支持 ssh 连接，没有广告，3G 空间。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#自定义域名">自定义域名</a></li>
+    <li><a href="#修改-php-版本">修改 php 版本</a></li>
+    <li><a href="#ssl-证书">SSL 证书</a></li>
+    <li><a href="#服务">服务</a>
+      <ol>
+        <li><a href="#pm2">PM2</a></li>
+        <li><a href="#halo">halo</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/free/" style="background-color: hsl(275, 60%, 84%); color: hsl(275, 60%, 15%);">
+                Free
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/free-virtual-host-serv00-1/">Serv00，免费虚拟主机，提供多种服务支持</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-06-22T00:06:14&#43;08:00'>Jun 22, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#自定义域名">自定义域名</a></li>
+    <li><a href="#修改-php-版本">修改 php 版本</a></li>
+    <li><a href="#ssl-证书">SSL 证书</a></li>
+    <li><a href="#服务">服务</a>
+      <ol>
+        <li><a href="#pm2">PM2</a></li>
+        <li><a href="#halo">halo</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>Serv00 是一个提供免费虚拟主机的平台，支持的服务众多，可选择 php 版本，有多款数据库，MySQL，postgresql，mongdodb，支持 ssh 连接，没有广告，3G 空间。</p>
+<p>官网：<a class="link" href="https://www.serv00.com/"  target="_blank" rel="noopener"
+    >https://www.serv00.com/</a></p>
+
+    <blockquote>
+        <p>温馨提示：注册不要使用代理，建议把上述域名加入白名单</p>
+
+    </blockquote>
+<p><img alt="image.png" class="gallery-image" data-flex-basis="795px" data-flex-grow="331" height="641" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/05/19/Qf7s8xBGzpNteCy.png" srcset="/Qf7s8xBGzpNteCy_7948531535794716815_hu_20a5aa6f8b63aaaf.png 800w, /Qf7s8xBGzpNteCy_7948531535794716815_hu_39b1dd0d15c29d31.png 1600w, https://s2.loli.net/2024/05/19/Qf7s8xBGzpNteCy.png 2124w" width="2124">
+<img alt="image.png" class="gallery-image" data-flex-basis="795px" data-flex-grow="331" height="641" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/05/19/Qf7s8xBGzpNteCy.png" srcset="/Qf7s8xBGzpNteCy_7948531535794716815_hu_20a5aa6f8b63aaaf.png 800w, /Qf7s8xBGzpNteCy_7948531535794716815_hu_39b1dd0d15c29d31.png 1600w, https://s2.loli.net/2024/05/19/Qf7s8xBGzpNteCy.png 2124w" width="2124"></p>
+<h2 id="自定义域名">自定义域名
+</h2><p>使用白嫖的二级域名添加三级域名作为 serv00 的自定义域名</p>
+<p>域名托管在 cloudflare</p>
+<h2 id="修改-php-版本">修改 php 版本
+</h2><p>参考：https://forum.serv00.com/d/8-upgrade-version-of-php/2</p>
+<p>在 domains/domain/ 新建文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vim .htaccess
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>目前可支持的版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">AddType application/x-httpd-php56 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php70 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php71 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php72 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php73 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php74 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php80 .php
+</span></span><span class="line"><span class="cl">AddType application/x-httpd-php81 .php
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;AddType application/x-httpd-php74 .php&#34;</span> &gt;&gt; .htaccess
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="ssl-证书">SSL 证书
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$HOME</span>/domains/你的网站/public_html
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新建 <code>.htaccess</code>文件，开启重定向 http 到 https</p>
+<p>如果你不懂 <code>vim</code>，请找一个你熟悉的编辑软件上传，这里简要介绍一下</p>
+<p>编辑 <code>.htaccess</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">vim .htaccess
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>复制下面的内容，粘贴进去</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">RewriteEngine</span> <span class="nx">On</span>
+</span></span><span class="line"><span class="cl"><span class="nx">RewriteCond</span> <span class="o">%</span><span class="p">{</span><span class="nx">HTTPS</span><span class="p">}</span> <span class="nx">off</span>
+</span></span><span class="line"><span class="cl"><span class="nx">RewriteRule</span> <span class="o">^</span><span class="p">(</span><span class="o">.*</span><span class="p">)</span><span class="err">$</span> <span class="nx">https</span><span class="o">://%</span><span class="p">{</span><span class="nx">HTTP_HOST</span><span class="p">}</span><span class="o">%</span><span class="p">{</span><span class="nx">REQUEST_URI</span><span class="p">}</span> <span class="p">[</span><span class="nx">L</span><span class="p">,</span><span class="nx">R</span><span class="o">=</span><span class="mi">301</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>英文输入法下 <code>:wq</code> 退出保存</p>
+<h2 id="服务">服务
+</h2><h3 id="pm2">PM2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -s https://raw.githubusercontent.com/k0baya/alist_repl/main/serv00/install-pm2.sh<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="halo">halo
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">server:
+</span></span><span class="line"><span class="cl">  <span class="c1"># 运行端口</span>
+</span></span><span class="line"><span class="cl">  port: <span class="m">8090</span>
+</span></span><span class="line"><span class="cl">spring:
+</span></span><span class="line"><span class="cl">  <span class="c1"># 数据库配置，支持 MySQL、MariaDB、PostgreSQL、H2 Database，具体配置方式可以参考下面的数据库配置</span>
+</span></span><span class="line"><span class="cl">  r2dbc:
+</span></span><span class="line"><span class="cl">    url: r2dbc:pool:postgresql://<span class="o">{</span>HOST<span class="o">}</span>:<span class="o">{</span>PORT<span class="o">}</span>/<span class="o">{</span>DATABASE<span class="o">}</span>
+</span></span><span class="line"><span class="cl">    username: admin
+</span></span><span class="line"><span class="cl">    password: <span class="m">123456</span>
+</span></span><span class="line"><span class="cl">  sql:
+</span></span><span class="line"><span class="cl">    init:
+</span></span><span class="line"><span class="cl">      mode: always
+</span></span><span class="line"><span class="cl">      <span class="c1"># 需要配合 r2dbc 的配置进行改动</span>
+</span></span><span class="line"><span class="cl">      platform: postgresql
+</span></span><span class="line"><span class="cl">halo:
+</span></span><span class="line"><span class="cl">  caches:
+</span></span><span class="line"><span class="cl">    page:
+</span></span><span class="line"><span class="cl">      <span class="c1"># 是否禁用页面缓存</span>
+</span></span><span class="line"><span class="cl">      disabled: <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  <span class="c1"># 工作目录位置</span>
+</span></span><span class="line"><span class="cl">  work-dir: <span class="nv">$HOME</span>/domains/halo2/.halo2
+</span></span><span class="line"><span class="cl">  <span class="c1"># 外部访问地址</span>
+</span></span><span class="line"><span class="cl">  external-url: https://serve.v6.army
+</span></span><span class="line"><span class="cl">  <span class="c1"># 附件映射配置，通常用于迁移场景</span>
+</span></span><span class="line"><span class="cl">  attachment:
+</span></span><span class="line"><span class="cl">    resource-mappings:
+</span></span><span class="line"><span class="cl">      - pathPattern: /upload/**
+</span></span><span class="line"><span class="cl">        locations:
+</span></span><span class="line"><span class="cl">          - migrate-from-1.x
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>run.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl">java17 -server -Xms128m -Xmx256m -jar -Duser.timezone<span class="o">=</span>Asia/Shanghai /home/muyiacc/domains/halo2/halo.jar --spring.config.additional-location<span class="o">=</span>/home/muyiacc/domains/halo2/.halo2/application.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/serv00/">Serv00</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/250415091544/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">serv00部署halo，你的现代化博客系统</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250213113355/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Serv00部署SOCKS5代理，自动保活</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250412200248/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">claw免费容器，部署服务教程</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250316211837/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">cloudns双向解析</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/2406001/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">com.mp免费域名注册</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

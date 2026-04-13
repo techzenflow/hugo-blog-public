@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Service on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/service/</link>
+        <description>Recent content in Service on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Thu, 01 Aug 2024 17:08:46 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/service/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Windows创建系统服务的方式</title>
+            <link>https://blog.seektao.cc/p/240801170846/</link>
+            <pubDate>Thu, 01 Aug 2024 17:08:46 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/240801170846/</guid>
+            <description>&lt;h2 id=&#34;方式一sc&#34;&gt;方式一：SC&#xA;&lt;/h2&gt;</description>
+        </item></channel>
+</rss>

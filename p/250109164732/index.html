@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 FFmpeg 是一套能够处理音频、视频和其它多媒体文件及流的完整解决方案。由于其无与伦比的通用性和强大的功能，它被誉为数字媒体领域的“瑞士军刀”。\n官网：https://ffmpeg.org/\n">
+<title>ffmpeg，一套能够处理音频、视频和其它多媒体文件及流的完整解决方案</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250109164732/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="ffmpeg，一套能够处理音频、视频和其它多媒体文件及流的完整解决方案">
+<meta property='og:description' content="简介 FFmpeg 是一套能够处理音频、视频和其它多媒体文件及流的完整解决方案。由于其无与伦比的通用性和强大的功能，它被誉为数字媒体领域的“瑞士军刀”。\n官网：https://ffmpeg.org/\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250109164732/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ffmpeg' /><meta property='article:published_time' content='2025-01-09T16:47:32&#43;08:00'/><meta property='article:modified_time' content='2025-01-09T16:47:32&#43;08:00'/>
+<meta name="twitter:title" content="ffmpeg，一套能够处理音频、视频和其它多媒体文件及流的完整解决方案">
+<meta name="twitter:description" content="简介 FFmpeg 是一套能够处理音频、视频和其它多媒体文件及流的完整解决方案。由于其无与伦比的通用性和强大的功能，它被誉为数字媒体领域的“瑞士军刀”。\n官网：https://ffmpeg.org/\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#核心组成">核心组成</a></li>
+        <li><a href="#主要功能">主要功能</a></li>
+      </ol>
+    </li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#语法">语法</a></li>
+    <li><a href="#使用">使用</a>
+      <ol>
+        <li><a href="#查看文件信息">查看文件信息</a></li>
+        <li><a href="#格式转换-将-mp4-转换为-avi">格式转换 (将 MP4 转换为 AVI)</a></li>
+        <li><a href="#改变视频分辨率-缩放到-1280x720">改变视频分辨率 (缩放到 1280x720)</a></li>
+        <li><a href="#提取音频-保存为-mp3">提取音频 (保存为 MP3)</a></li>
+        <li><a href="#提取音频-保存为-wav">提取音频 (保存为 WAV)</a></li>
+        <li><a href="#提取音频不转换">提取音频（不转换）</a></li>
+        <li><a href="#剪切视频-从第-10-秒开始持续-15-秒">剪切视频 (从第 10 秒开始，持续 15 秒)</a></li>
+        <li><a href="#剪切视频-从第-10-秒开始到结尾">剪切视频 (从第 10 秒开始到结尾)</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250109164732/">ffmpeg，一套能够处理音频、视频和其它多媒体文件及流的完整解决方案</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-01-09T16:47:32&#43;08:00'>Jan 09, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a>
+      <ol>
+        <li><a href="#核心组成">核心组成</a></li>
+        <li><a href="#主要功能">主要功能</a></li>
+      </ol>
+    </li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#语法">语法</a></li>
+    <li><a href="#使用">使用</a>
+      <ol>
+        <li><a href="#查看文件信息">查看文件信息</a></li>
+        <li><a href="#格式转换-将-mp4-转换为-avi">格式转换 (将 MP4 转换为 AVI)</a></li>
+        <li><a href="#改变视频分辨率-缩放到-1280x720">改变视频分辨率 (缩放到 1280x720)</a></li>
+        <li><a href="#提取音频-保存为-mp3">提取音频 (保存为 MP3)</a></li>
+        <li><a href="#提取音频-保存为-wav">提取音频 (保存为 WAV)</a></li>
+        <li><a href="#提取音频不转换">提取音频（不转换）</a></li>
+        <li><a href="#剪切视频-从第-10-秒开始持续-15-秒">剪切视频 (从第 10 秒开始，持续 15 秒)</a></li>
+        <li><a href="#剪切视频-从第-10-秒开始到结尾">剪切视频 (从第 10 秒开始到结尾)</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p><strong>FFmpeg 是一套能够处理音频、视频和其它多媒体文件及流的完整解决方案</strong>。由于其无与伦比的通用性和强大的功能，它被誉为数字媒体领域的“瑞士军刀”。</p>
+<p>官网：<a class="link" href="https://ffmpeg.org/"  target="_blank" rel="noopener"
+    >https://ffmpeg.org/</a></p>
+<h3 id="核心组成">核心组成
+</h3><p>FFmpeg 项目不仅仅是一个单一的程序，它主要由以下几个部分构成：</p>
+<ol>
+<li>
+<p><strong><code>ffmpeg</code></strong>：这是最核心的命令行工具。用户通过它来进行音视频的转码（格式转换）、剪辑、缩放、添加滤镜、合并文件等几乎所有操作。绝大多数人说“使用 FFmpeg”时，指的就是使用这个工具。</p>
+</li>
+<li>
+<p><strong><code>ffplay</code></strong>：一个基于 SDL 和 FFmpeg 库的简易媒体播放器。它功能简单，但非常适合用来快速预览和测试经过 <code>ffmpeg</code> 处理后的文件，或者直接播放各种奇特的媒体格式。</p>
+</li>
+<li>
+<p><strong><code>ffprobe</code></strong>：一个媒体信息分析工具。它可以从音视频文件中提取出详细的元数据（Metadata）和流信息，例如编码格式、分辨率、帧率、码率、时长、音轨、字幕等。这对于调试和自动化处理流程至关重要。</p>
+</li>
+<li>
+<p><strong>一系列核心库 (Libraries)</strong>：这才是 FFmpeg 的真正动力源泉。许多著名的软件（如 VLC 播放器、Chrome 浏览器、YouTube、Blender 等）都在底层使用了 FFmpeg 的库来处理多媒体。主要包括：</p>
+<ul>
+<li><code>libavcodec</code>：包含了几乎所有主流的音视频编码器和解码器。</li>
+<li><code>libavformat</code>：用于处理各种多媒体容器格式（如 MP4, MKV, AVI）的封装和解封装。</li>
+<li><code>libavfilter</code>：提供了丰富的音视频滤镜，如裁剪、缩放、水印、调速等。</li>
+<li><code>libavutil</code>：包含了一些核心的工具函数。</li>
+<li><code>libswscale</code>：用于图像的缩放和色彩空间转换。</li>
+<li><code>libswresample</code>：用于音频的重采样。</li>
+</ul>
+</li>
+</ol>
+<h3 id="主要功能">主要功能
+</h3><p>FFmpeg 的功能几乎涵盖了音视频处理的方方面面，以下是一些最常见的应用场景：</p>
+<ul>
+<li><strong>格式转换 (Transcoding)</strong>：将视频从一种格式转换到另一种，例如 <code>MKV</code> 转 <code>MP4</code>，<code>MOV</code> 转 <code>WebM</code>。</li>
+<li><strong>编解码转换</strong>：改变视频的编码方式，例如将 <code>H.264</code> 编码的视频转换为更高效的 <code>H.265 (HEVC)</code>。</li>
+<li><strong>剪辑与合并</strong>：从一个长视频中截取一小段，或者将多个视频片段无缝拼接成一个文件。</li>
+<li><strong>调整参数</strong>：改变视频的分辨率、帧率、码率，以适应不同设备或网络环境。</li>
+<li><strong>音视频分离/合并</strong>：从视频中提取出音频轨道（例如 <code>MP4</code> -&gt; <code>MP3</code>），或为视频添加新的音轨。</li>
+<li><strong>添加滤镜和效果</strong>：给视频添加水印、文字、模糊效果，调整亮度/对比度，旋转视频等。</li>
+<li><strong>屏幕录制</strong>：可以直接录制桌面操作。</li>
+<li><strong>制作 GIF</strong>：将视频片段转换为高质量的 GIF 动图。</li>
+<li><strong>直播推流</strong>：将本地视频文件或摄像头/桌面捕获的画面推送到流媒体服务器（RTMP/HLS 协议）。</li>
+</ul>
+<h2 id="安装">安装
+</h2><p>下载地址：<a class="link" href="https://ffmpeg.org/download.html"  target="_blank" rel="noopener"
+    >https://ffmpeg.org/download.html</a></p>
+<p>将解压后 <code>bin</code> 目录的路径添加到系统的 <code>PATH</code> 环境变量中。这样你就可以在任何路径下直接运行 <code>ffmpeg</code> 命令，而不需要每次都输入完整路径。</p>
+<h2 id="语法">语法
+</h2><p>FFmpeg 是通过命令行操作的，语法通常是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">usage: ffmpeg <span class="o">[</span>options<span class="o">]</span> <span class="o">[[</span>infile options<span class="o">]</span> -i infile<span class="o">]</span>... <span class="o">{[</span>outfile options<span class="o">]</span> outfile<span class="o">}</span>...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><strong><code>[]</code> (方括号):</strong> 表示可选参数或选项。 这意味着这部分内容可以存在，也可以不存在，ffmpeg 仍然可以正常运行。</li>
+<li><strong><code>{}</code> (花括号):</strong> 表示必须参数或选项。 这意味着这部分内容是必需的，ffmpeg 才能正常运行。</li>
+</ul>
+<p>选项：</p>
+<ul>
+<li><code>-vn</code>：忽略输入文件中的视频流</li>
+<li><code>-acodec</code>：指定音频编码器 (Audio Codec)，可选的有：
+<ul>
+<li><strong><code>copy</code>:</strong> 直接复制音频流，不进行重新编码。 这通常是最快的，并且不会降低音频质量（如果输入音频已经是你想要的格式）。</li>
+<li><strong><code>libmp3lame</code>:</strong> 使用 LAME MP3 编码器。 这是创建 MP3 文件的常用选择。需要安装 LAME 库才能使用。</li>
+<li><strong><code>aac</code>:</strong> 使用 AAC (Advanced Audio Coding) 编码器。 AAC 通常比 MP3 提供更好的音质。</li>
+<li><strong><code>libfdk_aac</code>:</strong> 使用 Fraunhofer FDK AAC 编码器。 比 <code>aac</code> 性能更好，但可能需要单独编译支持。</li>
+<li><strong><code>libopus</code>:</strong> 使用 Opus 编码器。 提供非常好的音质，尤其是在较低的比特率下。</li>
+<li><strong><code>pcm_s16le</code>:</strong> 使用 PCM (Pulse Code Modulation) 编码器，将其保存为 16 位 Little Endian PCM，通常用于未经压缩的音频（例如 WAV 文件）。</li>
+<li><strong><code>flac</code>:</strong> 使用 FLAC (Free Lossless Audio Codec) 编码器。 用于无损压缩音频。</li>
+</ul>
+</li>
+</ul>
+<h2 id="使用">使用
+</h2><h3 id="查看文件信息">查看文件信息
+</h3><p>这是处理任何文件的第一步。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">ffprobe video.mp4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmprg -i video.mp4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="格式转换-将-mp4-转换为-avi">格式转换 (将 MP4 转换为 AVI)
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i input.mp4 output.avi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>FFmpeg 会自动根据输出文件的扩展名选择合适的编码器。</p>
+<h3 id="改变视频分辨率-缩放到-1280x720">改变视频分辨率 (缩放到 1280x720)
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i input.mp4 -vf <span class="nv">scale</span><span class="o">=</span>1280:720 output_720p.mp4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>-vf</code> 代表 &ldquo;video filter&rdquo;（视频滤镜）。<code>scale</code> 是其中一个滤镜。</p>
+<h3 id="提取音频-保存为-mp3">提取音频 (保存为 MP3)
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i input.mp4 -vn -acodec libmp3lame -q:a <span class="m">2</span> output.mp3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-vn: 表示 &ldquo;no video&rdquo;（不包含视频）。</li>
+<li>-acodec libmp3lame: 指定使用 LAME 库来编码 MP3。</li>
+</ul>
+<h3 id="提取音频-保存为-wav">提取音频 (保存为 WAV)
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i input.mp4 -vn -acodec libmp3lame -q:a <span class="m">2</span> output.mp3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-vn: 表示 &ldquo;no video&rdquo;（不包含视频）。</li>
+<li>-acodec libmp3lame: 指定使用 LAME 库来编码 MP3。</li>
+</ul>
+<h3 id="提取音频不转换">提取音频（不转换）
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i <span class="o">[</span>输入视频文件<span class="o">]</span> -ss <span class="o">[</span>开始时间<span class="o">]</span> -to <span class="o">[</span>结束时间<span class="o">]</span> -vn -acodec copy <span class="o">[</span>输出音频文件<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="剪切视频-从第-10-秒开始持续-15-秒">剪切视频 (从第 10 秒开始，持续 15 秒)
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i input.mp4 -ss 00:00:10 -t 00:00:15 -c copy output_cut.mp4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>-ss</code>: seek start (开始时间)。</li>
+<li><code>-t</code>: duration (持续时间)。</li>
+<li><code>-c copy</code>: 表示“直接复制流”，不对音视频进行重新编码。这样做速度极快，且无质量损失，是剪辑、合并时的首选。</li>
+</ul>
+<h3 id="剪切视频-从第-10-秒开始到结尾">剪切视频 (从第 10 秒开始到结尾)
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ffmpeg -i input.mp4 -ss 00:00:10 -c copy output_cut.mp4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>-ss</code>: seek start (开始时间)。</li>
+<li><code>-c copy</code>: 表示“直接复制流”，不对音视频进行重新编码。这样做速度极快，且无质量损失，是剪辑、合并时的首选。</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ffmpeg/">Ffmpeg</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403180703/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng设备使用</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

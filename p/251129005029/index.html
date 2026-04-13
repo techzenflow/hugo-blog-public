@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 本文将从零开始介绍一个从未解除过 comfyui 的用户，实现 8G 显存在本地生成图片\n官方教程：https://docs.comfy.org/tutorials/image/z-image/z-image-turbo\n安装 comfyui 下载地址：点击下载最新新版 ComfyUI_windows_portable_nvidia.7z\n下载后解压到一个磁盘空闲比较大的地方（模型超占磁盘，最好 100G 以上）\n">
+<title>comfyui配置z-image-turbo工作流，本地生成图片，8G显存可用，从零开始</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/251129005029/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="comfyui配置z-image-turbo工作流，本地生成图片，8G显存可用，从零开始">
+<meta property='og:description' content="简介 本文将从零开始介绍一个从未解除过 comfyui 的用户，实现 8G 显存在本地生成图片\n官方教程：https://docs.comfy.org/tutorials/image/z-image/z-image-turbo\n安装 comfyui 下载地址：点击下载最新新版 ComfyUI_windows_portable_nvidia.7z\n下载后解压到一个磁盘空闲比较大的地方（模型超占磁盘，最好 100G 以上）\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/251129005029/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='comfyui' /><meta property='article:tag' content='text-to-image' /><meta property='article:published_time' content='2025-11-29T00:50:29&#43;08:00'/><meta property='article:modified_time' content='2025-11-29T00:50:29&#43;08:00'/>
+<meta name="twitter:title" content="comfyui配置z-image-turbo工作流，本地生成图片，8G显存可用，从零开始">
+<meta name="twitter:description" content="简介 本文将从零开始介绍一个从未解除过 comfyui 的用户，实现 8G 显存在本地生成图片\n官方教程：https://docs.comfy.org/tutorials/image/z-image/z-image-turbo\n安装 comfyui 下载地址：点击下载最新新版 ComfyUI_windows_portable_nvidia.7z\n下载后解压到一个磁盘空闲比较大的地方（模型超占磁盘，最好 100G 以上）\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#安装-comfyui">安装 comfyui</a></li>
+    <li><a href="#下载模型">下载模型</a>
+      <ol>
+        <li><a href="#方式一魔搭社区网页直接下载">方式一：魔搭社区网页直接下载</a></li>
+        <li><a href="#方式二modelscope-下载">方式二：modelscope 下载</a></li>
+        <li><a href="#方式三hugginfaceco-网页下载">方式三：hugginface.co 网页下载</a></li>
+      </ol>
+    </li>
+    <li><a href="#启动-comfyui--工作流">启动 ComfyUI &amp; 工作流</a></li>
+    <li><a href="#提示词">提示词</a>
+      <ol>
+        <li><a href="#nsfw">NSFW</a></li>
+      </ol>
+    </li>
+    <li><a href="#放大模型">放大模型</a>
+      <ol>
+        <li><a href="#4x-放大">4x 放大</a></li>
+      </ol>
+    </li>
+    <li><a href="#节点">节点</a>
+      <ol>
+        <li><a href="#图像对比">图像对比</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/llm/" style="background-color: hsl(216, 60%, 84%); color: hsl(216, 60%, 15%);">
+                Llm
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/251129005029/">comfyui配置z-image-turbo工作流，本地生成图片，8G显存可用，从零开始</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-11-29T00:50:29&#43;08:00'>Nov 29, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#安装-comfyui">安装 comfyui</a></li>
+    <li><a href="#下载模型">下载模型</a>
+      <ol>
+        <li><a href="#方式一魔搭社区网页直接下载">方式一：魔搭社区网页直接下载</a></li>
+        <li><a href="#方式二modelscope-下载">方式二：modelscope 下载</a></li>
+        <li><a href="#方式三hugginfaceco-网页下载">方式三：hugginface.co 网页下载</a></li>
+      </ol>
+    </li>
+    <li><a href="#启动-comfyui--工作流">启动 ComfyUI &amp; 工作流</a></li>
+    <li><a href="#提示词">提示词</a>
+      <ol>
+        <li><a href="#nsfw">NSFW</a></li>
+      </ol>
+    </li>
+    <li><a href="#放大模型">放大模型</a>
+      <ol>
+        <li><a href="#4x-放大">4x 放大</a></li>
+      </ol>
+    </li>
+    <li><a href="#节点">节点</a>
+      <ol>
+        <li><a href="#图像对比">图像对比</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>本文将从零开始介绍一个从未解除过 comfyui 的用户，实现 8G 显存在本地生成图片</p>
+<p>官方教程：<a class="link" href="https://docs.comfy.org/tutorials/image/z-image/z-image-turbo"  target="_blank" rel="noopener"
+    >https://docs.comfy.org/tutorials/image/z-image/z-image-turbo</a></p>
+<h2 id="安装-comfyui">安装 comfyui
+</h2><p>下载地址：<a class="link" href="https://github.com/comfyanonymous/ComfyUI/releases/latest/download/ComfyUI_windows_portable_nvidia.7z"  target="_blank" rel="noopener"
+    >点击下载最新新版 ComfyUI_windows_portable_nvidia.7z</a></p>
+<p>下载后解压到一个磁盘空闲比较大的地方（模型超占磁盘，最好 100G 以上）</p>
+<p>文件夹结构：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">📁ComfyUI_windows_portable
+</span></span><span class="line"><span class="cl">├── 📁ComfyUI                                          // comfy UI主要文件夹
+</span></span><span class="line"><span class="cl">│  ├── .git                                            // Git版本控制文件夹，代码版本管理用
+</span></span><span class="line"><span class="cl">│  ├── .github                                         // GitHub Actions 工作流文件夹
+</span></span><span class="line"><span class="cl">│  ├── 📁 comfy                                        //
+</span></span><span class="line"><span class="cl">│  ├── 📁 comfy_extras                                 //
+</span></span><span class="line"><span class="cl">│  ├── 📁 custom_nodes                                 // comfyUI 自定义节点文件目录（插件安装目录）
+</span></span><span class="line"><span class="cl">│  ├── 📁 input                                        // comfyUI上传文件夹，当你使用了如**load image**节点，对应上传的图片会存储到这个文件夹
+</span></span><span class="line"><span class="cl">│  ├── 📁 models                                       // 对应模型文件配置文件夹
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 checkpoints                               // 检查点大模型文件存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 clip                                      // CLIP文件存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 clip_vision                               // CLIP_vision文件存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 configs
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 controlnet                                // ControlNet 模型存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 diffusers
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 embedding                                 // embedding 模型存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 gligen
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 hypernetworks                             // 超网络模型
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 loras                                     // Lora 模型存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 style_models
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 unet
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 upscale_models                            // upscale_models 放大模型存放路径
+</span></span><span class="line"><span class="cl">│  |  ├── 📁 vae                                       // VAE 模型存放路径
+</span></span><span class="line"><span class="cl">│  |  └── 📁 vae_approx
+</span></span><span class="line"><span class="cl">│  ├── 📁 notebooks
+</span></span><span class="line"><span class="cl">│  ├── 📁 user                                         // comfyUI 用户信息（如配置文件，工作流信息等）
+</span></span><span class="line"><span class="cl">│  |    ├── 📁 default                                 // 默认 comfyUI 用户文件夹
+</span></span><span class="line"><span class="cl">│  |    |    ├─ 📁 workflow                            // 用户保存的 workflow 文件
+</span></span><span class="line"><span class="cl">│  |    |    ├─ 📄 xxx.json                            // 用户的配置文件
+</span></span><span class="line"><span class="cl">│  |    |    └── ... xxx.json                          // 其它配置文件
+</span></span><span class="line"><span class="cl">│  |    └── ...[username]                              // 如果你启用了多用户且存在多用户则会显示对应不同用户的名称
+</span></span><span class="line"><span class="cl">│  ├── 📁 output                                       // comfyUI图片输出文件夹，当使用类似 ** save image** 节点时，生成的图片会存储到这个文件夹
+</span></span><span class="line"><span class="cl">│  |    ├── 📁 checkpoints                             // 如果有使用模型合并节点，和保存合并后的模型相关功能，则合并后的模型会输出到这里
+</span></span><span class="line"><span class="cl">│  |    └── ... xxx.png                                // 运行过程中生成的文件会保存到这里
+</span></span><span class="line"><span class="cl">│  ├── extra_model_paths.yaml.example                  //  额外模型文件路径配置文件，如设置此项，请删除**.example** 后缀用记事本进行编辑
+</span></span><span class="line"><span class="cl">│  └── ...                                             // 其它文件
+</span></span><span class="line"><span class="cl">├── config                                             // 配置文件夹
+</span></span><span class="line"><span class="cl">├── 📁 Python_embeded                                  // 嵌入的python 文件
+</span></span><span class="line"><span class="cl">├──📁 update
+</span></span><span class="line"><span class="cl">│  ├── update.py                                       // 用于comfyUI的 python 脚本
+</span></span><span class="line"><span class="cl">│  ├── update_comfyUI.bat                              // comfyUI作者推荐使用此批处理命令对 ComfyUI 进行升级
+</span></span><span class="line"><span class="cl">│  └── update_comfyui_and_python_dependencies.bat      // 只有当你的 python 依赖文件存在问题时才需要运行此批处理命令
+</span></span><span class="line"><span class="cl">├── comfyui.log                                        // Comfy UI运行日志文件
+</span></span><span class="line"><span class="cl">├── README_VERY_IMPORTANT.txt                          // README 文件，包含了文件使用的方法和说明等等
+</span></span><span class="line"><span class="cl">├── run_cpu.bat                                        // 批处理文件，当你的显卡为A卡或只有 CPU 时，双击运行它启动 ComfyUI
+</span></span><span class="line"><span class="cl">└── run_nvidia_gpu.bat                                 // 批处理文件，当你的显卡为N卡(Nvidia)时，双击运行它启动 ComfyUI
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="下载模型">下载模型
+</h2><h3 id="方式一魔搭社区网页直接下载">方式一：魔搭社区网页直接下载
+</h3><p>使用<a class="link" href="https://modelscope.cn"  target="_blank" rel="noopener"
+    >魔搭社区</a>网页在线下载：</p>
+<p><a class="link" href="https://modelscope.cn/models/Comfy-Org/z_image_turbo"  target="_blank" rel="noopener"
+    >点击我进入 ComfyUI 官方仓库 z_image_turbo</a>，点击【模型文件】，再点击【split_files】，可以看到三个文件夹： <code>diffusion_models</code>、<code>text_encoders</code>、<code>vae</code></p>
+<p>分别下载里面的文件放到对应的本地文件夹：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">diffusion_models ---&gt; ComfyUI_windows_portable\ComfyUI\models\diffusion_models
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">text_encoders ---&gt; ComfyUI_windows_portable\ComfyUI\models\text_encoders
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vae ---&gt; ComfyUI_windows_portable\ComfyUI\models\vae
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然：官方提供的是 fp16 的版本，对于显存较低的电脑不太友好，通过<a class="link" href="https://huggingface.co/T5B/Z-Image-Turbo-FP8"  target="_blank" rel="noopener"
+    >huggingface.co/T5B/Z-Image-Turbo-FP8</a>可以下载 fp8 的量化版本</p>
+<h3 id="方式二modelscope-下载">方式二：modelscope 下载
+</h3><p>使用<a class="link" href="https://modelscope.cn"  target="_blank" rel="noopener"
+    >魔搭社区</a>提供的<code>modelscope</code>下载工具下载模型：</p>
+<ol>
+<li>安装 modelscope</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install modelscope
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>进入到 comfyui 主目录下的 ComfyUI 下</strong>，比如：<code>F:\ComfyUI_windows_portable\ComfyUI</code></p>
+<ol start="2">
+<li>下载 text_encoders</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modelscope download --model Comfy-Org/z_image_turbo split_files/text_encoders/qwen_3_4b.safetensors --local_dir ./text_encoders/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>下载 diffusion_models</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modelscope download --model Comfy-Org/z_image_turbo split_files/diffusion_models/z_image_turbo_bf16.safetensors --local_dir ./diffusion_models/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果 z_image_turbo_bf16.safetensors 过大，显存不够，可以通过<a class="link" href="https://huggingface.co/T5B/Z-Image-Turbo-FP8/tree/main"  target="_blank" rel="noopener"
+    >huggingface.co/T5B/Z-Image-Turbo-FP8</a>下载 fp8 量化版本，不过网速较慢</p>
+<ol start="4">
+<li>下载 vae</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">modelscope download --model Comfy-Org/z_image_turbo split_files/vae/ae.safetensors --local_dir ./vae/
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="方式三hugginfaceco-网页下载">方式三：hugginface.co 网页下载
+</h3><p>使用<a class="link" href="https://hugginface.co"  target="_blank" rel="noopener"
+    >hugginface.co</a>网页在线下载：</p>
+<p><a class="link" href="https://huggingface.co/Comfy-Org/z_image_turbo"  target="_blank" rel="noopener"
+    >点击我进入 ComfyUI 官方仓库 z_image_turbo</a>，点击【模型文件】，再点击【split_files】，可以看到三个文件夹： <code>diffusion_models</code>、<code>text_encoders</code>、<code>vae</code></p>
+<p>分别下载里面的文件放到对应的本地文件夹：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">diffusion_models ---&gt; ComfyUI_windows_portable\ComfyUI\models\diffusion_models
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">text_encoders ---&gt; ComfyUI_windows_portable\ComfyUI\models\text_encoders
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">vae ---&gt; ComfyUI_windows_portable\ComfyUI\models\vae
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>当然：官方提供的是 fp16 的版本，对于显存较低的电脑不太友好，通过<a class="link" href="https://huggingface.co/T5B/Z-Image-Turbo-FP8"  target="_blank" rel="noopener"
+    >huggingface.co/T5B/Z-Image-Turbo-FP8</a>可以下载 fp8 的量化版本</p>
+<h2 id="启动-comfyui--工作流">启动 ComfyUI &amp; 工作流
+</h2><p>启动 ComfyUI：回到下载的 ComfyUI 主文件夹，点击 <code>run_nvidia_gpu.bat</code>，等待一会，启动成功进入网页：<code>http://127.0.0.1:8188</code>，一切准备工作就绪</p>
+<p>下载工作流：<a class="link" href="https://raw.githubusercontent.com/Comfy-Org/workflow_templates/refs/heads/main/templates/image_z_image_turbo.json"  target="_blank" rel="noopener"
+    >点击下载官方工作流 image_z_image_turbo.json</a></p>
+<p>点击左上角：菜单》文件》打开》选择下载的工作流（后文提供）。</p>
+<p>打开子图，如图所示：</p>
+<p><img alt="image-20251130210709743" class="gallery-image" data-flex-basis="367px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/ugOl7aXhVFBMjpW.png" srcset="/ugOl7aXhVFBMjpW_10484843344515172252_hu_f7cb71a0fd01dceb.png 800w, /ugOl7aXhVFBMjpW_10484843344515172252_hu_68c8e8d46d157191.png 1600w, https://s2.loli.net/2025/11/30/ugOl7aXhVFBMjpW.png 2186w" width="2186"></p>
+<p><img alt="image-20251130210759588" class="gallery-image" data-flex-basis="367px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/47y9QqhXozCBijc.png" srcset="/47y9QqhXozCBijc_5547007053463432156_hu_273e4d0e5517f5dd.png 800w, /47y9QqhXozCBijc_5547007053463432156_hu_1b16163aee842572.png 1600w, https://s2.loli.net/2025/11/30/47y9QqhXozCBijc.png 2186w" width="2186"></p>
+<p><img alt="image-20251130211915137" class="gallery-image" data-flex-basis="367px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/3PUBFLlz2RXjK8h.png" srcset="/3PUBFLlz2RXjK8h_12637013568974846486_hu_e9712d5324a29bdf.png 800w, /3PUBFLlz2RXjK8h_12637013568974846486_hu_95007dd087846479.png 1600w, https://s2.loli.net/2025/11/30/3PUBFLlz2RXjK8h.png 2186w" width="2186"></p>
+<p><img alt="image-20251130212056209" class="gallery-image" data-flex-basis="367px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/IftsX4WbTvrGElP.png" srcset="/IftsX4WbTvrGElP_12309624934322110677_hu_b228e2f8aad98abd.png 800w, /IftsX4WbTvrGElP_12309624934322110677_hu_2fff92f4c2d541c1.png 1600w, https://s2.loli.net/2025/11/30/IftsX4WbTvrGElP.png 2186w" width="2186"></p>
+<p>后续修改只需要修改 Step3 Prompt 方框中的提示词，点击运行即可</p>
+<p><img alt="image-20251130213402518" class="gallery-image" data-flex-basis="367px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/ObIDnWJUBMdz8q6.png" srcset="/ObIDnWJUBMdz8q6_13954909542056583570_hu_8e2d5ff793a98a99.png 800w, /ObIDnWJUBMdz8q6_13954909542056583570_hu_277070020c1d4e98.png 1600w, https://s2.loli.net/2025/11/30/ObIDnWJUBMdz8q6.png 2186w" width="2186"></p>
+<p>或者点击<strong>面包屑导航 image_z_image_turbo</strong>回到工作流主界面，在输入提示词的地方修改提示词，点击运行即可</p>
+<p><img alt="image-20251130213444705" class="gallery-image" data-flex-basis="367px" data-flex-grow="153" height="1426" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/TpQPkzlaGYodrDw.png" srcset="/TpQPkzlaGYodrDw_12789417541560109024_hu_8182f5d2736d8bba.png 800w, /TpQPkzlaGYodrDw_12789417541560109024_hu_50a08b1aed1be40b.png 1600w, https://s2.loli.net/2025/11/30/TpQPkzlaGYodrDw.png 2186w" width="2186"></p>
+<p>另外一个工作流：<a class="link" href="https://lzygood.lanzoum.com/inUQa3cjetqj"  target="_blank" rel="noopener"
+    >https://lzygood.lanzoum.com/inUQa3cjetqj</a>，我自己平时使用，官方提供显示有点问题，使用的是 fp8 的版本，需要放在 <code>ComfyUI_windows_portable\ComfyUI\models\diffusion_models\checkpoints</code>目录下</p>
+<h2 id="提示词">提示词
+</h2><p>以下为 5060 8G， z-image-turbo-fp8 1024*1024</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">帮我生成几张原神中八重神子的图片
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img alt="z-image-fp8_00005_" class="gallery-image" data-flex-basis="240px" data-flex-grow="100" height="1024" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/GVkaH27fQxsYjhg.png" srcset="/GVkaH27fQxsYjhg_10623378549476823663_hu_de719a69fda657ef.png 800w, https://s2.loli.net/2025/11/30/GVkaH27fQxsYjhg.png 1024w" width="1024"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">一条通往神秘发光森林的小径，巨大的萤火虫在夜空中飞舞，空灵的光斑，童话书插画风格，柔和色彩，梦幻氛围，广角镜头。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img alt="z-image-fp8_00002_" class="gallery-image" data-flex-basis="240px" data-flex-grow="100" height="1024" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/KxczT9JdFMNtZG8.png" srcset="/KxczT9JdFMNtZG8_15078733828627952712_hu_b2f5aa330b3d10b5.png 800w, https://s2.loli.net/2025/11/30/KxczT9JdFMNtZG8.png 1024w" width="1024"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">一个精致的青花瓷茶杯，飘出缕缕热气，热气形成了仙鹤的形态，背景是水墨山水画，新中式风格，优雅而宁静，特写镜头。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img alt="z-image-fp8_00003_" class="gallery-image" data-flex-basis="240px" data-flex-grow="100" height="1024" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/J6kDaS1Eg4erBmQ.png" srcset="/J6kDaS1Eg4erBmQ_13594865834989225867_hu_da159d93e3710f3a.png 800w, https://s2.loli.net/2025/11/30/J6kDaS1Eg4erBmQ.png 1024w" width="1024"></p>
+
+    <blockquote>
+        <p>一个地下巨型水晶洞穴，内部有发光的蓝色水晶和地下湖，一束阳光从顶部的裂缝射入，形成了神圣的体积光，超现实，探索发现的感觉，8K 壁纸。</p>
+
+    </blockquote>
+<p><img alt="z-image-fp8_00004_" class="gallery-image" data-flex-basis="240px" data-flex-grow="100" height="1024" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/11/30/c5I8MRnoHLe1sxg.png" srcset="/c5I8MRnoHLe1sxg_4657147029538705061_hu_7979897660eab20f.png 800w, https://s2.loli.net/2025/11/30/c5I8MRnoHLe1sxg.png 1024w" width="1024"></p>
+<h3 id="nsfw">NSFW
+</h3><p>以下提示词来自佬友和 grok。图片就不上传了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">一个裸露身体的女孩，站立在房间里，20岁左右，没有任何遮挡，全身照
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">一位中国年轻女子，黑发双马尾，脸红，害羞，脸上有白色液体。斜倚在铺着柔软灰色枕头和床单的床上，双腿大张，膝盖弯曲，姿态完全开放，充满诱惑，穿着百褶裙。她丰满自然的乳房，粉嫩的乳晕轻轻地贴着胸膛，肌肤光滑，泛着淡淡的情欲光泽。她剃光的阴部完全暴露，整齐对称的外阴唇微微分开，露出娇嫩的粉嫩内阴唇和阴蒂，隐约可见一丝湿润。一只纤细的手放松地放在阴部旁边的大腿内侧，手指轻轻张开，不再遮掩任何东西，将目光直接引向她坦露的私密之处。她用紧张的眼睛直视着观者。温暖昏暗的室内灯光从上方倾泻而下，在她乳房下方和大腿间投下柔和的阴影，凸显出她裸露私处的每一处曲线和细节。亲密的特写镜头，略微低角度的视角，以她的躯干和完全张开的双腿为中心，高度逼真的渲染，细腻的皮肤纹理，细小的毛孔，自然的红晕，以及不容置疑的色情焦点。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">22岁柔美瑜伽教练，黑色长发用白色发带束成马尾，赤裸身体在月光下呈现象牙白肤色。她呈现下犬式瑜伽姿势，臀部高高翘起，双腿分开，完美呈现粉嫩菊花和阴部。阴唇对称自然，阴蒂微微外露，表面有细微汗珠。脊椎线条优美，腰部纤细，臀部圆润紧实，乳房自然下垂，乳头呈淡粉色。一只手撑地，另一只手放在瑜伽垫上。背景是露台木地板和星空，月光从左侧洒下，在她身体右侧形成完美阴影。微风吹动几缕发丝和背景树叶。特写构图，侧后方视角，月光冷色调与皮肤暖色调对比，细腻肌肉纹理和汗珠细节，艺术摄影风格。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">28岁成熟女性，酒红色波浪卷发散落在肩膀，浸泡在充满玫瑰花瓣的豪华白色浴缸中。泡沫覆盖到乳房下方，露出湿润的乳峰和粉红乳晕。双腿优雅地搭在浴缸边缘，完全张开，剃光的阴部在泡沫间隙中暴露无遗，阴唇因热水而充血呈现深粉色，阴蒂清晰可见。一只手拿着香槟酒杯，另一只手懒散地放在大腿内侧，手指沾着泡沫。浴室大理石墙面反射温暖烛光，玫瑰花瓣漂浮在水面，香槟气泡上升。蒸汽营造朦胧氛围，水面倒影她的身体曲线。特写镜头，略微低角度仰视，超逼真水面反射和泡沫质感，烛光暖色调，奢华摄影风格。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="放大模型">放大模型
+</h2><h3 id="4x-放大">4x 放大
+</h3><p>模型：4x-UltraSharp</p>
+<p>下载地址：<a class="link" href="https://www.modelscope.cn/models/XiangZL0/4x-UltraSharp/resolve/master/4x-UltraSharp.pth"  target="_blank" rel="noopener"
+    >点我直接下载</a></p>
+<p>下载<code>4x-UltraSharp.pth</code>文件存放到<code>ComfyUI/models/upscale_models</code>目录中</p>
+<p>重启<code>ComfyUI</code>即可</p>
+<h2 id="节点">节点
+</h2><h3 id="图像对比">图像对比
+</h3><p>地址：<a class="link" href="https://github.com/rgthree/rgthree-comfy"  target="_blank" rel="noopener"
+    >https://github.com/rgthree/rgthree-comfy</a></p>
+<p>安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ComfyUI/custom_nodes
+</span></span><span class="line"><span class="cl">git clone https://github.com/rgthree/rgthree-comfy.git
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重启<code>ComfyUI</code>即可</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/comfyui/">Comfyui</a>
+        
+            <a href="/tags/text-to-image/">Text-to-Image</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260310112423/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">OpenClaw，真正会做事的 AI。</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251208213734/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">n8n，工作流搭建</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/251207162625/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">大模型回答质量实际体验总结</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250816174237/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">whisper，OpenAI开源的语音转文字大模型</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250528205242/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">免费大模型API</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Z-Library on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/z-library/</link>
+        <description>Recent content in Z-Library on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Sun, 17 Nov 2024 15:15:43 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/z-library/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Z-library访问方法总结</title>
+            <link>https://blog.seektao.cc/p/241117151516/</link>
+            <pubDate>Sun, 17 Nov 2024 15:15:16 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/241117151516/</guid>
+            <description>&lt;p&gt;众所周知，Z-library 由于性质的原因，访问地址经常失效，有什么好办法可以获取访问地址呢，根据我的经验，有两种比较好的方式。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;客户端&lt;/li&gt;&#xA;&lt;li&gt;浏览器插件&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;浏览器插件&#34;&gt;浏览器插件&#xA;&lt;/h3&gt;&lt;p&gt;浏览器插件可以探测可用网址，且方便浏览器访问。浏览器插件暂时只支持 Firefox ，通过 Firefox 官方插件仓库是搜索不到的，需要通过已访问网址安装。&lt;/p&gt;&#xA;&lt;p&gt;这里给出可用的网址在线安装，由于网址会失效，所以有时效性。&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;&#xA;&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1&#xA;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&#xA;&lt;td class=&#34;lntd&#34;&gt;&#xA;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://1lib.sk/soft/mozilla-addon-latest.xpi?1&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&#xA;&lt;/div&gt;&#xA;&lt;/div&gt;&lt;p&gt;通过 Firefox 浏览器访问即可自动安装，安装后点击图标可以访问。&lt;/p&gt;&#xA;&lt;h3 id=&#34;客户端&#34;&gt;客户端&#xA;&lt;/h3&gt;&lt;p&gt;客户端会自动探测可用网址，这样就避免了收藏的单一网址失效。&lt;/p&gt;&#xA;&lt;p&gt;这里分享客户端安装程序&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Windows:&lt;/li&gt;&#xA;&lt;li&gt;Linux:&lt;/li&gt;&#xA;&lt;li&gt;MacOS(Big Sur (11.0) or later):&lt;/li&gt;&#xA;&lt;li&gt;MacOS(Intel):&lt;/li&gt;&#xA;&lt;li&gt;Android:&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;链接: &lt;a class=&#34;link&#34; href=&#34;https://pan.baidu.com/s/1S9Rzv9yX5homxaXkgprJJA?pwd=bdsa&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://pan.baidu.com/s/1S9Rzv9yX5homxaXkgprJJA?pwd=bdsa&lt;/a&gt; 提取码: bdsa 复制这段内容后打开百度网盘手机App，操作更方便哦&lt;/p&gt;&#xA;&lt;h3 id=&#34;可用网址&#34;&gt;可用网址&#xA;&lt;/h3&gt;&lt;p&gt;Web&lt;/p&gt;&#xA;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://z-library.sk&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://z-library.sk&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;TOR:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://bookszlibb74ugqojhzhg2a63w5i2atv5bqarulgczawnbmsb6s6qead.onion&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;http://bookszlibb74ugqojhzhg2a63w5i2atv5bqarulgczawnbmsb6s6qead.onion&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

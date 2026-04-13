@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Potplayer on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/potplayer/</link>
+        <description>Recent content in Potplayer on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Thu, 07 Aug 2025 15:35:15 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/potplayer/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>potplayer常用设置</title>
+            <link>https://blog.seektao.cc/p/250807153515/</link>
+            <pubDate>Thu, 07 Aug 2025 15:35:15 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/250807153515/</guid>
+            <description></description>
+        </item><item>
+            <title>potplayer实时字幕生成&#43;实时字幕翻译</title>
+            <link>https://blog.seektao.cc/p/250807132705/</link>
+            <pubDate>Thu, 07 Aug 2025 13:27:05 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/250807132705/</guid>
+            <description>&lt;h2 id=&#34;简介&#34;&gt;简介&#xA;&lt;/h2&gt;&lt;p&gt;本篇将介绍使用 potplayer 播放器实现视频实时字幕生成和翻译&lt;/p&gt;&#xA;&lt;p&gt;下载potplayer：&lt;a class=&#34;link&#34; href=&#34;https://potplayer.daum.net/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://potplayer.daum.net/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;实时字幕生成&#34;&gt;实时字幕生成&#xA;&lt;/h2&gt;&lt;p&gt;利用openai的 wisper模型，做到语音转文字，做到实时生成字幕&lt;/p&gt;&#xA;&lt;p&gt;打开 potplyaer 主界面，右键字幕-生成有声字幕-生成有声字幕，打开如下界面&lt;/p&gt;&#xA;&lt;p&gt;&lt;img alt=&#34;image-20250807133223183&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;297px&#34; data-flex-grow=&#34;124&#34; height=&#34;883&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/08/07/QGrLYR9UABHWO35.png&#34; srcset=&#34;https://blog.seektao.cc/QGrLYR9UABHWO35_379403998922428641_hu_8d1c6c4e97b5f65a.png 800w, https://s2.loli.net/2025/08/07/QGrLYR9UABHWO35.png 1095w&#34; width=&#34;1095&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;转换引擎下拉选择推荐的即可，直接点击右边的下载按钮下载。如果提示：无法执行安全验证。导致无法下载，跟着下面的步骤手动下载。&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Virtual on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/virtual/</link>
+        <description>Recent content in Virtual on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Thu, 12 Jun 2025 09:55:27 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/virtual/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Virtualbox，一款通用的全虚拟化软件</title>
+            <link>https://blog.seektao.cc/p/250612095527/</link>
+            <pubDate>Thu, 12 Jun 2025 09:55:27 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/250612095527/</guid>
+            <description>&lt;h2 id=&#34;简介&#34;&gt;简介&#xA;&lt;/h2&gt;&lt;p&gt;VirtualBox 是一款通用的全虚拟化软件，适用于 x86_64 硬件 (另有 7.1 版本适用于 macOS/Arm), 针对笔记本电脑、台式机、服务器和嵌入式使用。&lt;/p&gt;&#xA;&lt;p&gt;官网：&lt;a class=&#34;link&#34; href=&#34;https://www.virtualbox.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://www.virtualbox.org/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;安装&#34;&gt;安装&#xA;&lt;/h2&gt;&lt;p&gt;下载地址：&lt;a class=&#34;link&#34; href=&#34;https://www.virtualbox.org/wiki/Downloads&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://www.virtualbox.org/wiki/Downloads&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;windows&#34;&gt;Windows&#xA;&lt;/h3&gt;&lt;p&gt;下载：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;VirtualBox 7.1.10：&lt;a class=&#34;link&#34; href=&#34;https://download.virtualbox.org/virtualbox/7.1.10/VirtualBox-7.1.10-169112-Win.exe&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;点击下载&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;安装过程直接下一步就行，不建议更改安装位置（会使安装使用变得很繁琐）&lt;/p&gt;&#xA;&lt;h3 id=&#34;linux&#34;&gt;Linux&#xA;&lt;/h3&gt;&lt;p&gt;详细查看：&lt;a class=&#34;link&#34; href=&#34;https://www.virtualbox.org/wiki/Linux_Downloads&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;https://www.virtualbox.org/wiki/Linux_Downloads&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;macos&#34;&gt;Macos&#xA;&lt;/h3&gt;&lt;p&gt;下载：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;VirtualBox 7.1.10：&lt;a class=&#34;link&#34; href=&#34;https://download.virtualbox.org/virtualbox/7.1.10/VirtualBox-7.1.10-169112-OSX.dmg&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;点击下载&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;网络管理&#34;&gt;网络管理&#xA;&lt;/h2&gt;&lt;p&gt;这部分介绍 virtualbox 网络配置&lt;/p&gt;&#xA;&lt;p&gt;进入主页面，找到&lt;code&gt;工具&lt;/code&gt;，点击右侧的设置，选中 &lt;code&gt;网络&lt;/code&gt;，就可以看到网络的配置情况&lt;/p&gt;&#xA;&lt;p&gt;可以新建、删除，支持的网络类型有：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;仅主机（Host Only）网络：用于和主机宿主机通信，默认 IP 地址是&lt;code&gt;192.168.56.1/24&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Nat 网络：用于虚拟机内网连接互联网，默认为空，新建一个后默认 IP 地址是&lt;code&gt;10.0.2.0/24&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;云网络：&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;点击对应的网络可以配置属性，包括不限于网卡、DHCP 服务器&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

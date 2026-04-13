@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Nginx 安装和配置 信息 ">
+<title>certbot申请SSL证书，自动续期，Nginx配置</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/241003151158/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="certbot申请SSL证书，自动续期，Nginx配置">
+<meta property='og:description' content="Nginx 安装和配置 信息 ">
+<meta property='og:url' content='https://blog.seektao.cc/p/241003151158/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ssl' /><meta property='article:tag' content='nginx' /><meta property='article:published_time' content='2024-10-03T15:11:58&#43;08:00'/><meta property='article:modified_time' content='2024-10-03T22:12:46&#43;08:00'/><meta property='og:image' content='https://blog.seektao.cc/' />
+<meta name="twitter:title" content="certbot申请SSL证书，自动续期，Nginx配置">
+<meta name="twitter:description" content="Nginx 安装和配置 信息 "><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://blog.seektao.cc/' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#nginx-安装和配置">Nginx 安装和配置</a></li>
+    <li><a href="#certbot-安装">Certbot 安装</a>
+      <ol>
+        <li><a href="#安装-snap">安装 snap</a></li>
+        <li><a href="#安装-certbot">安装 certbot</a></li>
+      </ol>
+    </li>
+    <li><a href="#certbot-插件">Certbot 插件</a>
+      <ol>
+        <li><a href="#nginx">nginx</a></li>
+        <li><a href="#certbot-dns-dnspod">certbot-dns-dnspod</a></li>
+        <li><a href="#certbot-dns-cloudflare">certbot-dns-cloudflare</a></li>
+        <li><a href="#certbot-dns-huawei待续">certbot-dns-huawei（待续）</a></li>
+      </ol>
+    </li>
+    <li><a href="#自动续期">自动续期</a></li>
+    <li><a href="#一键脚本">一键脚本</a></li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+    <div class="article-image">
+        <a href="/p/241003151158/">
+            <img alt="Featured image of post certbot申请SSL证书，自动续期，Nginx配置" height="781" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/10/03/maziQBGhWpPJyVD.png" srcset="/maziQBGhWpPJyVD_12535194235670837117_hu_7095737dc99c2119.png 800w, https://s2.loli.net/2024/10/03/maziQBGhWpPJyVD.png 1597w" width="1597">
+        </a>
+    </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/241003151158/">certbot申请SSL证书，自动续期，Nginx配置</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-10-03T15:11:58&#43;08:00'>Oct 03, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#nginx-安装和配置">Nginx 安装和配置</a></li>
+    <li><a href="#certbot-安装">Certbot 安装</a>
+      <ol>
+        <li><a href="#安装-snap">安装 snap</a></li>
+        <li><a href="#安装-certbot">安装 certbot</a></li>
+      </ol>
+    </li>
+    <li><a href="#certbot-插件">Certbot 插件</a>
+      <ol>
+        <li><a href="#nginx">nginx</a></li>
+        <li><a href="#certbot-dns-dnspod">certbot-dns-dnspod</a></li>
+        <li><a href="#certbot-dns-cloudflare">certbot-dns-cloudflare</a></li>
+        <li><a href="#certbot-dns-huawei待续">certbot-dns-huawei（待续）</a></li>
+      </ol>
+    </li>
+    <li><a href="#自动续期">自动续期</a></li>
+    <li><a href="#一键脚本">一键脚本</a></li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="nginx-安装和配置">Nginx 安装和配置
+</h2><style type="text/css">
+     
+    .notice {
+        --title-color: #fff;
+        --title-background-color: #6be;
+        --content-color: #444;
+        --content-background-color: #e7f2fa;
+    }
+
+    .notice.info {
+        --title-background-color: #fb7;
+        --content-background-color: #fec;
+    }
+
+    .notice.tip {
+        --title-background-color: #5a5;
+        --content-background-color: #efe;
+    }
+
+    .notice.warning {
+        --title-background-color: #c33;
+        --content-background-color: #fee;
+    }
+
+     
+    @media (prefers-color-scheme:dark) {
+        .notice {
+            --title-color: #fff;
+            --title-background-color: #069;
+            --content-color: #ddd;
+            --content-background-color: #023;
+        }
+
+        .notice.info {
+            --title-background-color: #a50;
+            --content-background-color: #420;
+        }
+
+        .notice.tip {
+            --title-background-color: #363;
+            --content-background-color: #121;
+        }
+
+        .notice.warning {
+            --title-background-color: #800;
+            --content-background-color: #400;
+        }
+    }
+
+    body.dark .notice {
+        --title-color: #fff;
+        --title-background-color: #069;
+        --content-color: #ddd;
+        --content-background-color: #023;
+    }
+
+    body.dark .notice.info {
+        --title-background-color: #a50;
+        --content-background-color: #420;
+    }
+
+    body.dark .notice.tip {
+        --title-background-color: #363;
+        --content-background-color: #121;
+    }
+
+    body.dark .notice.warning {
+        --title-background-color: #800;
+        --content-background-color: #400;
+    }
+
+     
+    .notice {
+        padding: 18px;
+        line-height: 24px;
+        margin-bottom: 24px;
+        border-radius: 4px;
+        color: var(--content-color);
+        background: var(--content-background-color);
+    }
+
+    .notice p:last-child {
+        margin-bottom: 0
+    }
+
+     
+    .notice-title {
+        margin: -18px -18px 12px;
+        padding: 4px 18px;
+        border-radius: 4px 4px 0 0;
+        font-weight: 700;
+        color: var(--title-color);
+        background: var(--title-background-color);
+    }
+
+     
+    .icon-notice {
+        display: inline-flex;
+        align-self: center;
+        margin-right: 8px;
+    }
+
+    .icon-notice img,
+    .icon-notice svg {
+        height: 1em;
+        width: 1em;
+        fill: currentColor;
+    }
+
+    .icon-notice img,
+    .icon-notice.baseline svg {
+        top: .125em;
+        position: relative;
+    }
+</style><div class="notice info" >
+    <p class="notice-title">
+        <span class="icon-notice baseline">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="92 59.5 300 300">
+  <path d="M292 303.25V272c0-3.516-2.734-6.25-6.25-6.25H267v-100c0-3.516-2.734-6.25-6.25-6.25h-62.5c-3.516 0-6.25 2.734-6.25 6.25V197c0 3.516 2.734 6.25 6.25 6.25H217v62.5h-18.75c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h87.5c3.516 0 6.25-2.734 6.25-6.25Zm-25-175V97c0-3.516-2.734-6.25-6.25-6.25h-37.5c-3.516 0-6.25 2.734-6.25 6.25v31.25c0 3.516 2.734 6.25 6.25 6.25h37.5c3.516 0 6.25-2.734 6.25-6.25Zm125 81.25c0 82.813-67.188 150-150 150-82.813 0-150-67.188-150-150 0-82.813 67.188-150 150-150 82.813 0 150 67.188 150 150Z"/>
+</svg>
+
+        </span> 信息 </p><p>本次以 Debian 为例：如果不是 Debian，请参考：<a class="link" href="https://nginx.org/en/linux_packages.html"  target="_blank" rel="noopener"
+    >官方教程</a>安装，如果已经安装 Nginx，可跳过</p></div>
+
+<p>前提条件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt install curl gnupg2 ca-certificates lsb-release debian-archive-keyring
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>导入密钥，验证包的正确性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">curl https://nginx.org/keys/nginx_signing.key <span class="p">|</span> gpg --dearmor <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="p">|</span> sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg &gt;/dev/null
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>验证下载的文件是否包含正确的密钥：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>输出应包含完整指纹 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 如下:</p>
+<p>pub rsa2048 2011-08-19 [SC] [expires: 2024-06-14]
+573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid nginx signing key <a class="link" href="mailto:signing-key@nginx.com" >signing-key@nginx.com</a></p>
+
+    </blockquote>
+<p>如果指纹不同，删除文件。</p>
+<p><strong>二选一：</strong></p>
+<ul>
+<li>要为稳定的 nginx 包设置 apt 存储库，请运行以下命令：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+</span></span></span><span class="line"><span class="cl"><span class="s2">http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nginx.list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果希望使用 mainline nginx 包，请改为运行以下命令:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+</span></span></span><span class="line"><span class="cl"><span class="s2">http://nginx.org/packages/mainline/debian `lsb_release -cs` nginx&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nginx.list
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置存储库固定，使用 Nginx 官方的软件包而不是发行版提供的软件包：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nb">echo</span> -e <span class="s2">&#34;Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">    <span class="p">|</span> sudo tee /etc/apt/preferences.d/99nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>要安装 nginx，请运行以下命令:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="certbot-安装">Certbot 安装
+</h2><h3 id="安装-snap">安装 snap
+</h3><p>certbot 官方已经说了，各个发行版安装的 certbot 版本落后，功能不全，推荐我们使用 snap 安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 安装snap</span>
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span><span class="line"><span class="cl">sudo apt install snapd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 重启系统</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装core</span>
+</span></span><span class="line"><span class="cl">sudo snap install core
+</span></span><span class="line"><span class="cl">sudo snap refresh core
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="安装-certbot">安装 certbot
+</h3>
+    <blockquote>
+        <p>安装之前确保没有其他方式安装的 certbot
+如：apt，pip</p>
+<p>可通过这条命令查看 whereis certbot
+如果有，卸载它们
+sudo apt remove certbot
+sudo pip uninstall certbot</p>
+
+    </blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo snap install --classic certbot
+</span></span><span class="line"><span class="cl">sudo ln -s /snap/bin/certbot /usr/bin/certbot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>（3）查看版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo certbot --version
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="certbot-插件">Certbot 插件
+</h2><h3 id="nginx">nginx
+</h3><p>使用 snap 安装的版本是已经含有 nginx 插件的</p>
+<p>申请方法如下</p>
+<p>新建一个 nginx 的配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo touch /etc/nginx/conf.d/abc.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑 <code>abc.conf</code>，填入以下模板，<strong>根据自己实际情况修改</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo vim /etc/nginx/conf.d/abc.conf
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">server <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    listen 80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">    server_name domain.com<span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    location / <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        proxy_pass http://127.0.0.1:80<span class="p">;</span>
+</span></span><span class="line"><span class="cl">        proxy_set_header Host <span class="nv">$host</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        proxy_set_header X-Real-IP <span class="nv">$remote_addr</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        proxy_set_header X-Forwarded-For <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        proxy_set_header X-Forwarded-Proto <span class="nv">$scheme</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 certbot 的 nginx 插件申请</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 可以先查看哪些可以申请，是否列出了需要的域名</span>
+</span></span><span class="line"><span class="cl">sudo certbot --nginx
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>申请前保证域名解析到当前的 ip</p>
+
+    </blockquote>
+<h3 id="certbot-dns-dnspod">certbot-dns-dnspod
+</h3><p>此插件用于托管在 dnspod 上的域名通过 dns 方式申请</p>
+<p>dns 的优势是可以申请泛域名证书，也就是像 <code>*.seektao.cc</code>这种</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo snap install certbot-dns-dnspod
+</span></span><span class="line"><span class="cl">sudo snap <span class="nb">set</span> certbot trust-plugin-with-root<span class="o">=</span>ok
+</span></span><span class="line"><span class="cl">sudo snap connect certbot:plugin certbot-dns-dnspod
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装完成之后新建一个 .ini 文件，比如 /etc/certbot/dnspod.ini</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo mkdir /etc/certbot
+</span></span><span class="line"><span class="cl">sudo touch /etc/certbot/dnspod.ini
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>编辑 dnspod.ini，填入下面的内容，<a class="link" href="https://console.dnspod.cn/account/token/token"  target="_blank" rel="noopener"
+    >点此跳转到 dnspod api 申请页面</a>，注意申请的是 <code>dnspod token</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-vim" data-lang="vim"><span class="line"><span class="cl"><span class="nx">dns_dnspod_api_id</span> <span class="p">=</span> <span class="nx">xxxxxxx</span>
+</span></span><span class="line"><span class="cl"><span class="nx">dns_dnspod_api_token</span> <span class="p">=</span> <span class="nx">xxxxxxxxxxxxxbcdef</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo chmod <span class="m">600</span> /etc/certbot/dnspod.ini
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>申请证书的命令，需要替换为自己的域名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo certbot certonly -a dns-dnspod <span class="se">\
+</span></span></span><span class="line"><span class="cl">    --dns-dnspod-credentials /etc/certbot/dnspod.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl">    -d <span class="s2">&#34;*.yourdomain.com&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">接着就是:
+</span></span><span class="line"><span class="cl">输入邮箱，
+</span></span><span class="line"><span class="cl">是否同意注册acme（选Y），
+</span></span><span class="line"><span class="cl">是否同意发送邮件。。。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">接着等待，等待。。就完成了
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>证书文件保存在 <code>/etc/letsencrypt/live</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 其中</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cert name<span class="o">]</span>/privkey.pem：证书的私钥。
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cert name<span class="o">]</span>/fullchain.pem：在大多数服务器软件中使用的证书文件。
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cert name<span class="o">]</span>/chain.pem：在Nginx &gt;<span class="o">=</span>1.3.7 中用于 OCSP stapling。
+</span></span><span class="line"><span class="cl"><span class="o">[</span>cert name<span class="o">]</span>/cert.pem：会破坏许多服务器配置，不应在未进一步阅读文档的情况下使用。
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>用到 privkey.pem，fullchain.pem 即可。</p>
+<h3 id="certbot-dns-cloudflare">certbot-dns-cloudflare
+</h3><p>此插件用于托管在 cloudflare 上的域名通过 dns 方式申请</p>
+<p>dns 的优势是可以申请泛域名证书，也就是像 <code>*.seektao.cc</code>这种</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo snap install certbot-dns-cloudflare
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 如果提示如下错误信息，输入：sudo snap set certbot trust-plugin-with-root=ok</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 接着重新执行 sudo snap install certbot-dns-cloudflare</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">error: cannot perform the following tasks:
+</span></span><span class="line"><span class="cl">- Run hook prepare-plug-plugin of snap <span class="s2">&#34;certbot&#34;</span> <span class="o">(</span>run hook <span class="s2">&#34;prepare-plug-plugin&#34;</span>:
+</span></span><span class="line"><span class="cl">-----
+</span></span><span class="line"><span class="cl">Only connect this interface <span class="k">if</span> you trust the plugin author to have root on the system.
+</span></span><span class="line"><span class="cl">Run <span class="sb">`</span>snap <span class="nb">set</span> certbot trust-plugin-with-root<span class="o">=</span>ok<span class="sb">`</span> to acknowledge this and <span class="k">then</span> run this <span class="nb">command</span> again to perform the connection.
+</span></span><span class="line"><span class="cl">If that doesn<span class="err">&#39;</span>t work, you may need to remove all certbot-dns-* plugins from the system, <span class="k">then</span> try installing the certbot snap again.
+</span></span><span class="line"><span class="cl">-----<span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>申请 api token，<a class="link" href="https://dash.cloudflare.com/?to=/:account/profile/api-tokens"  target="_blank" rel="noopener"
+    >点此跳转</a></p>
+<p>在 <code>/etc/certbot</code> 新建 <code>cloudflare.ini</code>，将下面的值替换为自己申请的 api token</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># Cloudflare API token used by Certbot</span>
+</span></span><span class="line"><span class="cl"><span class="nv">dns_cloudflare_api_token</span> <span class="o">=</span> xxxxxxxxxxxxxxxxx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改权限</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo chmod <span class="m">600</span> cloudflare.ini
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>申请证书的命令，需要替换为自己的域名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">sudo certbot certonly <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dns-cloudflare <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --dns-cloudflare-credentials /etc/certbot/cloudflare.ini <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -d <span class="s2">&#34;*.youdomain.com&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="certbot-dns-huawei待续">certbot-dns-huawei（待续）
+</h3><p>此插件用于托管在 huawei 上的域名通过 dns 方式申请</p>
+<p>dns 的优势是可以申请泛域名证书，也就是像 <code>*.seektao.cc</code>这种</p>
+<h2 id="自动续期">自动续期
+</h2><p>自动续期添加一个定时任务即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 设置定时任务</span>
+</span></span><span class="line"><span class="cl">sudo crontab -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 每月1号的午夜执行 certbot renew 命令来续订证书</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">0</span> <span class="m">1</span> * * /usr/local/bin/certbot renew
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    <blockquote>
+        <p>需要注意自己的 certbot 执行路径是否正确
+<code>which certbot</code> 可以看到 certbot 执行路径</p>
+
+    </blockquote>
+<h2 id="一键脚本">一键脚本
+</h2><p>经过上面的步骤，你会发现每新增一个服务，需要</p>
+<ol>
+<li>新增 nginx 配置文件</li>
+<li>配置 nginx 文件</li>
+<li>验证并重启 nginx 服务</li>
+</ol>
+<p>这时候发现服务器每新增一个服务，就需要添加、修改 nginx 配置文件，域名和端口这些都需要修改，申请 ssl 证书，这些步骤相当麻烦。</p>
+<p>如果没有一个简单的 nginx 模板，则会更加复杂繁琐。基于以上需求，我编写了一个脚本。<strong>功能</strong>：配置好服务后，只需要一条命令即可完成 nginx 配置，并配置 ssl 证书</p>
+<p>命令为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">脚本名称 域名 端口号
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果需要获取原文和脚本，<strong>关注公众号&quot;寻道之旅&quot;，发送&quot;nginx&quot;获取</strong>。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ssl/">Ssl</a>
+        
+            <a href="/tags/nginx/">Nginx</a>
+        
+    </section>
+
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+             Oct 03, 2024 22:12 &#43;0800
+        </span>
+    </section><section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/2405002/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">acme.sh，SSL，TLS证书申请工具【万字长文详解⚠️】</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/2403006/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Certbot安装和申请免费Let&#39;s Encrypt证书，附一键生成脚本</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250319084854/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nginx，一个高性能的开源 Web 服务器，Nginx指南</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/2403008/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">openssl小小使用</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/2403005/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">nginx-proxy-manager申请证书失败，提示缺乏zope模块</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

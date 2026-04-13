@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="网络上收集的一些 tracker 列表\nGitHub 开源仓库：\nhttps://github.com/ngosang/trackerslist\n站点\nhttps://trackerslist.com/#/zh\n中国可用的 BT Tracker 服务器列表，每 24 小时自动更新\nhttps://ngosang.github.io/trackerslist/\ntracker 列表\nhttps://cf.trackerslist.com/best.txt\nhttps://trackerslist.com/all.txt\n直接使用\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 http://0123456789nonexistent.com:80/announce http://1337.abcvg.info:80/announce http://bt.okmp3.ru:2710/announce http://ipv4.rer.lol:2710/announce http://ipv6.rer.lol:6969/announce http://nyaa.tracker.wf:7777/announce http://open.trackerlist.xyz:80/announce http://shubt.net:2710/announce http://taciturn-shadow.spb.ru:6969/announce http://tk.greedland.net:80/announce http://torrentsmd.com:8080/announce http://tracker.beeimg.com:6969/announce http://tracker.bt4g.com:2095/announce http://tracker.ipv6tracker.ru:80/announce http://tracker.mywaifu.best:6969/announce http://tracker.privateseedbox.xyz:2710/announce http://tracker.renfei.net:8080/announce http://www.all4nothin.net:80/announce.php http://www.wareztorrent.com:80/announce https://1337.abcvg.info:443/announce https://pybittrack.retiolus.net:443/announce https://t.213891.xyz:443/announce https://tr.abiir.top:443/announce https://tr.abir.ga:443/announce https://tr.nyacat.pw:443/announce https://tracker.expli.top:443/announce https://tracker.foreverpirates.co:443/announce https://tracker.jdx3.org:443/announce https://tracker.kuroy.me:443/announce https://tracker.moeblog.cn:443/announce https://tracker.yemekyedim.com:443/announce https://tracker.zhuqiy.top:443/announce https://tracker1.520.jp:443/announce udp://1c.premierzal.ru:6969/announce udp://d40969.acod.regrucolo.ru:6969/announce udp://evan.im:6969/announce udp://exodus.desync.com:6969/announce udp://extracker.dahrkael.net:6969/announce udp://martin-gebhardt.eu:25/announce udp://open.demonii.com:1337/announce udp://open.stealth.si:80/announce udp://opentor.org:2710/announce udp://opentracker.io:6969/announce udp://p4p.arenabg.com:1337/announce udp://retracker.hotplug.ru:2710/announce udp://retracker.lanta.me:2710/announce udp://retracker01-msk-virt.corbina.net:80/announce udp://tr4ck3r.duckdns.org:6969/announce udp://tracker-udp.gbitt.info:80/announce udp://tracker.bitcoinindia.space:6969/announce udp://tracker.dler.com:6969/announce udp://tracker.fnix.net:6969/announce udp://tracker.gigantino.net:6969/announce udp://tracker.gmi.gd:6969/announce udp://tracker.hifimarket.in:2710/announce udp://tracker.hifitechindia.com:6969/announce udp://tracker.kmzs123.cn:17272/announce udp://tracker.ololosh.space:6969/announce udp://tracker.opentrackr.org:1337/announce udp://tracker.plx.im:6969/announce udp://tracker.qu.ax:6969/announce udp://tracker.rescuecrew7.com:1337/announce udp://tracker.skillindia.site:6969/announce udp://tracker.skyts.net:6969/announce udp://tracker.srv00.com:6969/announce udp://tracker.therarbg.to:6969/announce udp://tracker.torrent.eu.org:451/announce udp://tracker.torrust-demo.com:6969/announce udp://tracker.tryhackx.org:6969/announce udp://tracker.tvunderground.org.ru:3218/announce udp://tracker.valete.tf:9999/announce udp://tracker.wepzone.net:6969/announce udp://tracker.zupix.online:6969/announce udp://ttk2.nbaonlineservice.com:6969/announce udp://udp.tracker.projectk.org:23333/announce udp://wepzone.net:6969/announce udp://www.torrent.eu.org:451/announce wss://tracker.openwebtorrent.com:443/announce ">
+<title>tracker列表</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/2309008/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="tracker列表">
+<meta property='og:description' content="网络上收集的一些 tracker 列表\nGitHub 开源仓库：\nhttps://github.com/ngosang/trackerslist\n站点\nhttps://trackerslist.com/#/zh\n中国可用的 BT Tracker 服务器列表，每 24 小时自动更新\nhttps://ngosang.github.io/trackerslist/\ntracker 列表\nhttps://cf.trackerslist.com/best.txt\nhttps://trackerslist.com/all.txt\n直接使用\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 http://0123456789nonexistent.com:80/announce http://1337.abcvg.info:80/announce http://bt.okmp3.ru:2710/announce http://ipv4.rer.lol:2710/announce http://ipv6.rer.lol:6969/announce http://nyaa.tracker.wf:7777/announce http://open.trackerlist.xyz:80/announce http://shubt.net:2710/announce http://taciturn-shadow.spb.ru:6969/announce http://tk.greedland.net:80/announce http://torrentsmd.com:8080/announce http://tracker.beeimg.com:6969/announce http://tracker.bt4g.com:2095/announce http://tracker.ipv6tracker.ru:80/announce http://tracker.mywaifu.best:6969/announce http://tracker.privateseedbox.xyz:2710/announce http://tracker.renfei.net:8080/announce http://www.all4nothin.net:80/announce.php http://www.wareztorrent.com:80/announce https://1337.abcvg.info:443/announce https://pybittrack.retiolus.net:443/announce https://t.213891.xyz:443/announce https://tr.abiir.top:443/announce https://tr.abir.ga:443/announce https://tr.nyacat.pw:443/announce https://tracker.expli.top:443/announce https://tracker.foreverpirates.co:443/announce https://tracker.jdx3.org:443/announce https://tracker.kuroy.me:443/announce https://tracker.moeblog.cn:443/announce https://tracker.yemekyedim.com:443/announce https://tracker.zhuqiy.top:443/announce https://tracker1.520.jp:443/announce udp://1c.premierzal.ru:6969/announce udp://d40969.acod.regrucolo.ru:6969/announce udp://evan.im:6969/announce udp://exodus.desync.com:6969/announce udp://extracker.dahrkael.net:6969/announce udp://martin-gebhardt.eu:25/announce udp://open.demonii.com:1337/announce udp://open.stealth.si:80/announce udp://opentor.org:2710/announce udp://opentracker.io:6969/announce udp://p4p.arenabg.com:1337/announce udp://retracker.hotplug.ru:2710/announce udp://retracker.lanta.me:2710/announce udp://retracker01-msk-virt.corbina.net:80/announce udp://tr4ck3r.duckdns.org:6969/announce udp://tracker-udp.gbitt.info:80/announce udp://tracker.bitcoinindia.space:6969/announce udp://tracker.dler.com:6969/announce udp://tracker.fnix.net:6969/announce udp://tracker.gigantino.net:6969/announce udp://tracker.gmi.gd:6969/announce udp://tracker.hifimarket.in:2710/announce udp://tracker.hifitechindia.com:6969/announce udp://tracker.kmzs123.cn:17272/announce udp://tracker.ololosh.space:6969/announce udp://tracker.opentrackr.org:1337/announce udp://tracker.plx.im:6969/announce udp://tracker.qu.ax:6969/announce udp://tracker.rescuecrew7.com:1337/announce udp://tracker.skillindia.site:6969/announce udp://tracker.skyts.net:6969/announce udp://tracker.srv00.com:6969/announce udp://tracker.therarbg.to:6969/announce udp://tracker.torrent.eu.org:451/announce udp://tracker.torrust-demo.com:6969/announce udp://tracker.tryhackx.org:6969/announce udp://tracker.tvunderground.org.ru:3218/announce udp://tracker.valete.tf:9999/announce udp://tracker.wepzone.net:6969/announce udp://tracker.zupix.online:6969/announce udp://ttk2.nbaonlineservice.com:6969/announce udp://udp.tracker.projectk.org:23333/announce udp://wepzone.net:6969/announce udp://www.torrent.eu.org:451/announce wss://tracker.openwebtorrent.com:443/announce ">
+<meta property='og:url' content='https://blog.seektao.cc/p/2309008/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='bt' /><meta property='article:tag' content='tracker' /><meta property='article:published_time' content='2023-09-09T14:07:10&#43;08:00'/><meta property='article:modified_time' content='2023-09-09T14:07:10&#43;08:00'/>
+<meta name="twitter:title" content="tracker列表">
+<meta name="twitter:description" content="网络上收集的一些 tracker 列表\nGitHub 开源仓库：\nhttps://github.com/ngosang/trackerslist\n站点\nhttps://trackerslist.com/#/zh\n中国可用的 BT Tracker 服务器列表，每 24 小时自动更新\nhttps://ngosang.github.io/trackerslist/\ntracker 列表\nhttps://cf.trackerslist.com/best.txt\nhttps://trackerslist.com/all.txt\n直接使用\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 http://0123456789nonexistent.com:80/announce http://1337.abcvg.info:80/announce http://bt.okmp3.ru:2710/announce http://ipv4.rer.lol:2710/announce http://ipv6.rer.lol:6969/announce http://nyaa.tracker.wf:7777/announce http://open.trackerlist.xyz:80/announce http://shubt.net:2710/announce http://taciturn-shadow.spb.ru:6969/announce http://tk.greedland.net:80/announce http://torrentsmd.com:8080/announce http://tracker.beeimg.com:6969/announce http://tracker.bt4g.com:2095/announce http://tracker.ipv6tracker.ru:80/announce http://tracker.mywaifu.best:6969/announce http://tracker.privateseedbox.xyz:2710/announce http://tracker.renfei.net:8080/announce http://www.all4nothin.net:80/announce.php http://www.wareztorrent.com:80/announce https://1337.abcvg.info:443/announce https://pybittrack.retiolus.net:443/announce https://t.213891.xyz:443/announce https://tr.abiir.top:443/announce https://tr.abir.ga:443/announce https://tr.nyacat.pw:443/announce https://tracker.expli.top:443/announce https://tracker.foreverpirates.co:443/announce https://tracker.jdx3.org:443/announce https://tracker.kuroy.me:443/announce https://tracker.moeblog.cn:443/announce https://tracker.yemekyedim.com:443/announce https://tracker.zhuqiy.top:443/announce https://tracker1.520.jp:443/announce udp://1c.premierzal.ru:6969/announce udp://d40969.acod.regrucolo.ru:6969/announce udp://evan.im:6969/announce udp://exodus.desync.com:6969/announce udp://extracker.dahrkael.net:6969/announce udp://martin-gebhardt.eu:25/announce udp://open.demonii.com:1337/announce udp://open.stealth.si:80/announce udp://opentor.org:2710/announce udp://opentracker.io:6969/announce udp://p4p.arenabg.com:1337/announce udp://retracker.hotplug.ru:2710/announce udp://retracker.lanta.me:2710/announce udp://retracker01-msk-virt.corbina.net:80/announce udp://tr4ck3r.duckdns.org:6969/announce udp://tracker-udp.gbitt.info:80/announce udp://tracker.bitcoinindia.space:6969/announce udp://tracker.dler.com:6969/announce udp://tracker.fnix.net:6969/announce udp://tracker.gigantino.net:6969/announce udp://tracker.gmi.gd:6969/announce udp://tracker.hifimarket.in:2710/announce udp://tracker.hifitechindia.com:6969/announce udp://tracker.kmzs123.cn:17272/announce udp://tracker.ololosh.space:6969/announce udp://tracker.opentrackr.org:1337/announce udp://tracker.plx.im:6969/announce udp://tracker.qu.ax:6969/announce udp://tracker.rescuecrew7.com:1337/announce udp://tracker.skillindia.site:6969/announce udp://tracker.skyts.net:6969/announce udp://tracker.srv00.com:6969/announce udp://tracker.therarbg.to:6969/announce udp://tracker.torrent.eu.org:451/announce udp://tracker.torrust-demo.com:6969/announce udp://tracker.tryhackx.org:6969/announce udp://tracker.tvunderground.org.ru:3218/announce udp://tracker.valete.tf:9999/announce udp://tracker.wepzone.net:6969/announce udp://tracker.zupix.online:6969/announce udp://ttk2.nbaonlineservice.com:6969/announce udp://udp.tracker.projectk.org:23333/announce udp://wepzone.net:6969/announce udp://www.torrent.eu.org:451/announce wss://tracker.openwebtorrent.com:443/announce ">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2309008/">tracker列表</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2023-09-09T14:07:10&#43;08:00'>Sep 09, 2023</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+
+    <section class="article-content">
+    
+    
+    <p>网络上收集的一些 tracker 列表</p>
+<p>GitHub 开源仓库：</p>
+<p><a class="link" href="https://github.com/ngosang/trackerslist"  target="_blank" rel="noopener"
+    >https://github.com/ngosang/trackerslist</a></p>
+<p>站点</p>
+<p><a class="link" href="https://trackerslist.com/#/zh"  target="_blank" rel="noopener"
+    >https://trackerslist.com/#/zh</a></p>
+<p><a class="link" href="https://www.yaozuopan.top/index.php/archives/1014/"  target="_blank" rel="noopener"
+    >中国可用的 BT Tracker 服务器列表，每 24 小时自动更新</a></p>
+<p><a class="link" href="https://ngosang.github.io/trackerslist/"  target="_blank" rel="noopener"
+    >https://ngosang.github.io/trackerslist/</a></p>
+<p>tracker 列表</p>
+<p><a class="link" href="https://cf.trackerslist.com/best.txt"  target="_blank" rel="noopener"
+    >https://cf.trackerslist.com/best.txt</a></p>
+<p><a class="link" href="https://trackerslist.com/all.txt"  target="_blank" rel="noopener"
+    >https://trackerslist.com/all.txt</a></p>
+<p>直接使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://0123456789nonexistent.com:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://1337.abcvg.info:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://bt.okmp3.ru:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://ipv4.rer.lol:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://ipv6.rer.lol:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://nyaa.tracker.wf:7777/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://open.trackerlist.xyz:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://shubt.net:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://taciturn-shadow.spb.ru:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tk.greedland.net:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://torrentsmd.com:8080/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tracker.beeimg.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tracker.bt4g.com:2095/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tracker.ipv6tracker.ru:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tracker.mywaifu.best:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tracker.privateseedbox.xyz:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://tracker.renfei.net:8080/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://www.all4nothin.net:80/announce.php
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">http://www.wareztorrent.com:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://1337.abcvg.info:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://pybittrack.retiolus.net:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://t.213891.xyz:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tr.abiir.top:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tr.abir.ga:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tr.nyacat.pw:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.expli.top:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.foreverpirates.co:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.jdx3.org:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.kuroy.me:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.moeblog.cn:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.yemekyedim.com:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker.zhuqiy.top:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">https://tracker1.520.jp:443/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://1c.premierzal.ru:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://d40969.acod.regrucolo.ru:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://evan.im:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://exodus.desync.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://extracker.dahrkael.net:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://martin-gebhardt.eu:25/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://open.demonii.com:1337/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://open.stealth.si:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://opentor.org:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://opentracker.io:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://p4p.arenabg.com:1337/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://retracker.hotplug.ru:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://retracker.lanta.me:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://retracker01-msk-virt.corbina.net:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tr4ck3r.duckdns.org:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker-udp.gbitt.info:80/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.bitcoinindia.space:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.dler.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.fnix.net:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.gigantino.net:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.gmi.gd:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.hifimarket.in:2710/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.hifitechindia.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.kmzs123.cn:17272/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.ololosh.space:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.opentrackr.org:1337/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.plx.im:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.qu.ax:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.rescuecrew7.com:1337/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.skillindia.site:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.skyts.net:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.srv00.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.therarbg.to:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.torrent.eu.org:451/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.torrust-demo.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.tryhackx.org:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.tvunderground.org.ru:3218/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.valete.tf:9999/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.wepzone.net:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://tracker.zupix.online:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://ttk2.nbaonlineservice.com:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://udp.tracker.projectk.org:23333/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://wepzone.net:6969/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">udp://www.torrent.eu.org:451/announce
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">wss://tracker.openwebtorrent.com:443/announce
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/bt/">Bt</a>
+        
+            <a href="/tags/tracker/">Tracker</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403180703/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng设备使用</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

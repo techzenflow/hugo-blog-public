@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Sftp on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/sftp/</link>
+        <description>Recent content in Sftp on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Sun, 21 Jul 2024 15:07:50 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/sftp/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Sublime配置SFTP</title>
+            <link>https://blog.seektao.cc/p/2407021/</link>
+            <pubDate>Sun, 21 Jul 2024 15:07:50 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/2407021/</guid>
+            <description>&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Ctrl+Shift+P调出命令面板&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;输入install 调出 Install Package 选项并回车（第一次需要安装install，安装完成后重复步骤1,2），&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;输入sftp，回车安装&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;SFTP/FTP按钮位置：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;File-SFTP/FTP&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;配置的信息&lt;/p&gt;&#xA;&lt;img src=&#34;https://s2.loli.net/2024/07/18/ZyENtqTlY7kjaMc.png&#34; alt=&#34;image-20240718115836279&#34; style=&#34;zoom:50%;&#34; /&gt;&#xA;&lt;p&gt;配置文件所在的位置&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Windows：&lt;/li&gt;&#xA;&lt;li&gt;Linux：&lt;code&gt;~/.config/sublime-text/Packages/User/sftp_servers&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;必须将配置文件放在这个位置才能被识别，Windows默认保存的位置即可，Linux需要手动跳转到该目录&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

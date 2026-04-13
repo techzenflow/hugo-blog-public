@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="刷机过程 略\n基本设置 灯 https://www.bilibili.com/read/cv21700714/\n玩客云这设备有个红、绿、蓝三色 led 灯，在刷入 armbian 系统以后，这个灯的颜色就会显示异常，往往是一直显示红色。\n如果要自动动手调整 led 灯的颜色，控制命令如下（需要 root 用户执行）\n">
+<title>玩客云onecloud刷机安装armbian系统，安装应用</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/240902180979/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="玩客云onecloud刷机安装armbian系统，安装应用">
+<meta property='og:description' content="刷机过程 略\n基本设置 灯 https://www.bilibili.com/read/cv21700714/\n玩客云这设备有个红、绿、蓝三色 led 灯，在刷入 armbian 系统以后，这个灯的颜色就会显示异常，往往是一直显示红色。\n如果要自动动手调整 led 灯的颜色，控制命令如下（需要 root 用户执行）\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/240902180979/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='armbian' /><meta property='article:published_time' content='2024-09-02T18:09:19&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T18:09:19&#43;08:00'/>
+<meta name="twitter:title" content="玩客云onecloud刷机安装armbian系统，安装应用">
+<meta name="twitter:description" content="刷机过程 略\n基本设置 灯 https://www.bilibili.com/read/cv21700714/\n玩客云这设备有个红、绿、蓝三色 led 灯，在刷入 armbian 系统以后，这个灯的颜色就会显示异常，往往是一直显示红色。\n如果要自动动手调整 led 灯的颜色，控制命令如下（需要 root 用户执行）\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#刷机过程">刷机过程</a></li>
+    <li><a href="#基本设置">基本设置</a>
+      <ol>
+        <li><a href="#灯">灯</a></li>
+        <li><a href="#静态-ip">静态 ip</a></li>
+      </ol>
+    </li>
+    <li><a href="#应用">应用</a>
+      <ol>
+        <li><a href="#casaos">casaos</a></li>
+        <li><a href="#1panel">1panel</a></li>
+        <li><a href="#v2raya">v2raya</a></li>
+        <li><a href="#alist">alist</a></li>
+        <li><a href="#ddns-go">ddns-go</a></li>
+        <li><a href="#wg-esay">wg-esay</a></li>
+        <li><a href="#lucky">lucky</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/default/" style="background-color: hsl(254, 60%, 84%); color: hsl(254, 60%, 15%);">
+                Default
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/240902180979/">玩客云onecloud刷机安装armbian系统，安装应用</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2024-09-02T18:09:19&#43;08:00'>Sep 02, 2024</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#刷机过程">刷机过程</a></li>
+    <li><a href="#基本设置">基本设置</a>
+      <ol>
+        <li><a href="#灯">灯</a></li>
+        <li><a href="#静态-ip">静态 ip</a></li>
+      </ol>
+    </li>
+    <li><a href="#应用">应用</a>
+      <ol>
+        <li><a href="#casaos">casaos</a></li>
+        <li><a href="#1panel">1panel</a></li>
+        <li><a href="#v2raya">v2raya</a></li>
+        <li><a href="#alist">alist</a></li>
+        <li><a href="#ddns-go">ddns-go</a></li>
+        <li><a href="#wg-esay">wg-esay</a></li>
+        <li><a href="#lucky">lucky</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="刷机过程">刷机过程
+</h2><p>略</p>
+<h2 id="基本设置">基本设置
+</h2><h3 id="灯">灯
+</h3><p><a class="link" href="https://www.bilibili.com/read/cv21700714/"  target="_blank" rel="noopener"
+    >https://www.bilibili.com/read/cv21700714/</a></p>
+<p>玩客云这设备有个红、绿、蓝三色 led 灯，在刷入 armbian 系统以后，这个灯的颜色就会显示异常，往往是一直显示红色。</p>
+<p>如果要自动动手调整 led 灯的颜色，控制命令如下（需要 root 用户执行）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">1</span> &gt; /sys/class/leds/onecloud:blue:alive/brightness
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">1</span> &gt; /sys/class/leds/onecloud:green:alive/brightness
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="m">1</span> &gt; /sys/class/leds/onecloud:red:alive/brightness
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>echo 1</code>是开，<code>echo 0</code>就是关。现在可以组合出多种颜色，蓝绿、红蓝、红绿、红绿蓝。😄</p>
+<p>但这个设置重启后失效。╮(╯▽╰)╭</p>
+<h3 id="静态-ip">静态 ip
+</h3><p>查看当前网络连接信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmcli connection show
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>设置静态 ip</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nmcli connection modify <span class="s2">&#34;Wired connection 1&#34;</span> ipv4.addresses 192.168.68.9/24
+</span></span><span class="line"><span class="cl">nmcli connection modify <span class="s2">&#34;Wired connection 1&#34;</span> ipv4.gateway 192.168.68.1
+</span></span><span class="line"><span class="cl">nmcli connection modify <span class="s2">&#34;Wired connection 1&#34;</span> ipv4.dns 223.5.5.5
+</span></span><span class="line"><span class="cl">nmcli connection modify <span class="s2">&#34;Wired connection 1&#34;</span> ipv4.method manual
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重新启动网络连接：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nmcli connection down &#34;Wired connection 1&#34;
+</span></span><span class="line"><span class="cl">nmcli connection up &#34;Wired connection 1&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查网络配置，确保静态 IP 已成功应用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nmcli connection show &#34;Wired connection 1&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="应用">应用
+</h2><h3 id="casaos">casaos
+</h3><p>非必须不建议</p>
+<p>内存占用很大，没需求不建议安装</p>
+<p>一键安装脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -qO- https://get.casaos.io <span class="p">|</span> bash
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>casaos 商店源
+<a class="link" href="https://play.cuse.eu.org/Cpe204-Appstore-play-arm.zip"  target="_blank" rel="noopener"
+    >https://play.cuse.eu.org/Cpe204-Appstore-play-arm.zip</a></p>
+<h3 id="1panel">1panel
+</h3><p>管理面板，替代 casaos，内存占用大约 50M，功能齐全</p>
+<p>界面预览：</p>
+<p><img alt="image-20240903221054879" class="gallery-image" data-flex-basis="457px" data-flex-grow="190" height="1342" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/03/VmnrihUR7H54uoA.png" srcset="/VmnrihUR7H54uoA_8403269160680082268_hu_49bf860b53fe3102.png 800w, /VmnrihUR7H54uoA_8403269160680082268_hu_c7059b5c51b34c6e.png 1600w, /VmnrihUR7H54uoA_8403269160680082268_hu_9497534d4d29b101.png 2400w, https://s2.loli.net/2024/09/03/VmnrihUR7H54uoA.png 2560w" width="2560"></p>
+<p>安装后系统占用对比</p>
+<p>安装前：</p>
+<p><img alt="image-20240903220920392" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="830" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/03/D7yOs48d6KEaHW3.png" srcset="/D7yOs48d6KEaHW3_17257970273515466660_hu_e6326b54a7375cd8.png 800w, https://s2.loli.net/2024/09/03/D7yOs48d6KEaHW3.png 1474w" width="1474"></p>
+<p>安装后：</p>
+<p><img alt="image-20240903220943878" class="gallery-image" data-flex-basis="674px" data-flex-grow="281" height="579" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/03/nvbZGJUfmNIqO7H.png" srcset="/nvbZGJUfmNIqO7H_4516248060983011740_hu_16f387e50ba99a56.png 800w, /nvbZGJUfmNIqO7H_4516248060983011740_hu_41d1901f5846a60a.png 1600w, https://s2.loli.net/2024/09/03/nvbZGJUfmNIqO7H.png 1628w" width="1628"></p>
+<p>一键安装脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh <span class="o">&amp;&amp;</span> bash quick_start.sh
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="v2raya">v2raya
+</h3><p>代理工具，web 端，默认端口 2017，初次下载速度较慢，耐心等待。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -qO - https://apt.v2raya.org/key/public-key.asc <span class="p">|</span> sudo tee /etc/apt/keyrings/v2raya.asc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;deb [signed-by=/etc/apt/keyrings/v2raya.asc] https://apt.v2raya.org/ v2raya main&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/v2raya.list
+</span></span><span class="line"><span class="cl">sudo apt update
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install v2raya v2ray <span class="c1">## 也可以使用 xray 包</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="alist">alist
+</h3><p>经典的网盘管理工具</p>
+<p>官网：https://alist.nn.ci/zh/</p>
+<p>源码：https://github.com/alist-org/alist</p>
+<p>二进制文件安装</p>
+<p>下载地址：<a class="link" href="https://github.com/alist-org/alist/releases/download/v3.37.4/alist-linux-arm-7.tar.gz"  target="_blank" rel="noopener"
+    >v3.37.4/alist-linux-arm-7.tar.gz</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 下载</span>
+</span></span><span class="line"><span class="cl">mkdir -p /opt/alist
+</span></span><span class="line"><span class="cl">wget https://github.com/alist-org/alist/releases/download/v3.37.4/alist-linux-arm-7.tar.gz
+</span></span><span class="line"><span class="cl">tar -zxvf alist-linux-arm-7.tar.gz -C /opt/alist
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 安装启动</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /opt/alist
+</span></span><span class="line"><span class="cl">chmod +x alist
+</span></span><span class="line"><span class="cl">./alist server <span class="c1"># 启动会前台阻塞</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 新开一个终端设置密码</span>
+</span></span><span class="line"><span class="cl">./alist admin <span class="nb">set</span> 密码
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>安装服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 安装服务</span>
+</span></span><span class="line"><span class="cl">vim /usr/lib/systemd/system/alist.service
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 填入一下内容</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Unit<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Description</span><span class="o">=</span>alist
+</span></span><span class="line"><span class="cl"><span class="nv">After</span><span class="o">=</span>network.target
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Service<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">Type</span><span class="o">=</span>simple
+</span></span><span class="line"><span class="cl"><span class="nv">WorkingDirectory</span><span class="o">=</span>/opt/alist
+</span></span><span class="line"><span class="cl"><span class="nv">ExecStart</span><span class="o">=</span>/opt/alist/alist server
+</span></span><span class="line"><span class="cl"><span class="nv">Restart</span><span class="o">=</span>on-failure
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>Install<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WantedBy</span><span class="o">=</span>multi-user.target
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>docker 安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run -d --restart<span class="o">=</span>unless-stopped -v /opt/alist:/opt/alist/data -p 5245:5244 -e <span class="nv">PUID</span><span class="o">=</span><span class="m">0</span> -e <span class="nv">PGID</span><span class="o">=</span><span class="m">0</span> -e <span class="nv">UMASK</span><span class="o">=</span><span class="m">022</span> --name<span class="o">=</span><span class="s2">&#34;alist&#34;</span> xhofe/alist-aria2:main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>docker-compose 安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo mkdir -p /opt/alist
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /opt/alist
+</span></span><span class="line"><span class="cl">sudo vim docker-compose.yml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">version: <span class="s1">&#39;3.3&#39;</span>
+</span></span><span class="line"><span class="cl">services:
+</span></span><span class="line"><span class="cl">    alist:
+</span></span><span class="line"><span class="cl">        image: <span class="s1">&#39;xhofe/alist-aria2:latest&#39;</span>
+</span></span><span class="line"><span class="cl">        volumes:
+</span></span><span class="line"><span class="cl">            - <span class="s1">&#39;./data:/opt/alist/data&#39;</span>
+</span></span><span class="line"><span class="cl">            - <span class="s1">&#39;/home:/home&#39;</span>
+</span></span><span class="line"><span class="cl">            - <span class="s1">&#39;/root:/root&#39;</span>
+</span></span><span class="line"><span class="cl">        ports:
+</span></span><span class="line"><span class="cl">            - <span class="s1">&#39;5245:5244&#39;</span>
+</span></span><span class="line"><span class="cl">        environment:
+</span></span><span class="line"><span class="cl">            - <span class="nv">PUID</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">            - <span class="nv">PGID</span><span class="o">=</span><span class="m">0</span>
+</span></span><span class="line"><span class="cl">            - <span class="nv">UMASK</span><span class="o">=</span><span class="m">000</span>
+</span></span><span class="line"><span class="cl">        container_name: alist
+</span></span><span class="line"><span class="cl">        restart: unless-stopped
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>重置密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker <span class="nb">exec</span> -it alist ./alist admin <span class="nb">set</span> &lt;your_password&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="ddns-go">ddns-go
+</h3><p>ddns 神器，go 语言编写，内存占用低。</p>
+<p>源码：<a class="link" href="https://github.com/jeessy2/ddns-go"  target="_blank" rel="noopener"
+    >https://github.com/jeessy2/ddns-go</a></p>
+<h3 id="wg-esay">wg-esay
+</h3><p>异地组网工具 wireguard，wg-easy 是简化 wireguard 部署过程的开源项目，使用 docker 部署，简单快速上手。</p>
+<p>wireguard 是虚拟加密网络（VPN）,它可以使异地的设备组成一个局域网，换句话说就是可以在外地可以像在家中一样访问家中的设备，ip 地址都可以不变。</p>
+<p>源码：<a class="link" href="https://github.com/wg-easy/wg-easy"  target="_blank" rel="noopener"
+    >https://github.com/wg-easy/wg-easy</a></p>
+<p>部署</p>
+<p>docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">  docker run -d <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --name<span class="o">=</span>wg-easy <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">LANG</span><span class="o">=</span>de <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">WG_HOST</span><span class="o">=</span>&lt;🚨YOUR_SERVER_IP&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">PASSWORD_HASH</span><span class="o">=</span>&lt;🚨YOUR_ADMIN_PASSWORD_HASH&gt; <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">PORT</span><span class="o">=</span><span class="m">51821</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -e <span class="nv">WG_PORT</span><span class="o">=</span><span class="m">51820</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -v ~/.wg-easy:/etc/wireguard <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 51820:51820/udp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  -p 51821:51821/tcp <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cap-add<span class="o">=</span>NET_ADMIN <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --cap-add<span class="o">=</span>SYS_MODULE <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --sysctl<span class="o">=</span><span class="s2">&#34;net.ipv4.conf.all.src_valid_mark=1&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --sysctl<span class="o">=</span><span class="s2">&#34;net.ipv4.ip_forward=1&#34;</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl">  --restart unless-stopped <span class="se">\
+</span></span></span><span class="line"><span class="cl">  ghcr.io/wg-easy/wg-easy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>docker-compose</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">wget https://github.com/wg-easy/wg-easy/blob/master/docker-compose.yml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>密码部分生成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">docker run ghcr.io/wg-easy/wg-easy wgpw YOUR_PASSWORD
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果是 单个 <code>$</code>要改成 <code>$$</code></p>
+<p>部署后请注意开放对应端口。</p>
+<h3 id="lucky">lucky
+</h3><p>Lucky 最初是作为一个小工具，由开发者为自己的个人使用而开发，用于替代 socat，在小米路由 AX6000 官方系统上实现公网 IPv6 转内网 IPv4 的功能。Lucky 的设计始终致力于让更多的 Linux 嵌入式设备运行，以实现或集成个人用户常用功能，降低用户的硬件和软件操作学习成本，同时引导使用者注意网络安全。随着版本更新和网友反馈，Lucky 不断迭代改进，拥有更多功能和更好的性能，成为用户值得信赖的工具。</p>
+<p>Lucky 的核心程序完全采用 Golang 实现，具有高效、稳定、跨平台等优点。其后台前端则采用 Vue3.2 技术进行开发，具有良好的用户体验和响应速度。此外，Lucky 的管理后台采用前后端分离的架构，第三方开发者也可以自由使用 OpenToken 轻松调用 Lucky 的各种功能接口。</p>
+<p>安装</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="nv">URL</span><span class="o">=</span><span class="s2">&#34;http://release.ilucky.net:66&#34;</span><span class="p">;</span> curl -o /tmp/install.sh <span class="s2">&#34;</span><span class="nv">$URL</span><span class="s2">/install.sh&#34;</span> <span class="o">&amp;&amp;</span> sh /tmp/install.sh <span class="s2">&#34;</span><span class="nv">$URL</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/armbian/">Armbian</a>
+        
+    </section>
+
+
+    <section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/260412103609/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE安装ikuai</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260410085829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PVE环境安装immortalwrt</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260408204829/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">交换机配置DHCP</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260405100522/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng-ce使用手册</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/260403180703/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">eve-ng设备使用</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

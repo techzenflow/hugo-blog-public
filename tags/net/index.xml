@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Net on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/net/</link>
+        <description>Recent content in Net on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Sun, 21 Sep 2025 00:28:08 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/net/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>HCL模拟器设备启动失败解决办法</title>
+            <link>https://blog.seektao.cc/p/250921002808/</link>
+            <pubDate>Sun, 21 Sep 2025 00:28:08 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/250921002808/</guid>
+            <description>&lt;h2 id=&#34;简介&#34;&gt;简介&#xA;&lt;/h2&gt;&lt;p&gt;解决 hcl 模拟器 启动设备提示失败。&lt;/p&gt;&#xA;&lt;h2 id=&#34;解决办法&#34;&gt;解决办法&#xA;&lt;/h2&gt;&lt;ol&gt;&#xA;&lt;li&gt;打开 VirtualBox 安装根目录/drivers/vboxDrv，右键 VBoxDrv.inf 安装。&lt;/li&gt;&#xA;&lt;li&gt;然后，打开注册表，找到&lt;code&gt;计算机\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\VBoxDrv&lt;/code&gt;目录下，编辑 start 项，将 1 改为 2，并重启计算机。&lt;/li&gt;&#xA;&lt;li&gt;完成以上操作后，HCL 成功启动设备。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;原理是将 VirtualBox 程序设定的“启动时加载服务”更改为“由服务控制管理器自动加载”。&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>华为eNSP模拟器和华三HCL模拟器共存</title>
+            <link>https://blog.seektao.cc/p/250920224112/</link>
+            <pubDate>Sat, 20 Sep 2025 22:41:12 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/250920224112/</guid>
+            <description>&lt;h2 id=&#34;简介&#34;&gt;简介&#xA;&lt;/h2&gt;&lt;p&gt;解决华为 eNSP 模拟器和华三 HCL 模拟器共存&lt;/p&gt;&#xA;&lt;h2 id=&#34;准备&#34;&gt;准备&#xA;&lt;/h2&gt;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;eNSP_V1.3.00.exe&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;VirtualBox-5.2.44-139111-Win.exe&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;WinPcap_4_1_3.exe&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Wireshark-win64-3.6.10.exe&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;HCL_v5.10.3-Setup.zip&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;步骤&#34;&gt;步骤&#xA;&lt;/h2&gt;&lt;p&gt;首先安装 eNSP，然后修改注册表安装 hcl，最后恢复注册表&lt;/p&gt;&#xA;&lt;p&gt;原因：hcl 安装会检测 VirtualBox 版本，按照官网所说，自带 VirtualBox6.0.14，所以修改注册表将 VirtualBox 从 eNSP 要求的 5.2.44 修改为 6.0.14，安装完 hcl 之后，VirtualBox 恢复为 5.2.44&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;安装 VirtualBox-5.2.44-139111-Win.exe&lt;/li&gt;&#xA;&lt;li&gt;安装 WinPcap_4_1_3.exe&lt;/li&gt;&#xA;&lt;li&gt;安装 Wireshark-win64-3.6.10.exe&lt;/li&gt;&#xA;&lt;li&gt;安装 eNSP_V1.3.00.exe&lt;/li&gt;&#xA;&lt;li&gt;修改注册表，win+r 打开注册表，地址栏输入： &lt;code&gt;计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Oracle\VirtualBox&lt;/code&gt; 将 &lt;code&gt;Version&lt;/code&gt; 和 &lt;code&gt;VersionExt&lt;/code&gt; 的值由 &lt;code&gt;5.2.44&lt;/code&gt; 改为 &lt;code&gt;6.0.14&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;安装 HCL_v5.10.3-Setup.exe&lt;/li&gt;&#xA;&lt;li&gt;恢复注册表，win+r 打开注册表，地址栏输入： &lt;code&gt;计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Oracle\VirtualBox&lt;/code&gt; 将 &lt;code&gt;Version&lt;/code&gt; 和 &lt;code&gt;VersionExt&lt;/code&gt; 的值由 &lt;code&gt;6.0.14&lt;/code&gt;改为 &lt;code&gt;5.2.44&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;参考文档&#34;&gt;参考文档&#xA;&lt;/h2&gt;&lt;ol&gt;&#xA;&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.lololowe.com/posts/5782/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;华为 eNSP 模拟器与新华三 HCL 模拟器共存安装教程&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhiliao.h3c.com/topic/huati/5476&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;在电脑上同时安装华三 HCL 和华为 ENSP 的方法&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;</description>
+        </item></channel>
+</rss>

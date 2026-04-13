@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="zh-ch" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 ClawCloud Run 是一个集成在线开发、测试和生产环境的云开发平台。只需单击几下，即可设置开发环境和数据库依赖项，从而显著降低复杂性。\n带 AFF 注册链接（你我都有利）：点此跳转 无 AFF 注册链接：点此跳转 目前注册可获赠5$，注册方式只支持 GitHub、Google\n">
+<title>claw免费容器，部署服务教程</title>
+
+
+<link rel="canonical" href="https://blog.seektao.cc/p/250412200248/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
+
+
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="claw免费容器，部署服务教程">
+<meta property='og:description' content="简介 ClawCloud Run 是一个集成在线开发、测试和生产环境的云开发平台。只需单击几下，即可设置开发环境和数据库依赖项，从而显著降低复杂性。\n带 AFF 注册链接（你我都有利）：点此跳转 无 AFF 注册链接：点此跳转 目前注册可获赠5$，注册方式只支持 GitHub、Google\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/250412200248/'>
+<meta property='og:site_name' content='寻道之旅博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='claw' /><meta property='article:published_time' content='2025-04-12T20:02:48&#43;08:00'/><meta property='article:modified_time' content='2025-04-12T20:03:47&#43;08:00'/>
+<meta name="twitter:title" content="claw免费容器，部署服务教程">
+<meta name="twitter:description" content="简介 ClawCloud Run 是一个集成在线开发、测试和生产环境的云开发平台。只需单击几下，即可设置开发环境和数据库依赖项，从而显著降低复杂性。\n带 AFF 注册链接（你我都有利）：点此跳转 无 AFF 注册链接：点此跳转 目前注册可获赠5$，注册方式只支持 GitHub、Google\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        <figure class="site-avatar">
+                <a href="/">
+                    <img src="" 
+                        width=""
+                        height=""
+                        class="site-logo"
+                        loading="lazy"
+                        alt="Avatar">
+                </a>
+                
+            </figure>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">寻道之旅博客</a></h1>
+            <h2 class="site-description">皈依佛法僧，回头观自性。仁者，欢迎你！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://space.bilibili.com/481543302'
+                        
+                        title="Bilibili"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-bilibili" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <path d="M3 10a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v6a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4v-6z"></path>
+    <path d="M8 3l2 3"></path>
+    <path d="M16 3l-2 3"></path>
+    <path d="M9 13v-2"></path>
+    <path d="M15 11v2"></path>
+  </svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/techzenflow'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#计划">计划</a>
+      <ol>
+        <li><a href="#free-plan-免费计划">Free Plan 免费计划</a></li>
+      </ol>
+    </li>
+    <li><a href="#预览">预览</a></li>
+    <li><a href="#服务">服务</a>
+      <ol>
+        <li><a href="#alist">alist</a></li>
+        <li><a href="#new-api">new-api</a></li>
+        <li><a href="#qinglong">qinglong</a></li>
+        <li><a href="#open-webui">Open WebUI</a></li>
+        <li><a href="#halo">halo</a></li>
+        <li><a href="#blinko">blinko</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/categories/free/" style="background-color: hsl(275, 60%, 84%); color: hsl(275, 60%, 15%);">
+                Free
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/250412200248/">claw免费容器，部署服务教程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    
+    
+    
+    <footer class="article-meta">
+        
+            <div class="inline-meta">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                    <time class="article-time--published" datetime='2025-04-12T20:02:48&#43;08:00'>Apr 12, 2025</time>
+                
+
+                
+            </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+
+</header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#计划">计划</a>
+      <ol>
+        <li><a href="#free-plan-免费计划">Free Plan 免费计划</a></li>
+      </ol>
+    </li>
+    <li><a href="#预览">预览</a></li>
+    <li><a href="#服务">服务</a>
+      <ol>
+        <li><a href="#alist">alist</a></li>
+        <li><a href="#new-api">new-api</a></li>
+        <li><a href="#qinglong">qinglong</a></li>
+        <li><a href="#open-webui">Open WebUI</a></li>
+        <li><a href="#halo">halo</a></li>
+        <li><a href="#blinko">blinko</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <h2 id="简介">简介
+</h2><p>ClawCloud Run 是一个集成在线开发、测试和生产环境的云开发平台。只需单击几下，即可设置开发环境和数据库依赖项，从而显著降低复杂性。</p>
+<ul>
+<li>带 AFF 注册链接（你我都有利）：<a class="link" href="https://console.run.claw.cloud/signin?link=QKOTH00U6P8V"  target="_blank" rel="noopener"
+    >点此跳转</a></li>
+<li>无 AFF 注册链接：<a class="link" href="https://console.run.claw.cloud/signin"  target="_blank" rel="noopener"
+    >点此跳转</a></li>
+</ul>
+<p>目前注册可获赠<code>5$</code>，注册方式只支持 GitHub、Google</p>
+<p><strong>获取 <code>5$</code>条件</strong>：</p>
+<ul>
+<li>首次注册赠送<code>5$</code>：有效期一个月</li>
+<li>每个月赠送<code>5$</code>：注册账号后一个月内绑定 GitHub 账户，同时要求绑定的 GitHub 账户注册时间超过 180 天</li>
+</ul>
+<p>建议<strong>直接使用 GitHub 注册</strong>，免去绑定的步骤，当然也可以用其他邮箱注册再绑定 github</p>
+<h2 id="计划">计划
+</h2><h3 id="free-plan-免费计划">Free Plan 免费计划
+</h3><p>For every newly registered user, ClawCloud Run will offer a benefit of $5. The validity period of this complimentary amount is one month. If you bind your GitHub account within one month after registration, you will receive an additional $5 every month thereafter, and the validity period of this subsequent gift is also one month.
+对于每一个新注册的用户，ClawCloud Run 将提供 5 美元的优惠。此赠品的有效期为一个月。如果您在注册后一个月内绑定 GitHub 账户，则此后每个月都会额外获得 5 美元，而这份后续礼物的有效期也是一个月。</p>
+<p>To prevent resource wastage, ClawCloud Run reserves the right to manage resource allocation for users of the free plan.
+为防止资源浪费，ClawCloud Run 保留为免费计划的用户管理资源分配的权利。</p>
+<h2 id="预览">预览
+</h2><p><img alt="Image description" class="gallery-image" data-flex-basis="472px" data-flex-grow="196" height="1229" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/zduplVUAwGjaP1X.png" srcset="/zduplVUAwGjaP1X_15852434653965102168_hu_e1243b9b60a4ec68.png 800w, /zduplVUAwGjaP1X_15852434653965102168_hu_a0f09f6220be534e.png 1600w, /zduplVUAwGjaP1X_15852434653965102168_hu_9e55fc8983ad1dd.png 2400w, https://s2.loli.net/2025/04/12/zduplVUAwGjaP1X.png 2418w" width="2418">
+<img alt="Image description" class="gallery-image" data-flex-basis="583px" data-flex-grow="242" height="1025" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/8ANaKDZOHEdUVk9.png" srcset="/8ANaKDZOHEdUVk9_17930070531874883524_hu_5ce71a28181693ea.png 800w, /8ANaKDZOHEdUVk9_17930070531874883524_hu_4d7d16af1003b11b.png 1600w, /8ANaKDZOHEdUVk9_17930070531874883524_hu_1d68062d096e9052.png 2400w, https://s2.loli.net/2025/04/12/8ANaKDZOHEdUVk9.png 2490w" width="2490"></p>
+<p>继续附上注册链接</p>
+<ul>
+<li>带 AFF 注册链接（你我都有利）：<a class="link" href="https://console.run.claw.cloud/signin?link=QKOTH00U6P8V"  target="_blank" rel="noopener"
+    >点此跳转</a></li>
+<li>无 AFF 注册链接：<a class="link" href="https://console.run.claw.cloud/signin"  target="_blank" rel="noopener"
+    >点此跳转</a></li>
+</ul>
+<h2 id="服务">服务
+</h2><ul>
+<li><code>App Launchpad</code>：创建容器，可以设置比较小的资源占用，所需费用也比较小，最低<code>0.1C64M 0.01$/day</code>，最高<code>8C16G 2.14$/day</code></li>
+<li><code>Database</code>：支持<code>PostgreSQL</code>、<code>MongoDB</code>、<code>MySQL</code>、<code>Redis</code>、<code>Kafka</code>、<code>Milvus</code></li>
+<li><code>Devbox</code>：开发容器，可以选择特定语言的运行环境，框架，系统。最低支持<code>1C2G</code>，最高支持<code>16C32G</code></li>
+<li><code>Object Storage</code>：对象存储</li>
+<li><code>App Store</code>：应用商店，提供常见应用启动模板，如 alist，fastgpt，chat-next-web，dify 等等</li>
+<li><code>Termiinal</code>：终端模拟器</li>
+</ul>
+<h3 id="alist">alist
+</h3><p>AList 是一款易于安装且支持多平台的文件管理工具，可以挂载多种存储并提供多种实用功能。它支持 WebDAV、黑暗模式、文件预览、打包下载等，还提供保险箱加密和更多高级功能。</p>
+<p>部署 alist 的成本比较低，一个月只需<code>0.04$/day*30day=1.2$</code>，完全可以使用赠送的 5$，alist 服务不会关机。</p>
+<p>点击 <code>App Store</code>，选择 <code>Alist</code></p>
+<p><img alt="image-20250412200932614" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/z8Yh5bJqOnAaWKX.png" srcset="/z8Yh5bJqOnAaWKX_9455511101666782351_hu_d503ffb50660848.png 800w, /z8Yh5bJqOnAaWKX_9455511101666782351_hu_48d0782b01b937d3.png 1600w, /z8Yh5bJqOnAaWKX_9455511101666782351_hu_77f4481f29c89a92.png 2400w, https://s2.loli.net/2025/04/12/z8Yh5bJqOnAaWKX.png 2560w" width="2560"></p>
+<p>选择用户名和填入密码</p>
+<p><img alt="image-20250412201005058" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/v8qrHUFWA6J1gmY.png" srcset="/v8qrHUFWA6J1gmY_10106196027768682097_hu_375f4f5ab36d010e.png 800w, /v8qrHUFWA6J1gmY_10106196027768682097_hu_b2f3d29384646e97.png 1600w, /v8qrHUFWA6J1gmY_10106196027768682097_hu_6d9695696b5c8074.png 2400w, https://s2.loli.net/2025/04/12/v8qrHUFWA6J1gmY.png 2560w" width="2560"></p>
+<p>点击 <code>Deploy App</code>，确认部署</p>
+<p><img alt="image-20250412201111201" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/eaGy6jwC8UOsI3b.png" srcset="/eaGy6jwC8UOsI3b_2365713923666284661_hu_c6981658b71b63b2.png 800w, /eaGy6jwC8UOsI3b_2365713923666284661_hu_857dd7c1e71468ed.png 1600w, /eaGy6jwC8UOsI3b_2365713923666284661_hu_a500ac424d74db8d.png 2400w, https://s2.loli.net/2025/04/12/eaGy6jwC8UOsI3b.png 2560w" width="2560"></p>
+<p><img alt="image-20250412201154107" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/HZfqV4oYOz2iMFX.png" srcset="/HZfqV4oYOz2iMFX_15422116581005681148_hu_c271d824e18bb5e5.png 800w, /HZfqV4oYOz2iMFX_15422116581005681148_hu_d30cac1a646316a2.png 1600w, /HZfqV4oYOz2iMFX_15422116581005681148_hu_16a17cea6bc1e5e6.png 2400w, https://s2.loli.net/2025/04/12/HZfqV4oYOz2iMFX.png 2560w" width="2560"></p>
+<p>返回，点击<code>My Apps</code>可以看到已经部署的应用</p>
+<p><img alt="image-20250412201223837" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/XVUbjqE5SgxTeo2.png" srcset="/XVUbjqE5SgxTeo2_2334016548262604325_hu_10cd761ef0beb797.png 800w, /XVUbjqE5SgxTeo2_2334016548262604325_hu_e35b3dad0df4aee9.png 1600w, /XVUbjqE5SgxTeo2_2334016548262604325_hu_e89054c7a2ef3fe5.png 2400w, https://s2.loli.net/2025/04/12/XVUbjqE5SgxTeo2.png 2560w" width="2560"></p>
+<p>点击进去，可以看到应用已经启动</p>
+<p><img alt="image-20250412201302124" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/9GsPLdAxEk5iaCM.png" srcset="/9GsPLdAxEk5iaCM_11130486432793699484_hu_a7c4535b9723c15e.png 800w, /9GsPLdAxEk5iaCM_11130486432793699484_hu_379d67a1cac91db9.png 1600w, /9GsPLdAxEk5iaCM_11130486432793699484_hu_4e1293c2029f5bad.png 2400w, https://s2.loli.net/2025/04/12/9GsPLdAxEk5iaCM.png 2560w" width="2560"></p>
+<p>点击 <code>Detail</code>查看详细信息，下滑找到<code>Network</code>，即可看到公共访问的 ip 地址</p>
+<p><img alt="image-20250412201601794" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/bYN8Q9ZPLcIfynm.png" srcset="/bYN8Q9ZPLcIfynm_9747276350098890065_hu_2314f9a20a61229a.png 800w, /bYN8Q9ZPLcIfynm_9747276350098890065_hu_9e9cf1fd14cf06fa.png 1600w, /bYN8Q9ZPLcIfynm_9747276350098890065_hu_1fc7ac8ff3252fde.png 2400w, https://s2.loli.net/2025/04/12/bYN8Q9ZPLcIfynm.png 2560w" width="2560"></p>
+<p>点击<code>Manage Network</code>下滑找到<code>Network</code>模块可以修改端口，设置自定义域名</p>
+<p><img alt="image-20250412201802461" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/QgOCPkxdoIutjiA.png" srcset="/QgOCPkxdoIutjiA_12530166313671221444_hu_45d915f8b70bf4e8.png 800w, /QgOCPkxdoIutjiA_12530166313671221444_hu_b10ea8d95b2cc1ff.png 1600w, /QgOCPkxdoIutjiA_12530166313671221444_hu_f9d39db9fd6f4a09.png 2400w, https://s2.loli.net/2025/04/12/QgOCPkxdoIutjiA.png 2560w" width="2560"></p>
+<p><img alt="image-20250412201743215" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/SdLCjvFzkHc1nBM.png" srcset="/SdLCjvFzkHc1nBM_6515648315044647577_hu_94b04e22e4f2bf6f.png 800w, /SdLCjvFzkHc1nBM_6515648315044647577_hu_4b016e6be0c3bae3.png 1600w, /SdLCjvFzkHc1nBM_6515648315044647577_hu_7c3081da9f0c2218.png 2400w, https://s2.loli.net/2025/04/12/SdLCjvFzkHc1nBM.png 2560w" width="2560"></p>
+<p><img alt="image-20250412201954702" class="gallery-image" data-flex-basis="473px" data-flex-grow="197" height="1298" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/OQ4xK37zajygCXH.png" srcset="/OQ4xK37zajygCXH_4164255732176999155_hu_659f060b73d94167.png 800w, /OQ4xK37zajygCXH_4164255732176999155_hu_1a758ce472127336.png 1600w, /OQ4xK37zajygCXH_4164255732176999155_hu_f4daafe4ad9a00b3.png 2400w, https://s2.loli.net/2025/04/12/OQ4xK37zajygCXH.png 2560w" width="2560"></p>
+<h3 id="new-api">new-api
+</h3><p>AI 模型接口管理与分发系统，支持将多种大模型转为统一格式调用，支持 OpenAI、Claude 等格式，可供个人或者企业内部管理与分发渠道使用，基于 One API 二次开发。</p>
+<p>点击 <code>App Launchpad</code>，点击 <code>Create App</code></p>
+<p>容器信息如下：</p>
+<p><code>Application Nmae</code>：<code>new-api</code>
+<code>Image Name</code>: <code>calciumion/new-api:latest</code>
+<code>Usage</code>：<code>Fixed，0.5C256M</code>
+<code>Network</code>：<code>3000</code>，启用网络访问，设置自定义域名</p>
+<p><code>Environment Variables</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">TZ=Asia/Shanghai
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Local Storage</code>：</p>
+<ul>
+<li><code>Capacity</code>：<code>5</code></li>
+<li><code>Mount Path</code>：<code>/data</code></li>
+</ul>
+<p>总费用：<code>0.11$/day*31day=3.41$</code></p>
+<p>参数大小作为参考，根据自己情况调整</p>
+<p>确认无误，点击 <code>Deploy Application</code></p>
+<p>截图示例：</p>
+<p><img alt="image-20250412220043361" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/EKiHfwsJcMr3boL.png" srcset="/EKiHfwsJcMr3boL_1612046554258779146_hu_ba6e21b59f0b2c4d.png 800w, /EKiHfwsJcMr3boL_1612046554258779146_hu_ab841807dc0952e6.png 1600w, /EKiHfwsJcMr3boL_1612046554258779146_hu_d55e7b8a464a5c6d.png 2400w, https://s2.loli.net/2025/04/12/EKiHfwsJcMr3boL.png 2560w" width="2560"></p>
+<p><img alt="image-20250412220127576" class="gallery-image" data-flex-basis="433px" data-flex-grow="180" height="1059" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/3qQpsElj5URCJyu.png" srcset="/3qQpsElj5URCJyu_12491856050156788806_hu_c79dce53bbe069e8.png 800w, /3qQpsElj5URCJyu_12491856050156788806_hu_bf25ae795c74e484.png 1600w, https://s2.loli.net/2025/04/12/3qQpsElj5URCJyu.png 1915w" width="1915"></p>
+<p><img alt="image-20250412220245267" class="gallery-image" data-flex-basis="758px" data-flex-grow="316" height="427" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/bJUGREOHjiWzwLu.png" srcset="/bJUGREOHjiWzwLu_12611468878238907082_hu_bc070d2ad52079e1.png 800w, https://s2.loli.net/2025/04/12/bJUGREOHjiWzwLu.png 1350w" width="1350"></p>
+<p><img alt="image-20250412220323336" class="gallery-image" data-flex-basis="415px" data-flex-grow="173" height="764" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/12/gvUO7MH4Wnt1hrb.png" srcset="/gvUO7MH4Wnt1hrb_5117206519020608002_hu_fe09ade063f093ba.png 800w, https://s2.loli.net/2025/04/12/gvUO7MH4Wnt1hrb.png 1323w" width="1323"></p>
+<h3 id="qinglong">qinglong
+</h3><p>支持 Python3、JavaScript、Shell、Typescript 的定时任务管理平台</p>
+<p>特性：</p>
+<ul>
+<li>支持多种脚本语言（python3、javaScript、shell、typescript）</li>
+<li>支持在线管理脚本、环境变量、配置文件</li>
+<li>支持在线查看任务日志</li>
+<li>支持秒级任务设置</li>
+<li>支持系统级通知</li>
+<li>支持暗黑模式</li>
+<li>支持手机端操作</li>
+</ul>
+<p>创建服务</p>
+<p><img alt="image-20250413072654464" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/Ip2VZDHraYEJiqX.png" srcset="/Ip2VZDHraYEJiqX_5630968910619001217_hu_d6b66d5b50441b15.png 800w, /Ip2VZDHraYEJiqX_5630968910619001217_hu_4a264f5e48b13614.png 1600w, /Ip2VZDHraYEJiqX_5630968910619001217_hu_14444d9c9997dd99.png 2400w, https://s2.loli.net/2025/04/13/Ip2VZDHraYEJiqX.png 2560w" width="2560">
+<img alt="image-2025041307265412" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/FvAE68uPLxCfU5o.png" srcset="/FvAE68uPLxCfU5o_4595038952183885063_hu_8efac7a5aad59ec1.png 800w, /FvAE68uPLxCfU5o_4595038952183885063_hu_f38370959edf0bd.png 1600w, /FvAE68uPLxCfU5o_4595038952183885063_hu_b4180bdc78361c44.png 2400w, https://s2.loli.net/2025/04/13/FvAE68uPLxCfU5o.png 2560w" width="2560"></p>
+<p>填入如下信息，最大化利用资源</p>
+<p><img alt="image-20250413094546873" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/bvQTSHYmXyiLWze.png" srcset="/bvQTSHYmXyiLWze_3464704399583519563_hu_b4f67480212813c5.png 800w, /bvQTSHYmXyiLWze_3464704399583519563_hu_4fce36a504fccf30.png 1600w, /bvQTSHYmXyiLWze_3464704399583519563_hu_41df18d045712427.png 2400w, https://s2.loli.net/2025/04/13/bvQTSHYmXyiLWze.png 2560w" width="2560"></p>
+<p>开启外部网络访问，端口为 5700，后面的是服务域名，可以公开访问</p>
+<p><img alt="image-20250413073042628" class="gallery-image" data-flex-basis="801px" data-flex-grow="334" height="492" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/NXEOfwmkdSeq2JZ.png" srcset="/NXEOfwmkdSeq2JZ_13655588830065020968_hu_360e14ea9c7ef805.png 800w, /NXEOfwmkdSeq2JZ_13655588830065020968_hu_27e7ab92fa1a7a7.png 1600w, https://s2.loli.net/2025/04/13/NXEOfwmkdSeq2JZ.png 1644w" width="1644"></p>
+<p>设置环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="nx">QlBaseUrl</span><span class="p">=</span><span class="err">/</span>
+</span></span><span class="line"><span class="cl"><span class="nx">QlPort</span><span class="p">=</span><span class="mi">5700</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img alt="image-20250413073129679" class="gallery-image" data-flex-basis="1005px" data-flex-grow="418" height="402" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/oTqmNRVKiJcpwX3.png" srcset="/oTqmNRVKiJcpwX3_2563112660680893056_hu_8a17b75fb24a414a.png 800w, /oTqmNRVKiJcpwX3_2563112660680893056_hu_ac1532aecd89df60.png 1600w, https://s2.loli.net/2025/04/13/oTqmNRVKiJcpwX3.png 1684w" width="1684"></p>
+<p>填入如下信息</p>
+<p><img alt="image-20250413073144393" class="gallery-image" data-flex-basis="348px" data-flex-grow="145" height="732" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/CkYwplZDHaqgNyz.png" srcset="/CkYwplZDHaqgNyz_1706812300434336850_hu_b13372e3b185ab33.png 800w, https://s2.loli.net/2025/04/13/CkYwplZDHaqgNyz.png 1062w" width="1062"></p>
+<p>挂载外部存储，不挂载重启容器会丢失数据</p>
+<p><img alt="image-20250413095148043" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/rzsmuaqZWO8fLU7.png" srcset="/rzsmuaqZWO8fLU7_16898008304042877059_hu_a7fbc31b03eee1d6.png 800w, /rzsmuaqZWO8fLU7_16898008304042877059_hu_d7ceb77d2a74c5d.png 1600w, /rzsmuaqZWO8fLU7_16898008304042877059_hu_cbb151aa3e22f66c.png 2400w, https://s2.loli.net/2025/04/13/rzsmuaqZWO8fLU7.png 2560w" width="2560"></p>
+<p>确认无误，点击<code>Deploy Application</code>部署，接下来访问域名设置用户密码即可</p>
+<p>支持青龙面板的服务</p>
+<ul>
+<li><a class="link" href="https://github.com/RayWangQvQ/BiliBiliToolPro"  target="_blank" rel="noopener"
+    >BiliBiliToolPro</a></li>
+</ul>
+<h3 id="open-webui">Open WebUI
+</h3><p>Open WebUI 是一个可扩展的、功能丰富的、用户友好的自托管 AI 平台，旨在完全离线操作。它支持各种 LLM 跑步者，比如奥拉马和 OpenAI 兼容的 API，内置 RAG 推理机，使它成为一个强大的 AI 部署解决方案。</p>
+<p>进入 claw 控制台</p>
+<p>点击 <code>App Launchpad</code>，点击 <code>Create App</code></p>
+<p>容器信息如下：</p>
+<p><code>Application Nmae</code>：<code>open-webui</code>
+<code>Image Name</code>: <code>ghcr.io/open-webui/open-webui:main</code>
+<code>Usage</code>：<code>Fixed，0.5C512M</code>
+<code>Network</code>：<code>8080</code>，启用网络访问，<strong>设置自定义域名</strong></p>
+<p><code>Environment Variables</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">OLLAMA_BASE_URL=
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ollama 请使用自己资源或寻找其他资源</p>
+<p><code>Local Storage</code>：</p>
+<ul>
+<li><code>Capacity</code>：<code>10</code></li>
+<li><code>Mount Path</code>：<code>/app/backend/data</code></li>
+</ul>
+<p>总费用：<code>0.14$/day*31day=4.34$</code></p>
+<p>参数大小作为参考，根据自己情况调整</p>
+<p>确认无误，点击 <code>Deploy Application</code></p>
+<p>图示：</p>
+<p><img alt="image-20250413174353187" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/nzSEfAyUoICa7q2.png" srcset="/nzSEfAyUoICa7q2_17537518300231083297_hu_2157e620741df455.png 800w, /nzSEfAyUoICa7q2_17537518300231083297_hu_129a32bb3f3b2cbf.png 1600w, /nzSEfAyUoICa7q2_17537518300231083297_hu_d34ba99660250b60.png 2400w, https://s2.loli.net/2025/04/13/nzSEfAyUoICa7q2.png 2426w" width="2426"></p>
+<p><img alt="image-2025041307265412" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/FvAE68uPLxCfU5o.png" srcset="/FvAE68uPLxCfU5o_4595038952183885063_hu_8efac7a5aad59ec1.png 800w, /FvAE68uPLxCfU5o_4595038952183885063_hu_f38370959edf0bd.png 1600w, /FvAE68uPLxCfU5o_4595038952183885063_hu_b4180bdc78361c44.png 2400w, https://s2.loli.net/2025/04/13/FvAE68uPLxCfU5o.png 2560w" width="2560"></p>
+<p><img alt="image-20250413174303386" class="gallery-image" data-flex-basis="449px" data-flex-grow="187" height="1366" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/04/13/Ri3Sn1sYNhUPI7m.png" srcset="/Ri3Sn1sYNhUPI7m_17759411331935090199_hu_3852cbc549a07a01.png 800w, /Ri3Sn1sYNhUPI7m_17759411331935090199_hu_57f96bbf1acaba6d.png 1600w, /Ri3Sn1sYNhUPI7m_17759411331935090199_hu_92f52aa37f6164b4.png 2400w, https://s2.loli.net/2025/04/13/Ri3Sn1sYNhUPI7m.png 2560w" width="2560"></p>
+<h3 id="halo">halo
+</h3><p>Halo 是一款开源的建站工具，专注于博客，同时也适合构建个人网站。它以其简洁、易用和强大的自定义能力而著称。</p>
+<p>官网：<a class="link" href="https://www.halo.run/"  target="_blank" rel="noopener"
+    >https://www.halo.run/</a></p>
+<p>部署</p>
+<p>进入 claw 控制台，点击 <code>App Launchpad</code>，点击 <code>Create App</code></p>
+<p>容器信息如下：</p>
+<p><code>Application Nmae</code>：<code>halo</code>
+<code>Image Name</code>:</p>
+<p>任选其一</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">halohub/halo:2.20
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">registry.fit2cloud.com/halo/halo:2.20
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以下参数大小最大化利用，作为参考，根据自己情况调整</p>
+<p><code>Usage</code>：Fixed，<code>0.5C 1G</code>
+<code>Network</code>：<code>8090</code>，启用网络访问，设置自定义域名</p>
+<p><code>Environment Variables</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">JVM_OPTS=-Xmx900m -Xms256m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Local Storage</code>：</p>
+<ul>
+<li><code>Capacity</code>：<code>6</code></li>
+<li><code>Mount Path</code>：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/root/.halo2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>总费用：</p>
+<ul>
+<li>31 天：<code>0.16$/day*31day=4.96$</code></li>
+</ul>
+<p>确认无误，点击 <code>Deploy Application</code>部署即可</p>
+<h3 id="blinko">blinko
+</h3><p>简介</p>
+<p>Blinko 是一个创新的开源项目，专为想要快速捕捉和组织转瞬即逝的想法的个人而设计。Blinko 允许用户在想法出现的那一刻无缝记下想法，确保不会丢失任何创意火花。</p>
+<p>源码：<a class="link" href="https://github.com/blinko-space/blinko"  target="_blank" rel="noopener"
+    >https://github.com/blinko-space/blinko</a></p>
+<p>特性</p>
+<ul>
+<li><strong>🤖AI 增强的笔记检索：</strong> 借助 Blinko 先进的 AI 驱动的 RAG（检索增强生成）技术，您可以使用自然语言查询快速搜索和访问您的笔记，轻松找到所需内容。</li>
+<li><strong>🔒 数据所有权：</strong> 您的隐私至关重要。您的所有笔记和数据都安全地存储在您自托管的环境中，确保您对自己的信息拥有完全的控制权。</li>
+<li><strong>🚀 高效快速：</strong> 即时捕捉灵感，并将其存储为纯文本以便于访问，同时提供完整的 Markdown 支持，实现快速格式化和无缝共享。</li>
+<li><strong>💡 轻量级架构，强大的功能：</strong> Blinko 基于 Next.js 构建，提供了一个简洁、轻量级的架构，在不牺牲速度或效率的情况下，提供强大的性能。</li>
+<li><strong>🔓 开放协作：</strong> 作为一个开源项目，Blinko 欢迎社区的贡献。所有代码都是透明的，并在 GitHub 上可用，从而培养了协作和持续改进的精神。</li>
+</ul>
+<p>部署</p>
+<p>进入 claw 控制台，点击 <code>App Launchpad</code>，点击 <code>Create App</code></p>
+<p>容器信息如下：</p>
+<p><code>Application Nmae</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">blinko-website
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>Image Name</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">blinkospace/blinko:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>以下参数大小最大化利用，作为参考，根据自己情况调整</p>
+<p><code>Usage</code>：</p>
+<ul>
+<li>Fixed，<code>0.5C 1G</code></li>
+</ul>
+<p><code>Network</code>：</p>
+<ul>
+<li><code>1111</code>，启用网络访问，设置自定义域名</li>
+</ul>
+<p><code>Environment Variables</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">NODE_ENV=production
+</span></span><span class="line"><span class="cl">NEXTAUTH_URL=http://localhost:1111
+</span></span><span class="line"><span class="cl">NEXT_PUBLIC_BASE_URL=http://localhost:1111
+</span></span><span class="line"><span class="cl">NEXTAUTH_SECRET=my_ultra_secure_nextauth_secret
+</span></span><span class="line"><span class="cl">DATABASE_URL=postgresql://postgres:mysecretpassword@blinko-postgres:5432/postgres
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>替换 <code>NEXTAUTH_SECRET</code>，<code>DATABASE_URL</code>的值</p>
+<p><code>Local Storage</code>：</p>
+<ul>
+<li><code>Capacity</code>：<code>6</code></li>
+<li><code>Mount Path</code>：</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/app/.blinko
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>总费用：</p>
+<ul>
+<li>31 天：<code>0.16$/day*31day=4.96$</code></li>
+</ul>
+<p>确认无误，点击 <code>Deploy Application</code>部署即可</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/claw/">Claw</a>
+        
+    </section>
+
+
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+             Apr 12, 2025 20:03 &#43;0800
+        </span>
+    </section><section>
+        页面浏览量<span id="vercount_value_page_pv">Loading</span>
+    </section>
+</footer>
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/250415091544/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">serv00部署halo，你的现代化博客系统</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250316211837/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">cloudns双向解析</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/250213113355/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Serv00部署SOCKS5代理，自动保活</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/free-virtual-host-serv00-1/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Serv00，免费虚拟主机，提供多种服务支持</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/2406001/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">com.mp免费域名注册</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 寻道之旅博客
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='vercount_value_site_uv'>Loading</span><br/>网站总访问量：<span id='vercount_value_site_pv'>Loading</span> <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+            </main>
+        </div>
+        
+<script type="text/javascript" src="/ts/main.acaf849f2b273f6a8368a58b001f336738d0c948d92e79b116467d0c7515f932.js" defer></script>
+<script defer src="https://cn.vercount.one/js"></script> -->
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3LPlvzNZdFeUNaJ3",ck:"3LPlvzNZdFeUNaJ3",autoTrack:true,hashMode:true,screenRecord:true})</script>
+
+    </body>
+</html>

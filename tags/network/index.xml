@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Network on 寻道之旅博客</title>
+        <link>https://blog.seektao.cc/tags/network/</link>
+        <description>Recent content in Network on 寻道之旅博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-ch</language>
+        <copyright>寻道之旅博客</copyright>
+        <lastBuildDate>Sat, 15 Nov 2025 17:58:37 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/tags/network/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>HCL在Windows11 24H2安装后无法打开</title>
+            <link>https://blog.seektao.cc/p/251115175837/</link>
+            <pubDate>Sat, 15 Nov 2025 17:58:37 +0800</pubDate>
+            <guid>https://blog.seektao.cc/p/251115175837/</guid>
+            <description>&lt;h2 id=&#34;简介&#34;&gt;简介&#xA;&lt;/h2&gt;&lt;p&gt;HCL在Windows11 24H2安装后无法打开，主要原因是HCL自带的 VirtualBox 不能安装，下载另一个版本就可以了，&lt;/p&gt;&#xA;&lt;p&gt;下载：  &lt;a class=&#34;link&#34; href=&#34;https://download.virtualbox.org/virtualbox/6.1.50/VirtualBox-6.1.50-161033-Win.exe&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;&#xA;    &gt;VirtualBox-6.1.50&lt;/a&gt;&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>

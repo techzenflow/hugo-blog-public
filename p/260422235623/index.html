@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-ch" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在 Windows 中，大部分用户对家目录的概念比较模糊，接触更多是桌面，但是对于更高需求的用户，必须要修改程序配置文件，或者你是否在一些教程中看过这样的路径\n">
-<title>Windows支持的变量名，更好的方式表示家目录</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="使用 Win+R 快速启动程序与命令 Win+R 是一个很实用的功能，常用于打开命令终端、某些程序\n使用方式：同时按下 win+r，再输入 cmd 回车，打开终端\n除此之外，还有这些功能：\n">
+<title>Windows实用鲜为人知的技巧：win&#43;r快速启动程序与命令、cmd命令提示符、环境变量与脚本变量管理、批处理脚本开发</title>
 
 
-<link rel="canonical" href="https://blog.seektao.cc/p/250623082708/">
+<link rel="canonical" href="https://blog.seektao.cc/p/260422235623/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Windows支持的变量名，更好的方式表示家目录">
-<meta property='og:description' content="在 Windows 中，大部分用户对家目录的概念比较模糊，接触更多是桌面，但是对于更高需求的用户，必须要修改程序配置文件，或者你是否在一些教程中看过这样的路径\n">
-<meta property='og:url' content='https://blog.seektao.cc/p/250623082708/'>
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Windows实用鲜为人知的技巧：win+r快速启动程序与命令、cmd命令提示符、环境变量与脚本变量管理、批处理脚本开发">
+<meta property='og:description' content="使用 Win+R 快速启动程序与命令 Win+R 是一个很实用的功能，常用于打开命令终端、某些程序\n使用方式：同时按下 win+r，再输入 cmd 回车，打开终端\n除此之外，还有这些功能：\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/260422235623/'>
 <meta property='og:site_name' content='寻道之旅博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-06-23T08:27:08&#43;08:00'/><meta property='article:modified_time' content='2025-06-23T08:27:08&#43;08:00'/>
-<meta name="twitter:title" content="Windows支持的变量名，更好的方式表示家目录">
-<meta name="twitter:description" content="在 Windows 中，大部分用户对家目录的概念比较模糊，接触更多是桌面，但是对于更高需求的用户，必须要修改程序配置文件，或者你是否在一些教程中看过这样的路径\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-22T23:56:23&#43;08:00'/><meta property='article:modified_time' content='2026-04-22T23:56:23&#43;08:00'/>
+<meta name="twitter:title" content="Windows实用鲜为人知的技巧：win+r快速启动程序与命令、cmd命令提示符、环境变量与脚本变量管理、批处理脚本开发">
+<meta name="twitter:description" content="使用 Win+R 快速启动程序与命令 Win+R 是一个很实用的功能，常用于打开命令终端、某些程序\n使用方式：同时按下 win+r，再输入 cmd 回车，打开终端\n除此之外，还有这些功能：\n">
     </head>
     <body class="
     article-page
@@ -232,7 +232,48 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav class="toc-nav" id="TableOfContents">
+                
+  <ol>
+    <li><a href="#使用-winr-快速启动程序与命令">使用 Win+R 快速启动程序与命令</a></li>
+    <li><a href="#命令提示符基础终端操作指南">命令提示符：基础终端操作指南</a></li>
+    <li><a href="#环境变量与脚本变量管理">环境变量与脚本变量管理</a></li>
+    <li><a href="#批处理脚本开发基础">批处理脚本开发基础</a>
+      <ol>
+        <li><a href="#基础命令">基础命令</a></li>
+        <li><a href="#文件与目录">文件与目录</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -254,7 +295,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/250623082708/">Windows支持的变量名，更好的方式表示家目录</a>
+            <a href="/p/260422235623/">Windows实用鲜为人知的技巧：win&#43;r快速启动程序与命令、cmd命令提示符、环境变量与脚本变量管理、批处理脚本开发</a>
         </h2>
     
         
@@ -280,7 +321,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                    <time class="article-time--published" datetime='2025-06-23T08:27:08&#43;08:00'>Jun 23, 2025</time>
+                    <time class="article-time--published" datetime='2026-04-22T23:56:23&#43;08:00'>Apr 22, 2026</time>
                 
 
                 
@@ -297,11 +338,157 @@
 </header>
 
     
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ol>
+    <li><a href="#使用-winr-快速启动程序与命令">使用 Win+R 快速启动程序与命令</a></li>
+    <li><a href="#命令提示符基础终端操作指南">命令提示符：基础终端操作指南</a></li>
+    <li><a href="#环境变量与脚本变量管理">环境变量与脚本变量管理</a></li>
+    <li><a href="#批处理脚本开发基础">批处理脚本开发基础</a>
+      <ol>
+        <li><a href="#基础命令">基础命令</a></li>
+        <li><a href="#文件与目录">文件与目录</a></li>
+      </ol>
+    </li>
+  </ol>
+
+            </nav>
+        </details>
+    </aside>
+    
 
     <section class="article-content">
     
     
-    <p>在 Windows 中，大部分用户对<code>家目录</code>的概念比较模糊，接触更多是<code>桌面</code>，但是对于更高需求的用户，必须要修改程序配置文件，或者你是否在一些教程中看过这样的路径</p>
+    <h2 id="使用-winr-快速启动程序与命令">使用 Win+R 快速启动程序与命令
+</h2><p>Win+R 是一个很实用的功能，常用于打开命令终端、某些程序</p>
+<p>使用方式：同时按下 win+r，再输入 cmd 回车，打开终端</p>
+<p>除此之外，还有这些功能：</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th>内容</th>
+          <th>功能页面</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>cmd</td>
+          <td>终端</td>
+      </tr>
+      <tr>
+          <td>ncpa.cpl</td>
+          <td>打开“网络连接”窗口（包含以太网、Wi-Fi 等适配器）</td>
+      </tr>
+      <tr>
+          <td>devmgmt.msc</td>
+          <td>设备管理器</td>
+      </tr>
+      <tr>
+          <td>sysdm.cpl</td>
+          <td>系统属性，可进入环境变量设置</td>
+      </tr>
+      <tr>
+          <td>dcomcnfg</td>
+          <td>管理控制台，可以查看组件服务，时间查看器，服务</td>
+      </tr>
+      <tr>
+          <td>msconfig</td>
+          <td>系统配置</td>
+      </tr>
+      <tr>
+          <td>mstsc</td>
+          <td>windows 桌面远程</td>
+      </tr>
+      <tr>
+          <td>control</td>
+          <td>控制面板</td>
+      </tr>
+      <tr>
+          <td>lusrmgr.msc</td>
+          <td>查看本地用户和组信息</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="命令提示符基础终端操作指南">命令提示符：基础终端操作指南
+</h2><p>查看 mtu</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netsh interface ipv4 show interfaces
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>显示结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Idx     Met         MTU          状态                名称
+</span></span><span class="line"><span class="cl">---  ----------  ----------  ------------  ---------------------------
+</span></span><span class="line"><span class="cl">  1          75  4294967295  connected     Loopback Pseudo-Interface 1
+</span></span><span class="line"><span class="cl">  2           5        1500  disconnected  以太网
+</span></span><span class="line"><span class="cl">  4           0       65535  connected     tun0
+</span></span><span class="line"><span class="cl">  6          35        1500  connected     WLAN
+</span></span><span class="line"><span class="cl"> 19          25        1500  disconnected  本地连接* 1
+</span></span><span class="line"><span class="cl"> 18          25        1500  disconnected  本地连接* 2
+</span></span><span class="line"><span class="cl"> 22           5        1500  disconnected  以太网 2
+</span></span><span class="line"><span class="cl"> 21          35        1500  connected     VMware Network Adapter VMnet1
+</span></span><span class="line"><span class="cl"> 17          35        1500  connected     VMware Network Adapter VMnet8
+</span></span><span class="line"><span class="cl"> 10          25        1500  connected     VirtualBox Host-Only Network
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改 IP（管理员运行）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netsh interface ip set address <span class="s2">&#34;连接名称&#34;</span> static 新IP地址 子网掩码 网关 1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">netsh interface ip set address <span class="s2">&#34;Ethernet0&#34;</span> static 192.168.100.50 255.255.255.0 192.168.100.2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>启用 Administrator</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">net user administrator /active:yes
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="环境变量与脚本变量管理">环境变量与脚本变量管理
+</h2><p>Windows 支持的变量名，更好的方式表示家目录，程序路径</p>
+<p>在 Windows 中，大部分用户对<code>家目录</code>的概念比较模糊，接触更多是<code>桌面</code>，但是对于更高需求的用户，必须要修改程序配置文件，或者你是否在一些教程中看过这样的路径</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -414,6 +601,42 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中<code>BT_backup</code>就包含了 qbittorrent 的进度和种子等等，为了防止迁移系统或者重置系统导致数据丢失，就可以定时任务备份，路径填写为 <code>%LOCALAPPDATA%\qBittorrent</code>，这样在新系统不用修改脚本也可以运行，也更加利于教程普适性。</p>
+<h2 id="批处理脚本开发基础">批处理脚本开发基础
+</h2><h3 id="基础命令">基础命令
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="c1">REM</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl"><span class="p">:</span><span class="c1">:</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="文件与目录">文件与目录
+</h3><p>xcopy</p>
+<p>复制目录及子目录</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">xcopy source  dest /s /e
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>/s</code>: 复制<strong>非空目录及其子目录</strong>（包含文件和子文件夹）。</li>
+<li><code>/e</code>: 复制<strong>所有子目录，包括空目录</strong>（需与 <code>/s</code> 一起使用）。</li>
+<li><code>/y</code>：覆盖目标文件时不提示确认。</li>
+<li><code>/d</code>：仅复制源文件中比目标目录更新的文件（增量备份）。</li>
+</ul>
 
 </section>
 
@@ -440,22 +663,22 @@
             
                 
 <article class="">
-    <a href="/p/260408093623/">
+    <a href="/p/260419223415/">
         
 
         <div class="article-details">
-            <h2 class="article-title">Windows远程桌面修改端口</h2>
+            <h2 class="article-title">Windows备份，恢复驱动</h2>
         </div>
     </a>
 </article>
             
                 
 <article class="">
-    <a href="/p/260204160610/">
+    <a href="/p/260408093623/">
         
 
         <div class="article-details">
-            <h2 class="article-title">CMD，命令提示符的一些命令</h2>
+            <h2 class="article-title">Windows远程桌面修改端口</h2>
         </div>
     </a>
 </article>
@@ -473,22 +696,22 @@
             
                 
 <article class="">
-    <a href="/p/251124214228/">
+    <a href="/p/251121190709/">
         
 
         <div class="article-details">
-            <h2 class="article-title">windows运行常见命令</h2>
+            <h2 class="article-title">windows系统封装</h2>
         </div>
     </a>
 </article>
             
                 
 <article class="">
-    <a href="/p/251121190709/">
+    <a href="/p/251022132849/">
         
 
         <div class="article-details">
-            <h2 class="article-title">windows系统封装</h2>
+            <h2 class="article-title">Windows10开启IE浏览器，禁止IE浏览器跳转到EDGE</h2>
         </div>
     </a>
 </article>

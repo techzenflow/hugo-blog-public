@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-ch" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 pve9 上部署黑群晖\n步骤 创建虚拟机 创建虚拟机： 导入\n1 qm importdisk 100 rr-25.12.1/rr.img local-lvm ">
-<title>PVE安装黑群晖、使用指南</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="简介 pve9 上部署黑群晖\n步骤 创建虚拟机 创建虚拟机： 导入\n1 qm importdisk 100 rr-25.12.1/rr.img local-lvm 公钥免密登录 在群晖上为了实现 ssh 免密登录需要做以下操作：\n生成密钥对：ssh-keygen -t ed25519 将生成的密钥对的公钥加入到群晖家目录下的 .ssh/authorized_keys文件中 修改群晖家目录 .ssh权限 700，authorized_keys为 600（重要） 参考命令：\n">
+<title>PVE安装黑群晖和使用指南</title>
 
 
 <link rel="canonical" href="https://blog.seektao.cc/p/260201225740/">
@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="PVE安装黑群晖、使用指南">
-<meta property='og:description' content="简介 pve9 上部署黑群晖\n步骤 创建虚拟机 创建虚拟机： 导入\n1 qm importdisk 100 rr-25.12.1/rr.img local-lvm ">
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="PVE安装黑群晖和使用指南">
+<meta property='og:description' content="简介 pve9 上部署黑群晖\n步骤 创建虚拟机 创建虚拟机： 导入\n1 qm importdisk 100 rr-25.12.1/rr.img local-lvm 公钥免密登录 在群晖上为了实现 ssh 免密登录需要做以下操作：\n生成密钥对：ssh-keygen -t ed25519 将生成的密钥对的公钥加入到群晖家目录下的 .ssh/authorized_keys文件中 修改群晖家目录 .ssh权限 700，authorized_keys为 600（重要） 参考命令：\n">
 <meta property='og:url' content='https://blog.seektao.cc/p/260201225740/'>
 <meta property='og:site_name' content='寻道之旅博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-02-01T22:57:40&#43;08:00'/><meta property='article:modified_time' content='2026-02-01T22:57:40&#43;08:00'/>
-<meta name="twitter:title" content="PVE安装黑群晖、使用指南">
-<meta name="twitter:description" content="简介 pve9 上部署黑群晖\n步骤 创建虚拟机 创建虚拟机： 导入\n1 qm importdisk 100 rr-25.12.1/rr.img local-lvm ">
+<meta name="twitter:title" content="PVE安装黑群晖和使用指南">
+<meta name="twitter:description" content="简介 pve9 上部署黑群晖\n步骤 创建虚拟机 创建虚拟机： 导入\n1 qm importdisk 100 rr-25.12.1/rr.img local-lvm 公钥免密登录 在群晖上为了实现 ssh 免密登录需要做以下操作：\n生成密钥对：ssh-keygen -t ed25519 将生成的密钥对的公钥加入到群晖家目录下的 .ssh/authorized_keys文件中 修改群晖家目录 .ssh权限 700，authorized_keys为 600（重要） 参考命令：\n">
     </head>
     <body class="
     article-page
@@ -261,6 +261,7 @@
         <li><a href="#创建虚拟机">创建虚拟机</a></li>
       </ol>
     </li>
+    <li><a href="#公钥免密登录">公钥免密登录</a></li>
   </ol>
 
             </nav>
@@ -292,7 +293,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/260201225740/">PVE安装黑群晖、使用指南</a>
+            <a href="/p/260201225740/">PVE安装黑群晖和使用指南</a>
         </h2>
     
         
@@ -352,6 +353,7 @@
         <li><a href="#创建虚拟机">创建虚拟机</a></li>
       </ol>
     </li>
+    <li><a href="#公钥免密登录">公钥免密登录</a></li>
   </ol>
 
             </nav>
@@ -379,7 +381,33 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img alt="image.png" class="gallery-image" data-flex-basis="560px" data-flex-grow="233" height="899" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2026/02/02/fimOR93BuEw8dA6.png" srcset="/fimOR93BuEw8dA6_15993781572605819577_hu_4ac947af5f514277.png 800w, /fimOR93BuEw8dA6_15993781572605819577_hu_a048482bac41cfec.png 1600w, https://s2.loli.net/2026/02/02/fimOR93BuEw8dA6.png 2101w" width="2101"></p>
-
+<h2 id="公钥免密登录">公钥免密登录
+</h2><p>在群晖上为了实现 ssh 免密登录需要做以下操作：</p>
+<ol>
+<li>生成密钥对：<code>ssh-keygen -t ed25519</code></li>
+<li>将生成的密钥对的公钥加入到群晖家目录下的 <code>.ssh/authorized_keys</code>文件中</li>
+<li>修改群晖家目录 <code>.ssh</code>权限 700，<code>authorized_keys</code>为 600（重要）</li>
+</ol>
+<p>参考命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t ed25519
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">cat <span class="s2">&#34;密钥对的公钥&#34;</span> &gt;&gt; ~/.ssh/authorized_keys
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">chmod <span class="m">700</span> ~/.ssh
+</span></span><span class="line"><span class="cl">chmod <span class="m">600</span> ~/.ssh/authorized_keys
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 

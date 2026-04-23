@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="zh-ch" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Win+R 是一个很实用的功能，常用于打开命令终端\nwin+r，再输入 cmd 回车，打开终端\n除此之外，还有这些功能\n内容 功能页面 cmd 终端 ncpa.cpl 更改网络适配器 devmgmt.msc 设备管理器 sysdm.cpl 系统属性，可进入环境变量设置 dcomcnfg 管理控制台，可以查看组件服务，时间查看器，服务 msconfig 系统配置 mstsc windows 桌面远程 control 控制面板 lusrmgr.msc 查看本地用户和组信息 ">
-<title>windows运行常见命令</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="备份：\n终端（管理员）运行\n1 dism /online /export-driver /destination:&#34;备份的文件夹路径&#34; 比如\n1 dism /online /export-driver /destination:&#34;H:\\driver\\jxgm&#34; 恢复\nwin+x 打开设备管理器，找到上方菜单添加驱动，选择刚才备份的文件\n">
+<title>Windows备份，恢复驱动</title>
 
 
-<link rel="canonical" href="https://blog.seektao.cc/p/251124214228/">
+<link rel="canonical" href="https://blog.seektao.cc/p/260419223415/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
 
 
-<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="windows运行常见命令">
-<meta property='og:description' content="Win+R 是一个很实用的功能，常用于打开命令终端\nwin+r，再输入 cmd 回车，打开终端\n除此之外，还有这些功能\n内容 功能页面 cmd 终端 ncpa.cpl 更改网络适配器 devmgmt.msc 设备管理器 sysdm.cpl 系统属性，可进入环境变量设置 dcomcnfg 管理控制台，可以查看组件服务，时间查看器，服务 msconfig 系统配置 mstsc windows 桌面远程 control 控制面板 lusrmgr.msc 查看本地用户和组信息 ">
-<meta property='og:url' content='https://blog.seektao.cc/p/251124214228/'>
+<link rel="stylesheet" href="/scss/style.min.389e156f5e9bb13df5a924cfa99dfb9c39f3e01e68d9e146cd65bdae963be145.css"><meta property='og:title' content="Windows备份，恢复驱动">
+<meta property='og:description' content="备份：\n终端（管理员）运行\n1 dism /online /export-driver /destination:&#34;备份的文件夹路径&#34; 比如\n1 dism /online /export-driver /destination:&#34;H:\\driver\\jxgm&#34; 恢复\nwin+x 打开设备管理器，找到上方菜单添加驱动，选择刚才备份的文件\n">
+<meta property='og:url' content='https://blog.seektao.cc/p/260419223415/'>
 <meta property='og:site_name' content='寻道之旅博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-11-24T21:42:28&#43;08:00'/><meta property='article:modified_time' content='2025-11-24T21:42:28&#43;08:00'/>
-<meta name="twitter:title" content="windows运行常见命令">
-<meta name="twitter:description" content="Win+R 是一个很实用的功能，常用于打开命令终端\nwin+r，再输入 cmd 回车，打开终端\n除此之外，还有这些功能\n内容 功能页面 cmd 终端 ncpa.cpl 更改网络适配器 devmgmt.msc 设备管理器 sysdm.cpl 系统属性，可进入环境变量设置 dcomcnfg 管理控制台，可以查看组件服务，时间查看器，服务 msconfig 系统配置 mstsc windows 桌面远程 control 控制面板 lusrmgr.msc 查看本地用户和组信息 ">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2026-04-19T22:34:15&#43;08:00'/><meta property='article:modified_time' content='2026-04-19T22:34:15&#43;08:00'/>
+<meta name="twitter:title" content="Windows备份，恢复驱动">
+<meta name="twitter:description" content="备份：\n终端（管理员）运行\n1 dism /online /export-driver /destination:&#34;备份的文件夹路径&#34; 比如\n1 dism /online /export-driver /destination:&#34;H:\\driver\\jxgm&#34; 恢复\nwin+x 打开设备管理器，找到上方菜单添加驱动，选择刚才备份的文件\n">
     </head>
     <body class="
     article-page
@@ -254,7 +254,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/251124214228/">windows运行常见命令</a>
+            <a href="/p/260419223415/">Windows备份，恢复驱动</a>
         </h2>
     
         
@@ -280,7 +280,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                    <time class="article-time--published" datetime='2025-11-24T21:42:28&#43;08:00'>Nov 24, 2025</time>
+                    <time class="article-time--published" datetime='2026-04-19T22:34:15&#43;08:00'>Apr 19, 2026</time>
                 
 
                 
@@ -301,55 +301,27 @@
     <section class="article-content">
     
     
-    <p>Win+R 是一个很实用的功能，常用于打开命令终端</p>
-<p>win+r，再输入 cmd 回车，打开终端</p>
-<p>除此之外，还有这些功能</p>
-<div class="table-wrapper"><table>
-  <thead>
-      <tr>
-          <th>内容</th>
-          <th>功能页面</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>cmd</td>
-          <td>终端</td>
-      </tr>
-      <tr>
-          <td>ncpa.cpl</td>
-          <td>更改网络适配器</td>
-      </tr>
-      <tr>
-          <td>devmgmt.msc</td>
-          <td>设备管理器</td>
-      </tr>
-      <tr>
-          <td>sysdm.cpl</td>
-          <td>系统属性，可进入环境变量设置</td>
-      </tr>
-      <tr>
-          <td>dcomcnfg</td>
-          <td>管理控制台，可以查看组件服务，时间查看器，服务</td>
-      </tr>
-      <tr>
-          <td>msconfig</td>
-          <td>系统配置</td>
-      </tr>
-      <tr>
-          <td>mstsc</td>
-          <td>windows 桌面远程</td>
-      </tr>
-      <tr>
-          <td>control</td>
-          <td>控制面板</td>
-      </tr>
-      <tr>
-          <td>lusrmgr.msc</td>
-          <td>查看本地用户和组信息</td>
-      </tr>
-  </tbody>
-</table></div>
+    <p>备份：</p>
+<p>终端（管理员）运行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">export-driver</span> <span class="p">/</span><span class="n">destination</span><span class="err">:</span><span class="s2">&#34;备份的文件夹路径&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>比如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">dism</span> <span class="p">/</span><span class="n">online</span> <span class="p">/</span><span class="nb">export-driver</span> <span class="p">/</span><span class="n">destination</span><span class="err">:</span><span class="s2">&#34;H:\driver\jxgm&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>恢复</p>
+<p>win+x 打开设备管理器，找到上方菜单添加驱动，选择刚才备份的文件</p>
 
 </section>
 
@@ -376,22 +348,22 @@
             
                 
 <article class="">
-    <a href="/p/260408093623/">
+    <a href="/p/260422235623/">
         
 
         <div class="article-details">
-            <h2 class="article-title">Windows远程桌面修改端口</h2>
+            <h2 class="article-title">Windows实用鲜为人知的技巧：win&#43;r快速启动程序与命令、cmd命令提示符、环境变量与脚本变量管理、批处理脚本开发</h2>
         </div>
     </a>
 </article>
             
                 
 <article class="">
-    <a href="/p/260204160610/">
+    <a href="/p/260408093623/">
         
 
         <div class="article-details">
-            <h2 class="article-title">CMD，命令提示符的一些命令</h2>
+            <h2 class="article-title">Windows远程桌面修改端口</h2>
         </div>
     </a>
 </article>

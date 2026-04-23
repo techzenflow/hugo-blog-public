@@ -6,18 +6,18 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-ch</language>
         <copyright>寻道之旅博客</copyright>
-        <lastBuildDate>Mon, 13 Apr 2026 20:21:04 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 22 Apr 2026 23:56:23 +0800</lastBuildDate><atom:link href="https://blog.seektao.cc/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>Windows</title>
+            <link>https://blog.seektao.cc/categories/windows/</link>
+            <pubDate>Wed, 22 Apr 2026 23:56:23 +0800</pubDate>
+            <guid>https://blog.seektao.cc/categories/windows/</guid>
+            <description>&lt;img src=&#34;https://blog.seektao.cc/&#34; alt=&#34;Featured image of post Windows&#34; /&gt;</description>
+        </item><item>
             <title>Default</title>
             <link>https://blog.seektao.cc/categories/default/</link>
             <pubDate>Sun, 12 Apr 2026 10:36:09 +0800</pubDate>
             <guid>https://blog.seektao.cc/categories/default/</guid>
             <description>&lt;img src=&#34;https://blog.seektao.cc/&#34; alt=&#34;Featured image of post Default&#34; /&gt;</description>
-        </item><item>
-            <title>Windows</title>
-            <link>https://blog.seektao.cc/categories/windows/</link>
-            <pubDate>Wed, 08 Apr 2026 09:36:23 +0800</pubDate>
-            <guid>https://blog.seektao.cc/categories/windows/</guid>
-            <description>&lt;img src=&#34;https://blog.seektao.cc/&#34; alt=&#34;Featured image of post Windows&#34; /&gt;</description>
         </item><item>
             <title>Proxy</title>
             <link>https://blog.seektao.cc/categories/proxy/</link>
